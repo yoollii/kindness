@@ -63,8 +63,8 @@ export class ApplicationComponent implements OnInit {
       this.dataSet.push({
         key: i.toString(),
         num: i,
-        name: 'dfgd',
-        describe: `London Park no. ${i}`,
+        name: '厚德平台',
+        describe: `操作系统 no. ${i}`,
         template: '模板',
         checked: false
       });
