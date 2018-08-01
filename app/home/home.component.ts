@@ -32,9 +32,8 @@ export class HomeComponent implements OnInit {
     // 		this.router.navigateByUrl(item);
     // 	}
   }
-  tabs= [];
+  tabs = [];
   reviem(item: string) {
-    console.log(item);
     this.router.navigateByUrl('home/' + item);
   }
   closeTab(tab: string): void {

@@ -62,9 +62,10 @@ export class ApplicationComponent implements OnInit {
     for (let i = 0; i < 30; i++) {
       this.dataSet.push({
         key: i.toString(),
-        name: `Edrward ${i}`,
-        age: 32,
-        address: `London Park no. ${i}`,
+        num: i,
+        name: 'dfgd',
+        describe: `London Park no. ${i}`,
+        template: '模板',
         checked: false
       });
     }
@@ -86,7 +87,8 @@ export class ApplicationComponent implements OnInit {
 
   search(): void {
     if (this.sortName) {
-      this.dataSet = this.dataSet.sort((a, b) => (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
+      this.dataSet = this.dataSet.sort((a, b) =>
+      (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
       //    this.updateEditCache();
     } else {
       this.dataSet = this.dataSet;

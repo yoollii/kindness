@@ -6,8 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-page.component.less']
 })
 export class HomePageComponent implements OnInit {
-  private msgShow: Boolean = true;
+  private hide: Boolean = false;
   constructor() {}
-
+  gridStyle = {
+    width: '100%',
+    textAlign: 'center',
+    color:"red";
+  };
   ngOnInit() {}
 }
