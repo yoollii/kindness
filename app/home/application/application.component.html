@@ -1,8 +1,9 @@
 <nz-breadcrumb class='breadcrumbstyle'>
     <nz-breadcrumb-item>
-        <a [routerLink]="['/home']">Home</a>
+        <span>当前位置：</span>
+        <a [routerLink]="['/application']">应用孵化器</a>
     </nz-breadcrumb-item>
-    <nz-breadcrumb-item>table</nz-breadcrumb-item>
+    <nz-breadcrumb-item>应用系统管理</nz-breadcrumb-item>
 </nz-breadcrumb>
 <button nz-button (click)="addRow()" class="editable-add-btn" style="margin-bottom:10px;">
   <i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
