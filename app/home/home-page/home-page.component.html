@@ -1,0 +1,37 @@
+<div class="home-wrap">
+    <div class="content-left">
+        背景图片
+    </div>
+    <div class="content-right">
+        <div [ngClass]="{'hide': hide}">
+
+            <nz-card nzType="inner" nzTitle="我的任务" [nzExtra]="extraTemplate">
+                <p>
+                    <a>完成**运输</a>
+                </p>
+                <p>
+                    <a>前往**部门报道</a>
+                </p>
+            </nz-card>
+            <nz-card nzType="inner" style="margin-top:16px;" nzTitle="消息列表" [nzExtra]="extraTemplate">
+                <p>
+                    <a>**设备更新</a>
+                </p>
+                <p>
+                    <a>今天建军节</a>
+                </p>
+            </nz-card>
+            <nz-card nzType="inner" style="margin-top:16px;" nzTitle="操作日志" [nzExtra]="extraTemplate">
+                <p>
+                    <a>新增</a>
+                </p>
+                <p>
+                    <a>删除</a>
+                </p>
+            </nz-card>
+            <ng-template #extraTemplate>
+                <a>更多</a>
+            </ng-template>
+        </div>
+    </div>
+</div>

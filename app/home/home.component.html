@@ -1,0 +1,133 @@
+<nz-layout>
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate" style="margin-top:64px;overflow-y: scroll;">
+        <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
+            <li nz-submenu [nzOpen]="true">
+                <span (click)="gorouter('home/homePage')" title>
+                    <i class="anticon anticon-team"></i>
+                    <span class="nav-text">基本功能</span>
+                </span>
+                <ul>
+                    <li nz-submenu>
+                        <span title>应用系统孵化器</span>
+                        <ul>
+                            <li (click)="gorouter('home/application')" nz-menu-item>应用系统管理</li>
+                        </ul>
+                    </li>
+                    <li nz-submenu>
+                        <span title>业务功能组件管理</span>
+                        <ul>
+                            <li nz-menu-item (click)="gorouter('home/antv')">输入文字</li>
+                            <li nz-menu-item>输入文字</li>
+                            <li nz-menu-item>输入文字</li>
+                        </ul>
+                    </li>
+                    <li nz-menu-item>通用支撑插件管理</li>
+                    <li nz-submenu>
+                        <span title>业务流程管理</span>
+                        <ul>
+                            <li nz-menu-item>流程模板管理</li>
+                            <li nz-menu-item>任务监控</li>
+                            <li nz-menu-item>任务统计</li>
+                        </ul>
+                    </li>
+                    <li nz-submenu>
+                        <span title>专用数据管理</span>
+                        <ul>
+                            <li nz-menu-item>基础数据</li>
+                            <li nz-menu-item>空间数据</li>
+                            <li nz-menu-item>基准图导入</li>
+                            <li nz-menu-item>成果数据</li>
+                        </ul>
+                    </li>
+                    <!-- <li nz-menu-item (click)="gorouter('home/antv')">数据可视化</li> -->
+                </ul>
+            </li>
+            <li nz-submenu>
+                <span title> <i class="anticon anticon-team"></i><span class="nav-text">其他功能</span></span>
+                <ul>
+                    <li nz-menu-item>计算资源调度</li>
+                    <li nz-menu-item>智能化安装部署 </li>
+                    <li nz-menu-item>兼容运行管理</li>
+                    <li nz-menu-item> 信息引接管理</li>
+                    <li nz-menu-item>消息管理</li>
+                    <li nz-submenu>
+                        <span title> 用户分级认证与访问控制</span>
+                        <ul>
+                            <li nz-menu-item>用户管理</li>
+                            <li nz-menu-item>角色管理</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li nz-submenu>
+                <span title><i class="anticon anticon-team"></i> <span class="nav-text">应用系统</span></span>
+                <ul>
+                    <li nz-menu-item>***系统</li>
+                    <li nz-menu-item>***系统</li>
+                    <li nz-menu-item>***系统</li>
+                    <li nz-menu-item>***系统</li>
+                </ul>
+            </li>
+            <li nz-submenu>
+                <span title><i class="anticon anticon-team"></i><span class="nav-text">链接管理</span></span>
+
+                <ul>
+                    <li nz-menu-item>输入文字</li>
+                    <li nz-menu-item>输入文字</li>
+                    <li nz-menu-item>输入文字</li>
+                </ul>
+            </li>
+        </ul>
+    </nz-sider>
+    <nz-layout>
+        <nz-header class='header'>
+            <div class="logo">
+                <a ng-reflect-router-link="/" href="#/">
+                    <img class="expanded" src="./assets/img/hjj.png" style="max-height:40px;" alt="Alain">
+                    <img class="collapsed" src="./assets/img/h.png" style="max-height:30px;" alt="Alain">
+                </a>
+            </div>
+
+            <div class="top-nav-wrap">
+                <i class="anticon trigger" style="color: white;" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
+                <ul class="top-nav">
+                    <li>
+                        <nz-dropdown nzTrigger="click" nzPlacement="bottomRight" (nzVisibleChange)="change()">
+                            <div class="item" nz-dropdown>
+                                <nz-badge [nzDot]="true">
+                                    <i class="anticon anticon-bell"></i>
+                                </nz-badge>
+                            </div>
+                        </nz-dropdown>
+                    </li>
+                    <li>
+                        <nz-dropdown nzPlacement="bottomRight">
+                            <div class="item d-flex align-items-center px-sm colorwhite" nz-dropdown>
+                                <nz-avatar nzSrc="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3325718519,2192247856&fm=58&bpow=700&bpoh=400" nzSize="default" class="mr-sm"></nz-avatar>
+                                用户001
+                            </div>
+                            <div nz-menu class="width-sm">
+                                <div nz-menu-item [nzDisabled]="true">
+                                    <i class="anticon anticon-user mr-sm"></i>个人中心</div>
+                                <div nz-menu-item [nzDisabled]="true">
+                                    <i class="anticon anticon-setting mr-sm"></i>设置</div>
+                                <li nz-menu-divider></li>
+                                <div nz-menu-item (click)="logout()">
+                                    <i class="anticon anticon-setting mr-sm"></i>退出登录</div>
+                            </div>
+                        </nz-dropdown>
+                    </li>
+                </ul>
+            </div>
+
+
+        </nz-header>
+        <nz-content #content style="margin:86px 16px 16px 16px;padding:16px; background:#fff;">
+            <router-outlet></router-outlet>
+        </nz-content>
+        <nz-footer style="text-align: center;">厚德管理平台 ©2018 </nz-footer>
+    </nz-layout>
+</nz-layout>
+<ng-template #trigger>
+    <i class="anticon anticon-up"></i>
+</ng-template>

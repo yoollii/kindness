@@ -1,0 +1,9 @@
+ <nz-mention
+    [nzSuggestions]="suggestions"
+    [nzLoading]="loading"
+    (nzOnSearchChange)="onSearchChange($event)">
+    <input
+      nzMentionTrigger
+      nz-input
+      [(ngModel)]="inputValue">
+  </nz-mention>
