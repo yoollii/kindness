@@ -11,7 +11,7 @@ export class HomePageComponent implements OnInit {
   gridStyle = {
     width: '100%',
     textAlign: 'center',
-    color:"red";
+    color: 'red',
   };
   ngOnInit() {}
 }
