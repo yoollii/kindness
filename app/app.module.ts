@@ -27,6 +27,9 @@ import { MentionComponent } from './home/mention/mention.component';
 import { AntvComponent } from './home/antv/antv.component';
 import { ApplicationComponent } from './home/application/application.component';
 import { HomePageComponent } from './home/home-page/home-page.component';
+import { UserManagementComponent } from './home/user-management/user-management.component';
+import { RoleManagementComponent } from './home/role-management/role-management.component';
+import { ProcessManagementComponent } from './home/process-management/process-management.component';
 
 registerLocaleData(zh);
 
@@ -49,7 +52,10 @@ registerLocaleData(zh);
     MentionComponent,
     AntvComponent,
     ApplicationComponent,
-    HomePageComponent
+    HomePageComponent,
+    UserManagementComponent,
+    RoleManagementComponent,
+    ProcessManagementComponent
   ],
   imports: [
     BrowserModule,

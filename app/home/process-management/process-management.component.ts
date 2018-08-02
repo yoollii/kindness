@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-application',
-  templateUrl: './application.component.html',
-  styleUrls: ['./application.component.less']
+  selector: 'app-process-management',
+  templateUrl: './process-management.component.html',
+  styleUrls: ['./process-management.component.less']
 })
-export class ApplicationComponent implements OnInit {
+export class ProcessManagementComponent implements OnInit {
   i = 1;
   editCache = {};
   dataSet = [];
@@ -63,9 +63,10 @@ export class ApplicationComponent implements OnInit {
       this.dataSet.push({
         key: i.toString(),
         num: i,
-        name: '厚德平台',
-        describe: `操作系统 no. ${i}`,
-        template: '模板',
+        name: '流程模板',
+        describe: '',
+        template: '',
+        roe: '',
         checked: false
       });
     }
@@ -88,7 +89,7 @@ export class ApplicationComponent implements OnInit {
   search(): void {
     if (this.sortName) {
       this.dataSet = this.dataSet.sort((a, b) =>
-      (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
+        (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
       //    this.updateEditCache();
     } else {
       this.dataSet = this.dataSet;
@@ -123,9 +124,10 @@ export class ApplicationComponent implements OnInit {
     this.i++;
     this.dataSet = [...this.dataSet, {
       key: `${this.i}`,
-      name: '厚德平台',
-      describe: `操作系统 no. ${this.i}`,
-      template: '模板',
+      name: '流程模板',
+      describe: '',
+      template: '',
+      roe: '',
     }];
     console.log(this.dataSet);
     this.updateEditCache();

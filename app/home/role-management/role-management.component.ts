@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-application',
-  templateUrl: './application.component.html',
-  styleUrls: ['./application.component.less']
+  selector: 'app-role-management',
+  templateUrl: './role-management.component.html',
+  styleUrls: ['./role-management.component.less']
 })
-export class ApplicationComponent implements OnInit {
+export class RoleManagementComponent implements OnInit {
   i = 1;
   editCache = {};
   dataSet = [];
@@ -24,11 +24,11 @@ export class ApplicationComponent implements OnInit {
     const allChecked = this.dataSet.every(value => value.checked === true);
     const allUnChecked = this.dataSet.every(value => !value.checked);
     this.allChecked = allChecked;
-    this.indeterminate = (!allChecked) && (!allUnChecked);
+    this.indeterminate = !allChecked && !allUnChecked;
   }
 
   checkAll(value: boolean): void {
-    this.dataSet.forEach(data => data.checked = value);
+    this.dataSet.forEach(data => (data.checked = value));
     this.refreshStatus();
   }
   // 自定义选项结束
@@ -56,16 +56,16 @@ export class ApplicationComponent implements OnInit {
       }
     });
   }
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
-    for (let i = 0; i < 30; i++) {
+    for (let i = 1; i < 30; i++) {
       this.dataSet.push({
         key: i.toString(),
         num: i,
-        name: '厚德平台',
-        describe: `操作系统 no. ${i}`,
-        template: '模板',
+        name: '超级管理员',
+        role: '',
+        group: '系统级用户角色',
         checked: false
       });
     }
@@ -73,7 +73,7 @@ export class ApplicationComponent implements OnInit {
     this.updateEditCache();
   }
   // 排序
-  sort(sort: { key: string, value: string }): void {
+  sort(sort: { key: string; value: string }): void {
     this.sortName = sort.key;
     this.sortValue = sort.value;
     this.search();
@@ -87,8 +87,16 @@ export class ApplicationComponent implements OnInit {
 
   search(): void {
     if (this.sortName) {
-      this.dataSet = this.dataSet.sort((a, b) =>
-      (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
+      this.dataSet = this.dataSet.sort(
+        (a, b) =>
+          this.sortValue === 'ascend'
+            ? a[this.sortName] > b[this.sortName]
+              ? 1
+              : -1
+            : b[this.sortName] > a[this.sortName]
+              ? 1
+              : -1
+      );
       //    this.updateEditCache();
     } else {
       this.dataSet = this.dataSet;
@@ -96,10 +104,6 @@ export class ApplicationComponent implements OnInit {
     }
     console.log(this.dataSet);
   }
-
-
-
-
 
   // 模态框
   showModalMiddle(): void {
@@ -115,18 +119,20 @@ export class ApplicationComponent implements OnInit {
     this.isVisibleMiddle = false;
   }
 
-
-
   // 添加一行数据
   addRow(): void {
     this.showModalMiddle();
     this.i++;
-    this.dataSet = [...this.dataSet, {
-      key: `${this.i}`,
-      name: '厚德平台',
-      describe: `操作系统 no. ${this.i}`,
-      template: '模板',
-    }];
+    this.dataSet = [
+      ...this.dataSet,
+      {
+        key: `${this.i}`,
+        num: this.i,
+        name: '超级管理员',
+        role: '',
+        group: '系统级用户角色',
+      }
+    ];
     console.log(this.dataSet);
     this.updateEditCache();
   }
@@ -140,5 +146,4 @@ export class ApplicationComponent implements OnInit {
     this.editCache[key].edit = false;
     this.dataSet.find(item => item.key === key).name = this.editCache[key].name;
   }
-
 }

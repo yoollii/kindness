@@ -25,9 +25,9 @@
                     <li nz-submenu>
                         <span title>业务流程管理</span>
                         <ul>
-                            <li nz-menu-item>流程模板管理</li>
+                            <li nz-menu-item (click)="gorouter('home/processManagement')">流程模板管理</li>
                             <li nz-menu-item>任务监控</li>
-                            <li nz-menu-item>任务统计</li>
+                            <li nz-menu-item (click)="gorouter('home/antv')">任务统计</li>
                         </ul>
                     </li>
                     <li nz-submenu>
@@ -53,8 +53,8 @@
                     <li nz-submenu>
                         <span title> 用户分级认证与访问控制</span>
                         <ul>
-                            <li nz-menu-item>用户管理</li>
-                            <li nz-menu-item>角色管理</li>
+                            <li nz-menu-item (click)="gorouter('home/userManagement')">用户管理</li>
+                            <li nz-menu-item (click)="gorouter('home/roleManagement')">角色管理</li>
                         </ul>
                     </li>
                 </ul>
@@ -82,7 +82,8 @@
     <nz-layout>
         <nz-header class='header'>
             <div class="logo">
-                <a ng-reflect-router-link="/" href="#/">
+                <!-- <a ng-reflect-router-link="home/homePage" href="home/homePage"> -->
+                <a (click)="gorouter('home/homePage')">
                     <img class="expanded" src="./assets/img/h.png" style="max-height:40px;" alt="Alain">
                     <img class="collapsed" src="./assets/img/hjj.png" style="max-height:30px;" alt="Alain">
                 </a>

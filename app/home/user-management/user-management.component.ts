@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-application',
-  templateUrl: './application.component.html',
-  styleUrls: ['./application.component.less']
+  selector: 'app-user-management',
+  templateUrl: './user-management.component.html',
+  styleUrls: ['./user-management.component.less']
 })
-export class ApplicationComponent implements OnInit {
+export class UserManagementComponent implements OnInit {
   i = 1;
   editCache = {};
   dataSet = [];
@@ -63,9 +63,10 @@ export class ApplicationComponent implements OnInit {
       this.dataSet.push({
         key: i.toString(),
         num: i,
-        name: '厚德平台',
-        describe: `操作系统 no. ${i}`,
-        template: '模板',
+        name: `user. ${i}`,
+        role: `超级管理员. ${i}`,
+        group: `${i}组`,
+        state: '启用',
         checked: false
       });
     }
@@ -88,7 +89,7 @@ export class ApplicationComponent implements OnInit {
   search(): void {
     if (this.sortName) {
       this.dataSet = this.dataSet.sort((a, b) =>
-      (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
+        (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
       //    this.updateEditCache();
     } else {
       this.dataSet = this.dataSet;
@@ -123,9 +124,11 @@ export class ApplicationComponent implements OnInit {
     this.i++;
     this.dataSet = [...this.dataSet, {
       key: `${this.i}`,
-      name: '厚德平台',
-      describe: `操作系统 no. ${this.i}`,
-      template: '模板',
+      num: this.i,
+      name: `user. ${this.i}`,
+      role: `超级管理员. ${this.i}`,
+      group: `${this.i}组`,
+      state: '启用'
     }];
     console.log(this.dataSet);
     this.updateEditCache();
