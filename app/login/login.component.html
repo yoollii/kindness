@@ -1,5 +1,4 @@
 <div class='login'>
-
     <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
         <div class="login-form-tit">厚德平台</div>
         <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
@@ -30,4 +29,5 @@
             </nz-form-control>
         </nz-form-item>
     </form>
-</div>
+    </div>
+
