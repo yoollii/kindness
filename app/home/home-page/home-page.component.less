@@ -1,7 +1,15 @@
 .home-wrap {
     display: flex;
     .content-left {
-        flex: 1
+        flex: 1;
+      margin-right: 10px;
+      background-color: #061011;
+      position: relative;
+      .diqiu-div {width:350px; height:350px;position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%)}
+      .diqiu-img {width:350px; height:350px; border-radius:100px; animation:myfirst 15s linear infinite; -webkit-animation:myfirst 15s linear infinite; animation-play-state:running; -webkit-animation-play-state:running;}
+      .diqiu-img:hover {animation-play-state:paused; -webkit-animation-play-state:paused;}
+      @keyframes myfirst {0% {transform:rotate(0deg);} 100% {transform:rotate(360deg);}}
+      @-webkit-keyframes myfirst {0% {transform:rotate(0deg);} 100% {transform:rotate(360deg);}}
     }
     .content-right {
         width: 300px;

@@ -4,7 +4,6 @@
     </nz-breadcrumb>
     <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
     	<nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
-      
       <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">邮箱</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24">
@@ -12,14 +11,12 @@
           <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">这是一个无效的邮箱!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
-      
       <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="date">起止日期</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
         <nz-range-picker formControlName="date" [nzStyle]="{width: '100%'}"></nz-range-picker>
       </nz-form-control>
       </nz-form-item>
-      
       <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="standard">描述</nz-form-label>
       <nz-form-control [nzSm]="6" [nzXs]="24">
@@ -27,9 +24,6 @@
         <nz-form-explain *ngIf="validateForm.get('standard').dirty && validateForm.get('standard').errors">请输入描述</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
-      
-      
-      
       <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>密码</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24">
