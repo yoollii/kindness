@@ -13,10 +13,10 @@ validateForm: FormGroup;
 error = '';
 loading = false;
 constructor(
-	  private fb: FormBuilder,
-	  public router:Router,
-	  public msg: NzMessageService,
-    private modalSrv: NzModalService) {
+  private fb: FormBuilder,
+  public router:Router,
+  public msg: NzMessageService,
+  private modalSrv: NzModalService) {
 }
 
 ngOnInit(): void {
@@ -25,7 +25,6 @@ ngOnInit(): void {
       password: [ null, [ Validators.required ] ],
       remember: [ true ]
     });
-    
 }
 
 get userName() {
@@ -35,13 +34,13 @@ get password() {
     return this.validateForm.controls.password;
   }
 submitForm(): void {
-	  this.error = '';
+  this.error = '';
     for (const i in this.validateForm.controls) {
     	this.validateForm.controls[ i ].markAsDirty();
     	this.validateForm.controls[ i ].updateValueAndValidity();
     }
-    if (this.userName.invalid || this.password.invalid) return;
-    
+    if (this.userName.invalid || this.password.invalid) { return; }
+
     this.loading = true;
     setTimeout(() => {
       this.loading = false;
@@ -52,7 +51,7 @@ submitForm(): void {
           this.error = `账户或密码错误`;
           return;
         }
-      this.router.navigateByUrl("home");
+      this.router.navigateByUrl('home');
     }, 1000);
 }
 

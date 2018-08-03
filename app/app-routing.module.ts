@@ -17,6 +17,12 @@ import { MentionComponent } from './home/mention/mention.component';
 import { AntvComponent } from './home/antv/antv.component';
 import { ApplicationComponent } from './home/application/application.component';
 import { HomePageComponent } from './home/home-page/home-page.component';
+import { UserManagementComponent } from './home/user-management/user-management.component';
+import { RoleManagementComponent } from './home/role-management/role-management.component';
+import { ProcessManagementComponent } from './home/process-management/process-management.component';
+import { TaskMonitoringComponent } from './home/task-monitoring/task-monitoring.component';
+import { BasicDataComponent } from './home/basic-data/basic-data.component';
+import { SpaceDataComponent } from './home/space-data/space-data.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -39,7 +45,13 @@ const routes: Routes = [
       { path: 'steps', component: StepsComponent },
       { path: 'progress', component: ProgressComponent },
       { path: 'mention', component: MentionComponent },
-      { path: 'antv', component: AntvComponent }
+      { path: 'antv', component: AntvComponent },
+      { path: 'userManagement', component: UserManagementComponent },
+      { path: 'roleManagement', component: RoleManagementComponent },
+      { path: 'processManagement', component: ProcessManagementComponent },
+      { path: 'taskMonitoring', component: TaskMonitoringComponent },
+      { path: 'basicData', component: BasicDataComponent },
+      { path: 'spaceData', component: SpaceDataComponent },
     ]
   }
 ];

@@ -1,0 +1,177 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+  <nz-breadcrumb-item>
+    <span>当前位置：</span>
+    <a>业务流程管理</a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>任务监控</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="add-search-group">
+  <label for="">代办事项</label>
+</div>
+<nz-table #editRowTable nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()"
+  [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
+  <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
+        (nzCheckedChange)="checkAll($event)"></th>
+      <th nzShowSort nzSortKey="num">序号</th>
+      <th nzShowSort nzSortKey="name">任务名称</th>
+      <th nzShowSort nzSortKey="source">任务来源</th>
+      <th nzShowSort nzSortKey="type">任务类型</th>
+      <th nzShowSort nzSortKey="syetem">处理应用系统</th>
+      <th nzShowSort nzSortKey="describe">任务描述</th>
+      <th nzShowSort>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of editRowTable.data">
+      <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+      <td>
+        <div class="editable-cell">
+          <div class="editable-cell-text-wrapper">
+            <ng-container *ngIf="!editCache[data.key].edit">
+              {{data.num}}
+            </ng-container>
+            <ng-container *ngIf="editCache[data.key].edit">
+              <input type="text" nz-input [(ngModel)]="editCache[data.key].data.num">
+            </ng-container>
+          </div>
+        </div>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.name}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.name">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.source}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.source">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.type}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.type">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.system}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.system">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.describe}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.describe">
+        </ng-container>
+      </td>
+      <td>
+        <div class="editable-row-operations" style="display: inline-block;">
+          <ng-container>
+            <a>启用</a>
+          </ng-container>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<p>任务情况</p>
+<div class="add-search-group">
+    <div class="add-search-group-content">
+      <nz-input-group nzAddOnBefore="名称">
+        <input type="text" nz-input [(ngModel)]="inputValue">
+      </nz-input-group>
+      <nz-input-group nzCompact>
+        <nz-input-group nzAddOnBefore="时间">
+          <nz-date-picker [nzSize]="size"></nz-date-picker>
+        </nz-input-group>
+      </nz-input-group>
+  </div>
+<button nz-button nzType="default">
+  <i class="anticon anticon-search"></i>查询</button>
+</div>
+<nz-table #editTakTable nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()"
+  [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
+  <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
+        (nzCheckedChange)="checkAll($event)"></th>
+      <th nzShowSort nzSortKey="num">序号</th>
+      <th nzShowSort nzSortKey="name">任务名称</th>
+      <th nzShowSort nzSortKey="link">当前环节</th>
+      <th nzShowSort nzSortKey="executor">当前执行者</th>
+      <th nzShowSort nzSortKey="state">任务状态</th>
+      <th nzShowSort nzSortKey="time">处理时间</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of editTakTable.data">
+      <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+      <td>
+        <div class="editable-cell">
+          <div class="editable-cell-text-wrapper">
+            <ng-container *ngIf="!editCache[data.key].edit">
+              {{data.num}}
+            </ng-container>
+            <ng-container *ngIf="editCache[data.key].edit">
+              <input type="text" nz-input [(ngModel)]="editCache[data.key].data.num">
+            </ng-container>
+          </div>
+        </div>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.name}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.name">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.link}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.link">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.executor}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.executor">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.state}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.state">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.time}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.time">
+        </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

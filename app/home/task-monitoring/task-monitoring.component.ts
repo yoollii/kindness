@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-application',
-  templateUrl: './application.component.html',
-  styleUrls: ['./application.component.less']
+  selector: 'app-task-monitoring',
+  templateUrl: './task-monitoring.component.html',
+  styleUrls: ['./task-monitoring.component.less']
 })
-export class ApplicationComponent implements OnInit {
+export class TaskMonitoringComponent implements OnInit {
   i = 1;
   editCache = {};
   dataSet = [];
@@ -15,7 +15,31 @@ export class ApplicationComponent implements OnInit {
   sortValue = null;
   listOfSearchName = [];
   searchAddress: string;
+  inputValue = 'my site';
+  size = 'default';
   // 自定义选项开始
+  listOfSelection = [
+    {
+      text: 'Select All Row',
+      onSelect: () => {
+        this.checkAll(true);
+      }
+    },
+    {
+      text: 'Select Odd Row',
+      onSelect: () => {
+        this.dataSet.forEach((data, index) => data.checked = index % 2 !== 0);
+        this.refreshStatus();
+      }
+    },
+    {
+      text: 'Select Even Row',
+      onSelect: () => {
+        this.dataSet.forEach((data, index) => data.checked = index % 2 === 0);
+        this.refreshStatus();
+      }
+    }
+  ];
   allChecked = false;
   // dataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
   indeterminate = false;
@@ -63,9 +87,15 @@ export class ApplicationComponent implements OnInit {
       this.dataSet.push({
         key: i.toString(),
         num: i,
-        name: '厚德平台',
-        describe: `操作系统 no. ${i}`,
-        template: '模板',
+        name: '***任务',
+        link: '接收',
+        executor: `sibu${i}`,
+        state: '正在处理',
+        time: '进行***任务',
+        source: '接收',
+        type: '',
+        system: '***应用系统',
+        describe: '进行***任务',
         checked: false
       });
     }
@@ -88,7 +118,7 @@ export class ApplicationComponent implements OnInit {
   search(): void {
     if (this.sortName) {
       this.dataSet = this.dataSet.sort((a, b) =>
-      (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
+        (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
       //    this.updateEditCache();
     } else {
       this.dataSet = this.dataSet;
@@ -123,9 +153,10 @@ export class ApplicationComponent implements OnInit {
     this.i++;
     this.dataSet = [...this.dataSet, {
       key: `${this.i}`,
-      name: '厚德平台',
-      describe: `操作系统 no. ${this.i}`,
-      template: '模板',
+      name: '流程模板',
+      describe: '',
+      template: '',
+      roe: '',
     }];
     console.log(this.dataSet);
     this.updateEditCache();
