@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AbstractControl,FormBuilder,FormGroup,Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 
@@ -14,7 +14,7 @@ error = '';
 loading = false;
 constructor(
   private fb: FormBuilder,
-  public router:Router,
+  public router: Router,
   public msg: NzMessageService,
   private modalSrv: NzModalService) {
 }
@@ -36,8 +36,8 @@ get password() {
 submitForm(): void {
   this.error = '';
     for (const i in this.validateForm.controls) {
-    	this.validateForm.controls[ i ].markAsDirty();
-    	this.validateForm.controls[ i ].updateValueAndValidity();
+      this.validateForm.controls[ i ].markAsDirty();
+      this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if (this.userName.invalid || this.password.invalid) { return; }
 

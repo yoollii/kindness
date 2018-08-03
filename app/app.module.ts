@@ -33,6 +33,8 @@ import { ProcessManagementComponent } from './home/process-management/process-ma
 import { TaskMonitoringComponent } from './home/task-monitoring/task-monitoring.component';
 import { BasicDataComponent } from './home/basic-data/basic-data.component';
 import { SpaceDataComponent } from './home/space-data/space-data.component';
+import { ReferenceMapComponent } from './home/reference-map/reference-map.component';
+import { ResultsDataComponent } from './home/results-data/results-data.component';
 
 registerLocaleData(zh);
 
@@ -61,7 +63,9 @@ registerLocaleData(zh);
     ProcessManagementComponent,
     TaskMonitoringComponent,
     BasicDataComponent,
-    SpaceDataComponent
+    SpaceDataComponent,
+    ReferenceMapComponent,
+    ResultsDataComponent
   ],
   imports: [
     BrowserModule,

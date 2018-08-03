@@ -1,11 +1,12 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.less']
+  selector: 'app-results-data',
+  templateUrl: './results-data.component.html',
+  styleUrls: ['./results-data.component.less']
 })
-export class TableComponent implements OnInit {
+export class ResultsDataComponent implements OnInit {
+  selectedValue;
   i = 1;
   editCache = {};
   dataSet = [];
@@ -39,7 +40,7 @@ export class TableComponent implements OnInit {
   ];
   // 自定义选项开始
   allChecked = false;
-// dataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
+  // dataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
   indeterminate = false;
 
   refreshStatus(): void {
@@ -55,23 +56,23 @@ export class TableComponent implements OnInit {
   }
   // 自定义选项结束
   startEdit(key: string): void {
-    this.editCache[ key ].edit = true;
+    this.editCache[key].edit = true;
   }
 
   cancelEdit(key: string): void {
-    this.editCache[ key ].edit = false;
+    this.editCache[key].edit = false;
   }
 
   saveEdit(key: string): void {
     const index = this.dataSet.findIndex(item => item.key === key);
-    this.dataSet[ index ] = this.editCache[ key ].data;
-    this.editCache[ key ].edit = false;
+    this.dataSet[index] = this.editCache[key].data;
+    this.editCache[key].edit = false;
   }
 
   updateEditCache(): void {
     this.dataSet.forEach(item => {
-      if (!this.editCache[ item.key ]) {
-        this.editCache[ item.key ] = {
+      if (!this.editCache[item.key]) {
+        this.editCache[item.key] = {
           edit: false,
           data: item
         };
@@ -82,10 +83,10 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
     for (let i = 0; i < 30; i++) {
       this.dataSet.push({
-        key    : i.toString(),
-        name   : `Edrward ${i}`,
-        age    : 32,
-        address: `London Park no. ${i}`,
+        num: i.toString(),
+        index: `成果编号${i}`,
+        id: `id${i}`,
+        workId: `workId. ${i}`,
         checked: false
       });
     }
@@ -107,11 +108,12 @@ export class TableComponent implements OnInit {
 
   search(): void {
     if (this.sortName) {
-      this.dataSet=this.dataSet.sort((a, b) => (this.sortValue === 'ascend') ? (a[ this.sortName ] > b[ this.sortName ] ? 1 : -1) : (b[ this.sortName ] > a[ this.sortName ] ? 1 : -1));
-//    this.updateEditCache();
+      this.dataSet = this.dataSet.sort((a, b) =>
+      (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
+      //    this.updateEditCache();
     } else {
-      this.dataSet=this.dataSet;
-//    this.updateEditCache();
+      this.dataSet = this.dataSet;
+      //    this.updateEditCache();
     }
     console.log(this.dataSet);
   }
@@ -134,12 +136,12 @@ export class TableComponent implements OnInit {
   addRow(): void {
     this.showModalMiddle();
     this.i++;
-    this.dataSet = [ ...this.dataSet, {
-      key    : `${this.i}`,
-      name   : `Edward King ${this.i}`,
-      age    : '32',
-      address: `London, Park Lane no. ${this.i}`
-    } ];
+    this.dataSet = [...this.dataSet, {
+      num: this.i.toString(),
+      index: `成果编号%{this.i}`,
+      id: `id${this.i}`,
+      workId: `workId. ${this.i}`,
+    }];
     console.log(this.dataSet);
     this.updateEditCache();
   }
@@ -150,8 +152,9 @@ export class TableComponent implements OnInit {
   }
 
   finishEdit(key: string): void {
-    this.editCache[ key ].edit = false;
-    this.dataSet.find(item => item.key === key).name = this.editCache[ key ].name;
+    this.editCache[key].edit = false;
+    this.dataSet.find(item => item.key === key).name = this.editCache[key].name;
   }
 
 }
+

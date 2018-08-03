@@ -23,6 +23,8 @@ import { ProcessManagementComponent } from './home/process-management/process-ma
 import { TaskMonitoringComponent } from './home/task-monitoring/task-monitoring.component';
 import { BasicDataComponent } from './home/basic-data/basic-data.component';
 import { SpaceDataComponent } from './home/space-data/space-data.component';
+import { ReferenceMapComponent } from './home/reference-map/reference-map.component';
+import { ResultsDataComponent } from './home/results-data/results-data.component'
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -52,6 +54,8 @@ const routes: Routes = [
       { path: 'taskMonitoring', component: TaskMonitoringComponent },
       { path: 'basicData', component: BasicDataComponent },
       { path: 'spaceData', component: SpaceDataComponent },
+      { path: 'referenceMap', component: ReferenceMapComponent },
+      { path: 'resultsData', component: ResultsDataComponent },
     ]
   }
 ];
