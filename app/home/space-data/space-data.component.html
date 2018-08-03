@@ -1,0 +1,69 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+  <nz-breadcrumb-item>
+    <span>当前位置：</span>
+    <a>专用数据管理</a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>目标信息</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div class="add-search-group">
+  <p>目标信息</p>
+  <div class="search-group">
+    <nz-input-group nzSearch nzSize="default" [nzSuffix]="suffixButton">
+      <input type="text" style="padding: 0" nz-input placeholder="input search text">
+    </nz-input-group>
+    <ng-template #suffixButton>
+      <button nz-button nzType="primary" nzSize="default" nzSearch>搜索</button>
+    </ng-template>
+  </div>
+</div>
+<nz-table #editRowTable nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()"
+  [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
+  <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzShowSort nzSortKey="num">序号</th>
+      <th nzShowSort nzSortKey="name">1</th>
+      <th nzShowSort nzSortKey="source">2</th>
+      <th nzShowSort nzSortKey="type">3</th>
+      <th nzShowSort nzSortKey="syetem">4</th>
+      <th nzShowSort nzSortKey="describe">5</th>
+      <th nzShowSort>6</th>
+      <th nzShowSort>7</th>
+      <th nzShowSort>8</th>
+      <th nzShowSort>9</th>
+      <th nzShowSort>10</th>
+      <th nzShowSort>11</th>
+      <th nzShowSort>12</th>
+      <th nzShowSort>13</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of editRowTable.data">
+      <td>
+        <div class="editable-cell">
+          <div class="editable-cell-text-wrapper">
+            <ng-container *ngIf="!editCache[data.key].edit">
+              {{data.num}}
+            </ng-container>
+<ng-container *ngIf="editCache[data.key].edit">
+              <input type="text" nz-input [(ngModel)]="editCache[data.key].data.num">
+            </ng-container>
+          </div>
+        </div>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</nz-table>

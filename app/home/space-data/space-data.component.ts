@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-process-management',
-  templateUrl: './process-management.component.html',
-  styleUrls: ['./process-management.component.less']
+  selector: 'app-space-data',
+  templateUrl: './space-data.component.html',
+  styleUrls: ['./space-data.component.less']
 })
-export class ProcessManagementComponent implements OnInit {
+export class SpaceDataComponent implements OnInit {
   i = 1;
   editCache = {};
   dataSet = [];
@@ -15,6 +15,8 @@ export class ProcessManagementComponent implements OnInit {
   sortValue = null;
   listOfSearchName = [];
   searchAddress: string;
+  inputValue = 'my site';
+  size = 'default';
   listOfSelection = [
     {
       text: 'Select All Row',
@@ -85,10 +87,15 @@ export class ProcessManagementComponent implements OnInit {
       this.dataSet.push({
         key: i.toString(),
         num: i,
-        name: '流程模板',
-        describe: '',
-        template: '',
-        roe: '',
+        name: '***任务',
+        link: '接收',
+        executor: `sibu${i}`,
+        state: '正在处理',
+        time: '进行***任务',
+        source: '接收',
+        type: '',
+        system: '***应用系统',
+        describe: '进行***任务',
         checked: false
       });
     }
@@ -119,10 +126,6 @@ export class ProcessManagementComponent implements OnInit {
     }
     console.log(this.dataSet);
   }
-
-
-
-
 
   // 模态框
   showModalMiddle(): void {
@@ -166,3 +169,4 @@ export class ProcessManagementComponent implements OnInit {
   }
 
 }
+

@@ -47,7 +47,8 @@
 <nz-table #editRowTable nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()" [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
     <thead (nzSortChange)="sort($event)" nzSingleSort>
         <tr>
-            <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+<th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
+  (nzCheckedChange)="checkAll($event)"></th>
             <th nzShowSort nzSortKey="num">序号</th>
             <th nzShowSort nzSortKey="name">流程模板名称</th>
             <th nzShowSort nzSortKey="template">部署状态</th>
