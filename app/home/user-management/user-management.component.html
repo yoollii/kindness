@@ -19,7 +19,37 @@
 
 </div>
 
-<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="用户新增" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
+    <nz-form-item>
+        <nz-form-label nzFor="no">用户名称</nz-form-label>
+        <nz-form-control>
+            <input nz-input [(ngModel)]="userName" name="name" placeholder="请输入" id="no2">
+        </nz-form-control>
+              <nz-form-label nzFor="no">用户角色</nz-form-label>
+            <nz-form-control>
+                     <nz-select  style="width: 100%;"  [(ngModel)]="listOfRole" nzPlaceHolder="请选择用户角色">
+                                      <nz-option *ngFor="let option of listOfRoleList" [nzLabel]="option" [nzValue]="option">
+                                      </nz-option>
+                      </nz-select>
+                </nz-form-control>
+        <nz-form-label nzFor="no">用户分组</nz-form-label>
+        <nz-form-control>
+                <nz-select  style="width: 100%;"  [(ngModel)]="listOfTagOptions" nzPlaceHolder="请选择用户分组">
+                  <nz-option *ngFor="let option of listOfOption" [nzLabel]="option" [nzValue]="option">
+                  </nz-option>
+                </nz-select>
+        </nz-form-control>
+        <nz-form-label nzFor="no">用户状态</nz-form-label>
+        <nz-form-control>
+                <nz-select  style="width: 100%;"  [(ngModel)]="listOfType" nzPlaceHolder="请选择用户状态">
+                  <nz-option *ngFor="let option of listOfTypelist" [nzLabel]="option" [nzValue]="option">
+                  </nz-option>
+                </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+</nz-modal>
+
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isupdate" nzTitle="用户编辑" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
     <nz-form-item>
         <nz-form-label nzFor="no">序号</nz-form-label>
         <nz-form-control>
@@ -29,20 +59,28 @@
         <nz-form-control>
             <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
         </nz-form-control>
-        <nz-form-label nzFor="no">用户角色</nz-form-label>
-        <nz-form-control>
-            <input nz-input [(ngModel)]="role" name="role" placeholder="请输入" id="no3">
-        </nz-form-control>
+              <nz-form-label nzFor="no">用户角色</nz-form-label>
+            <nz-form-control>
+                     <nz-select  style="width: 100%;"  [(ngModel)]="listOfRole" nzPlaceHolder="请选择用户角色">
+                                      <nz-option *ngFor="let option of listOfRoleList" [nzLabel]="option" [nzValue]="option">
+                                      </nz-option>
+                      </nz-select>
+                </nz-form-control>
         <nz-form-label nzFor="no">用户分组</nz-form-label>
         <nz-form-control>
-            <input nz-input [(ngModel)]="group" name="group" placeholder="请输入" id="no3">
+                <nz-select  style="width: 100%;"  [(ngModel)]="listOfTagOptions" nzPlaceHolder="请选择用户分组">
+                  <nz-option *ngFor="let option of listOfOption" [nzLabel]="option" [nzValue]="option">
+                  </nz-option>
+                </nz-select>
         </nz-form-control>
-        <nz-form-label nzFor="no">状态</nz-form-label>
+        <nz-form-label nzFor="no">用户状态</nz-form-label>
         <nz-form-control>
-            <input nz-input [(ngModel)]="state" name="state" placeholder="请输入" id="no3">
+                <nz-select  style="width: 100%;"  [(ngModel)]="listOfType" nzPlaceHolder="请选择用户状态">
+                  <nz-option *ngFor="let option of listOfTypelist" [nzLabel]="option" [nzValue]="option">
+                  </nz-option>
+                </nz-select>
         </nz-form-control>
     </nz-form-item>
-
 </nz-modal>
 <nz-table #editRowTable nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()" [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
     <thead (nzSortChange)="sort($event)" nzSingleSort>
@@ -73,10 +111,7 @@
             </td>
             <td>
                 <ng-container *ngIf="!editCache[data.key].edit">
-                    {{data.name}}
-                </ng-container>
-                <ng-container *ngIf="editCache[data.key].edit">
-                    <input type="text" nz-input [(ngModel)]="editCache[data.key].data.name">
+                    {{data.userName}}
                 </ng-container>
             </td>
             <td>
@@ -109,7 +144,7 @@
                         <a>查看</a>
                     </ng-container>
                     <ng-container *ngIf="!editCache[data.key].edit">
-                        <a (click)="startEdit(data.key)">编辑</a>
+                        <a (click)="startEdit(data)">编辑</a>
                     </ng-container>
 
                 </div>

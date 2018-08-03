@@ -9,11 +9,20 @@ export class UserManagementComponent implements OnInit {
   i = 1;
   editCache = {};
   dataSet = [];
+  sortValue = null;
+  listOfRole: string;
+  listOfName: string;
+  listOfRoleList = [];
+  userName: string;
   loading = true;
+  isupdate = false;
   isVisibleMiddle = false;
   sortName = null;
-  sortValue = null;
   listOfSearchName = [];
+  listOfTagOptions: string;
+  listOfOption = [];
+  listOfType: string;
+  listOfTypelist = [];
   searchAddress: string;
   // 自定义选项开始
   allChecked = false;
@@ -32,8 +41,11 @@ export class UserManagementComponent implements OnInit {
     this.refreshStatus();
   }
   // 自定义选项结束
-  startEdit(key: string): void {
-    this.editCache[key].edit = true;
+  startEdit(data): void {
+    // this.editCache[key].edit = true;
+    this.listOfRole=data.role;
+    this.listOfName=data.name;
+    this.isupdate=true;
   }
 
   cancelEdit(key: string): void {
@@ -59,11 +71,14 @@ export class UserManagementComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.listOfOption=["1组","2组","3组","4组"];
+    this.listOfTypelist=["启用","禁用"];
+    this.listOfRoleList=["超级管理员","管理员","一般用户"];
     for (let i = 0; i < 30; i++) {
       this.dataSet.push({
         key: i.toString(),
         num: i,
-        name: `user. ${i}`,
+        userName: `user. ${i}`,
         role: `超级管理员. ${i}`,
         group: `${i}组`,
         state: '启用',
@@ -109,11 +124,19 @@ export class UserManagementComponent implements OnInit {
   handleOkMiddle(): void {
     console.log('click ok');
     this.isVisibleMiddle = false;
+    this.isupdate = false;
+    this.dataSet.push({
+      userName:this.userName,
+      role:this.listOfRole,
+      group:this.listOfTagOptions,
+      state:this.listOfType,
+    });
   }
 
   handleCancelMiddle(): void {
     console.log('click Cancel');
     this.isVisibleMiddle = false;
+    this.isupdate = false;
   }
 
 
