@@ -17,43 +17,52 @@ export class TaskMonitoringComponent implements OnInit {
   searchAddress: string;
   inputValue = 'my site';
   size = 'default';
+  taskShow = false;
   // 自定义选项开始
   listOfSelection = [
     {
       text: 'Select All Row',
       onSelect: () => {
         this.checkAll(true);
+        this.checkAll1(true);
       }
     },
     {
       text: 'Select Odd Row',
       onSelect: () => {
         this.dataSet.forEach((data, index) => data.checked = index % 2 !== 0);
-        this.refreshStatus();
+        this.refreshStatus(event);
       }
     },
     {
       text: 'Select Even Row',
       onSelect: () => {
         this.dataSet.forEach((data, index) => data.checked = index % 2 === 0);
-        this.refreshStatus();
+        this.refreshStatus(event);
       }
     }
   ];
   allChecked = false;
+  allChecked1 = false;
   // dataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
   indeterminate = false;
 
-  refreshStatus(): void {
+  refreshStatus(event): void {
     const allChecked = this.dataSet.every(value => value.checked === true);
     const allUnChecked = this.dataSet.every(value => !value.checked);
     this.allChecked = allChecked;
     this.indeterminate = (!allChecked) && (!allUnChecked);
+    this.taskShow = event;
   }
 
   checkAll(value: boolean): void {
     this.dataSet.forEach(data => data.checked = value);
-    this.refreshStatus();
+    this.refreshStatus(event);
+    this.taskShow = value;
+  }
+  checkAll1(value: boolean): void {
+    this.dataSet.forEach(data => data.checked1 = value);
+    this.refreshStatus(event);
   }
   // 自定义选项结束
   startEdit(key: string): void {
@@ -96,7 +105,8 @@ export class TaskMonitoringComponent implements OnInit {
         type: '',
         system: '***应用系统',
         describe: '进行***任务',
-        checked: false
+        checked: false,
+        checked1: false,
       });
     }
     this.loading = false;
