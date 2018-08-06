@@ -43,9 +43,9 @@ export class UserManagementComponent implements OnInit {
   // 自定义选项结束
   startEdit(data): void {
     // this.editCache[key].edit = true;
-    this.listOfRole=data.role;
-    this.listOfName=data.name;
-    this.isupdate=true;
+    this.listOfRole = data.role;
+    this.listOfName = data.name;
+    this.isupdate = true;
   }
 
   cancelEdit(key: string): void {
@@ -71,9 +71,9 @@ export class UserManagementComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.listOfOption=["1组","2组","3组","4组"];
-    this.listOfTypelist=["启用","禁用"];
-    this.listOfRoleList=["超级管理员","管理员","一般用户"];
+    this.listOfOption = ['1组', '2组', '3组', '4组'];
+    this.listOfTypelist = ['启用', '禁用'];
+    this.listOfRoleList = ['超级管理员', '管理员', '一般用户'];
     for (let i = 0; i < 30; i++) {
       this.dataSet.push({
         key: i.toString(),
@@ -126,10 +126,10 @@ export class UserManagementComponent implements OnInit {
     this.isVisibleMiddle = false;
     this.isupdate = false;
     this.dataSet.push({
-      userName:this.userName,
-      role:this.listOfRole,
-      group:this.listOfTagOptions,
-      state:this.listOfType,
+      userName: this.userName,
+      role: this.listOfRole,
+      group: this.listOfTagOptions,
+      state: this.listOfType,
     });
   }
 

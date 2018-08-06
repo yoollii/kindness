@@ -39,7 +39,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of editRowTable.data">
+    <tr (click)="changShow()" *ngFor="let data of editRowTable.data">
       <td>
         <div class="editable-cell">
           <div class="editable-cell-text-wrapper">
@@ -69,6 +69,7 @@
     </tr>
   </tbody>
 </nz-table>
+<div *ngIf="basicShow">
 <div class="add-search-group">
   <p>子目标信息</p>
   <div class="search-group">
@@ -120,3 +121,4 @@
     </tr>
   </tbody>
 </nz-table>
+</div>

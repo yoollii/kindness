@@ -52,13 +52,11 @@ export class TaskMonitoringComponent implements OnInit {
     const allUnChecked = this.dataSet.every(value => !value.checked);
     this.allChecked = allChecked;
     this.indeterminate = (!allChecked) && (!allUnChecked);
-    this.taskShow = event;
   }
 
   checkAll(value: boolean): void {
     this.dataSet.forEach(data => data.checked = value);
     this.refreshStatus(event);
-    this.taskShow = value;
   }
   checkAll1(value: boolean): void {
     this.dataSet.forEach(data => data.checked1 = value);
@@ -71,6 +69,9 @@ export class TaskMonitoringComponent implements OnInit {
 
   cancelEdit(key: string): void {
     this.editCache[key].edit = false;
+  }
+  changeTaskShow(): void{
+    this.taskShow = !this.taskShow;
   }
 
   saveEdit(key: string): void {
