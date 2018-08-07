@@ -24,7 +24,6 @@ export class TaskMonitoringComponent implements OnInit {
       text: 'Select All Row',
       onSelect: () => {
         this.checkAll(true);
-        this.checkAll1(true);
       }
     },
     {
@@ -43,7 +42,6 @@ export class TaskMonitoringComponent implements OnInit {
     }
   ];
   allChecked = false;
-  allChecked1 = false;
   // dataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
   indeterminate = false;
 
@@ -52,14 +50,11 @@ export class TaskMonitoringComponent implements OnInit {
     const allUnChecked = this.dataSet.every(value => !value.checked);
     this.allChecked = allChecked;
     this.indeterminate = (!allChecked) && (!allUnChecked);
+    this.changeTaskShow(event);
   }
 
   checkAll(value: boolean): void {
     this.dataSet.forEach(data => data.checked = value);
-    this.refreshStatus(event);
-  }
-  checkAll1(value: boolean): void {
-    this.dataSet.forEach(data => data.checked1 = value);
     this.refreshStatus(event);
   }
   // 自定义选项结束
@@ -70,8 +65,8 @@ export class TaskMonitoringComponent implements OnInit {
   cancelEdit(key: string): void {
     this.editCache[key].edit = false;
   }
-  changeTaskShow(): void{
-    this.taskShow = !this.taskShow;
+  changeTaskShow(event): void {
+    this.taskShow = event;
   }
 
   saveEdit(key: string): void {

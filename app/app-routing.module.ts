@@ -24,7 +24,7 @@ import { TaskMonitoringComponent } from './home/task-monitoring/task-monitoring.
 import { BasicDataComponent } from './home/basic-data/basic-data.component';
 import { SpaceDataComponent } from './home/space-data/space-data.component';
 import { ReferenceMapComponent } from './home/reference-map/reference-map.component';
-import { ResultsDataComponent } from './home/results-data/results-data.component'
+import { ResultsDataComponent } from './home/results-data/results-data.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },

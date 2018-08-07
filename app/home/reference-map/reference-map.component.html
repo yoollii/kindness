@@ -5,3 +5,57 @@
   </nz-breadcrumb-item>
   <nz-breadcrumb-item>基准图导入</nz-breadcrumb-item>
 </nz-breadcrumb>
+
+<form nz-form [nzLayout]="'vertical'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12" class="form-wrap" nzType="flex" nzAlign="middle">
+      <nz-form-label nzRequired>Username</nz-form-label>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="anticon anticon-user">
+          <input formControlName="userName" nz-input placeholder="Username">
+        </nz-input-group>
+        <nz-form-explain *ngIf="validateForm.get('userName').dirty && validateForm.get('userName').errors">Please input your username!</nz-form-explain>
+      </nz-form-control>
+    </div>
+    <div nz-col [nzSpan]="12" class="form-wrap">
+      <nz-form-label nzRequired>rolename</nz-form-label>
+      <nz-form-control>
+        <nz-select id="gender" formControlName="gender" nzPlaceHolder="Select a option and change input text above">
+          <nz-option nzValue="male" nzLabel="male"></nz-option>
+          <nz-option nzValue="female" nzLabel="female"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </div>
+    <div nz-col [nzSpan]="12" class="form-wrap">
+      <nz-form-label nzRequired>********</nz-form-label>
+      <nz-form-control>
+        <nz-select id="gender" formControlName="gender" nzPlaceHolder="Select a option and change input text above">
+          <nz-option nzValue="male" nzLabel="male"></nz-option>
+          <nz-option nzValue="female" nzLabel="female"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </div>
+    <div nz-col [nzSpan]="12" class="form-wrap">
+      <nz-form-label nzRequired>********</nz-form-label>
+      <nz-form-control>
+        <nz-select id="gender" formControlName="gender" nzPlaceHolder="Select a option and change input text above">
+          <nz-option nzValue="male" nzLabel="male"></nz-option>
+          <nz-option nzValue="female" nzLabel="female"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </div>
+    <div nz-col [nzSpan]="24" class="form-wrap">
+      <nz-form-label nzRequired>********</nz-form-label>
+      <nz-form-control>
+        <textarea formControlName="comment" nz-input placeholder="write any thing"></textarea>
+      </nz-form-control>
+    </div>
+  </div>
+  <button nz-button nzType="primary">Primary</button>
+</form>
+<nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" [nzFileList]="fileList" nzMultiple (nzChange)="handleChange($event)">
+  <button nz-button>
+    <i class="anticon anticon-upload"></i>
+    <span>Upload</span>
+  </button>
+</nz-upload>

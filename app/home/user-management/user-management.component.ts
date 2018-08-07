@@ -17,6 +17,8 @@ export class UserManagementComponent implements OnInit {
   loading = true;
   isupdate = false;
   isVisibleMiddle = false;
+  num: number;
+  name: string;
   sortName = null;
   listOfSearchName = [];
   listOfTagOptions: string;
