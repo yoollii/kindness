@@ -84,6 +84,45 @@
     </nz-form-control>
   </nz-form-item>
 </nz-modal>
+
+<nz-modal nzWidth="600px" nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMsgMiddle" nzTitle="查看" (nzOnCancel)="handleCancelMsgMiddle()"
+  (nzOnOk)="handleOkMsgMiddle()">
+  <div class="showMsg">
+    <div class="showMsgTop">
+      <nz-form-label nzFor="no">角色列表</nz-form-label>
+      <nz-checkbox-group [(ngModel)]="rightsGroup" (ngModelChange)="log(rightsGroup)"></nz-checkbox-group>
+    </div>
+    <nz-form-item>
+      <div>
+        <nz-form-label nzFor="no">用户信息</nz-form-label>
+      </div>
+      
+      <nz-form-control>
+<nz-form-label nzFor="no">用户名称</nz-form-label>
+        <input nz-input value='{{currentName}}' name="name" id="no2">
+      </nz-form-control>
+      
+      <nz-form-control>
+<nz-form-label nzFor="no">分组</nz-form-label>
+        <nz-select style="width: 100%;" nzShowSearch nzAllowClear nzPlaceHolder="选择分组" [(ngModel)]="currentGroup">
+          <nz-option nzLabel="分组一" nzValue="group1"></nz-option>
+          <nz-option nzLabel="分组二" nzValue="group2"></nz-option>
+          <nz-option nzLabel="分组三" nzValue="group3"></nz-option>
+        </nz-select>
+      </nz-form-control>
+      
+      <nz-form-control>
+<nz-form-label nzFor="no">状态</nz-form-label>
+        <nz-select style="width: 100%;" nzShowSearch nzAllowClear nzPlaceHolder="选择状态" [(ngModel)]="currentState">
+          <nz-option nzLabel="启用" nzValue="start"></nz-option>
+          <nz-option nzLabel="停用" nzValue="stop"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+  </div>
+</nz-modal>
+
 <nz-table #editRowTable nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()"
   [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
   <thead (nzSortChange)="sort($event)" nzSingleSort>
@@ -144,15 +183,15 @@
       <td>
         <div class="editable-row-operations" style="display: inline-block;">
           <ng-container>
-            <a>查看</a>
+            <button [nzSize]="size" (click)="showModalMsgMiddle(data)" nz-button nzType="default">查看</button>
           </ng-container>
           <ng-container *ngIf="!editCache[data.key].edit">
-            <a (click)="startEdit(data)">编辑</a>
+            <button nz-button [nzSize]="size" (click)="startEdit(data.key)" nzType="primary">编辑</button>
           </ng-container>
 
         </div>
         <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteRow(data.key)">
-          <a nz-popconfirm>删除</a>
+          <button [nzSize]="size" nz-button nz-popconfirm nzType="danger">删除</button>
         </nz-popconfirm>
       </td>
     </tr>

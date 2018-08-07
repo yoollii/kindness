@@ -13,10 +13,10 @@ export class TaskMonitoringComponent implements OnInit {
   isVisibleMiddle = false;
   sortName = null;
   sortValue = null;
+  size = 'small'; // 按钮尺寸
   listOfSearchName = [];
   searchAddress: string;
   inputValue = 'my site';
-  size = 'default';
   taskShow = false;
   // 自定义选项开始
   listOfSelection = [
@@ -51,6 +51,12 @@ export class TaskMonitoringComponent implements OnInit {
     this.allChecked = allChecked;
     this.indeterminate = (!allChecked) && (!allUnChecked);
     this.changeTaskShow(event);
+  }
+  refreshStatus1(event): void {
+    const allChecked = this.dataSet.every(value => value.checked === true);
+    const allUnChecked = this.dataSet.every(value => !value.checked);
+    this.allChecked = allChecked;
+    this.indeterminate = (!allChecked) && (!allUnChecked);
   }
 
   checkAll(value: boolean): void {

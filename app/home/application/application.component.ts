@@ -14,6 +14,7 @@ export class ApplicationComponent implements OnInit {
   isVisibleEditMiddle = false;
   sortName = null;
   sortValue = null;
+  size = 'small'; // 按钮尺寸
   num: number;
   name: string;
   template: string;

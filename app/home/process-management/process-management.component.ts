@@ -15,6 +15,7 @@ export class ProcessManagementComponent implements OnInit {
   sortName = null;
   sortValue = null;
   num: number;
+  size = 'small'; // 按钮尺寸
   name: string;
   template: string;
   role: string;

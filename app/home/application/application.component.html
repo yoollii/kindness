@@ -10,7 +10,7 @@
     <i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
   <div class="search-group">
     <nz-input-group nzSearch nzSize="default" [nzSuffix]="suffixButton">
-      <input type="text" style="padding: 0" nz-input placeholder="input search text">
+      <input type="text" style="padding: 0" nz-input placeholder="输入搜索内容">
     </nz-input-group>
     <ng-template #suffixButton>
       <button nz-button nzType="primary" nzSize="default" nzSearch>搜索</button>
@@ -42,7 +42,7 @@
 </nz-modal>
 
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleEditMiddle" nzTitle="编辑" (nzOnCancel)="handleCancelEditMiddle()"
- (nzOnOk)="handleOkEditkMiddle()">
+  (nzOnOk)="handleOkEditkMiddle()">
   <nz-form-item>
     <nz-form-label nzFor="no">序号</nz-form-label>
     <nz-form-control>
@@ -69,9 +69,9 @@
     <tr>
       <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
         (nzCheckedChange)="checkAll($event)"></th>
-      <th nzShowSort nzSortKey="num" nzWidth="10%">序号</th>
-      <th nzShowSort nzSortKey="name" nzWidth="22%">应用系统名字</th>
-      <th nzShowSort nzSortKey="template" nzWidth="22%">流程模板</th>
+      <th nzShowSort nzSortKey="num">序号</th>
+      <th nzShowSort nzSortKey="name">应用系统名字</th>
+      <th nzShowSort nzSortKey="template">流程模板</th>
       <th nzShowSort nzSortKey="describe">应用系统描述</th>
       <th nzShowSort>操作</th>
     </tr>
@@ -118,26 +118,26 @@
       <td>
         <div class="editable-row-operations" style="display: inline-block;">
           <ng-container *ngIf="!editCache[data.key].edit">
-            <a (click)="startEdit(data.key)">编辑</a>
+            <button [nzSize]="size" nz-button (click)="startEdit(data.key)" nzType="primary">编辑</button>
           </ng-container>
           <ng-container>
-            <a>启用</a>
+            <button [nzSize]="size" nz-button nzType="default">启用</button>
           </ng-container>
           <ng-container>
-            <a>停用</a>
+            <button [nzSize]="size" nz-button nzType="default">停用</button>
           </ng-container>
           <ng-container>
-            <a>另存</a>
+            <button [nzSize]="size" nz-button nzType="default">另存</button>
           </ng-container>
           <ng-container *ngIf="editCache[data.key].edit">
-            <a (click)="saveEdit(data.key)">保存</a>
+            <button (click)="saveEdit(data.key)" nz-button nzType="default">保存</button>
             <nz-popconfirm [nzTitle]="'确认取消?'" (nzOnConfirm)="cancelEdit(data.key)">
               <a nz-popconfirm>取消</a>
             </nz-popconfirm>
           </ng-container>
         </div>
         <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteRow(data.key)">
-          <a nz-popconfirm>删除</a>
+          <button [nzSize]="size" nz-button nz-popconfirm nzType="danger">删除</button>
         </nz-popconfirm>
       </td>
     </tr>

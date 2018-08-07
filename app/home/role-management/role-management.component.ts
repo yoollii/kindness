@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit} from '@angular/core';
+import { NzFormatEmitEvent, NzTreeNode } from 'ng-zorro-antd';
 @Component({
   selector: 'app-role-management',
   templateUrl: './role-management.component.html',
@@ -12,14 +12,63 @@ export class RoleManagementComponent implements OnInit {
   loading = true;
   isVisibleMiddle = false;
   isVisibleEditMiddle = false;
+  isVisibleMsgMiddle = false;
   sortName = null;
   sortValue = null;
+  currentName: string;
+  currentDescribe: string;
   listOfSearchName = [];
+  size = 'small'; // 按钮尺寸
   num: number;
   name: string;
   role: string;
   group: string;
   searchAddress: string;
+  expandKeys = ['1001', '10001'];
+  checkedKeys = ['100011', '1002'];
+  selectedKeys = ['10001', '100011'];
+  expandDefault = false;
+  nodes = [
+    new NzTreeNode({
+      title: '超级管理员',
+      key: '1001',
+      children: [
+        {
+          title: '管理员1',
+          key: '10001',
+          children: [
+            {
+              title: '用户1',
+              key: '100011',
+              isLeaf: true
+            },
+            {
+              title: '用户2',
+              key: '100012',
+              isLeaf: true
+            }
+          ]
+        },
+        {
+          title: '管理员2',
+          key: '10002',
+          children: [
+            {
+              title: '用户3',
+              key: '1000121',
+              isLeaf: true,
+              disabled: true
+            },
+            {
+              title: '用户4',
+              key: '1000122',
+              isLeaf: true
+            }
+          ]
+        }
+      ]
+    })
+  ];
   // 自定义选项开始
   allChecked = false;
   // dataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
@@ -31,7 +80,9 @@ export class RoleManagementComponent implements OnInit {
     this.allChecked = allChecked;
     this.indeterminate = !allChecked && !allUnChecked;
   }
-
+  mouseAction(name: string, event: NzFormatEmitEvent): void {
+    console.log(name, event);
+  }
   checkAll(value: boolean): void {
     this.dataSet.forEach(data => (data.checked = value));
     this.refreshStatus();
@@ -135,6 +186,20 @@ export class RoleManagementComponent implements OnInit {
   handleCancelEditMiddle(): void {
     console.log('click Cancel');
     this.isVisibleEditMiddle = false;
+  }
+  showModalMsgMiddle(data): void {
+    this.isVisibleMsgMiddle = true;
+    this.currentDescribe = data.group;
+    this.currentName = data.name;
+  }
+  handleOkMsgMiddle(): void {
+    console.log('click ok');
+    this.isVisibleMsgMiddle = false;
+  }
+
+  handleCancelMsgMiddle(): void {
+    console.log('click Cancel');
+    this.isVisibleMsgMiddle = false;
   }
 
   // 添加一行数据

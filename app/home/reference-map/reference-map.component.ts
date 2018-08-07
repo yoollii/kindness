@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadFile } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd';
 @Component({
   selector: 'app-reference-map',
   templateUrl: './reference-map.component.html',
@@ -28,8 +29,13 @@ export class ReferenceMapComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
+    console.log(this.validateForm.valid);
+    if (this.validateForm.valid) {
+      this.nzMessageService.info('导入成功');
+    }
+
   }
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private nzMessageService: NzMessageService) { }
 
   ngOnInit() {
     this.validateForm = this.fb.group({
@@ -37,7 +43,9 @@ export class ReferenceMapComponent implements OnInit {
       password: [null, [Validators.required]],
       remember: [true],
       gender: [null, [Validators.required]],
-      comment : [ '', [ Validators.required ] ]
+      province: [null, [Validators.required]],
+      city: [null, [Validators.required]],
+      comment: ['', [Validators.required]]
     });
   }
-  }
+}

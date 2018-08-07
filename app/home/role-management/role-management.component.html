@@ -61,6 +61,29 @@
     </nz-form-control>
   </nz-form-item>
 </nz-modal>
+<nz-modal nzWidth="600px" nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMsgMiddle" nzTitle="查看" (nzOnCancel)="handleCancelMsgMiddle()"
+  (nzOnOk)="handleOkMsgMiddle()">
+  <div class="showMsg">
+    <div class="showMsgLeft">
+      <nz-tree [(ngModel)]="nodes" [nzCheckable]="true" [nzMultiple]="true" [nzDefaultExpandedKeys]="expandKeys" [nzDefaultCheckedKeys]="checkedKeys"
+        [nzDefaultSelectedKeys]="selectedKeys" [nzDefaultExpandAll]="expandDefault" (nzClick)="mouseAction('click',$event)"
+        (nzDblClick)="mouseAction('dblclick', $event)">
+      </nz-tree>
+    </div>
+    <div class="showMsgRight">
+      <nz-form-item>
+        <nz-form-label nzFor="no">角色名称</nz-form-label>
+        <nz-form-control>
+          <input nz-input value='{{currentName}}' name="name" id="no2">
+        </nz-form-control>
+        <nz-form-label nzFor="no">角色描述</nz-form-label>
+        <nz-form-control>
+          <textarea name="group" id="no3">{{currentDescribe}}</textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</nz-modal>
 <nz-table #editRowTable nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()"
   [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
   <thead (nzSortChange)="sort($event)" nzSingleSort>
@@ -82,48 +105,36 @@
             <ng-container *ngIf="!editCache[data.key].edit">
               {{data.num}}
             </ng-container>
-            <ng-container *ngIf="editCache[data.key].edit">
-              <input type="text" nz-input [(ngModel)]="editCache[data.key].data.num">
-            </ng-container>
           </div>
         </div>
       </td>
-      <td>
+      <td #currentName>
         <ng-container *ngIf="!editCache[data.key].edit">
           {{data.name}}
-        </ng-container>
-        <ng-container *ngIf="editCache[data.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.name">
         </ng-container>
       </td>
       <td>
         <ng-container *ngIf="!editCache[data.key].edit">
           {{data.role}}
         </ng-container>
-        <ng-container *ngIf="editCache[data.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.role">
-        </ng-container>
       </td>
-      <td>
+      <td #currentGroup>
         <ng-container *ngIf="!editCache[data.key].edit">
           {{data.group}}
-        </ng-container>
-        <ng-container *ngIf="editCache[data.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.group">
         </ng-container>
       </td>
       <td>
         <div class="editable-row-operations" style="display: inline-block;">
           <ng-container>
-            <a>查看</a>
+            <button [nzSize]="size" (click)="showModalMsgMiddle(data)" nz-button nzType="default">查看</button>
           </ng-container>
           <ng-container *ngIf="!editCache[data.key].edit">
-            <a (click)="startEdit()">编辑</a>
+            <button [nzSize]="size" nz-button (click)="startEdit(data.key)" nzType="primary">编辑</button>
           </ng-container>
 
         </div>
         <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteRow(data.key)">
-          <a nz-popconfirm>删除</a>
+          <button [nzSize]="size" nz-button nz-popconfirm nzType="danger">删除</button>
         </nz-popconfirm>
       </td>
     </tr>

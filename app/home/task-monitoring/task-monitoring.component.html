@@ -12,8 +12,7 @@
   [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
   <thead (nzSortChange)="sort($event)" nzSingleSort>
     <tr>
-      <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
-        (nzCheckedChange)="checkAll($event)"></th>
+      <th></th>
       <th nzShowSort nzSortKey="num">序号</th>
       <th nzShowSort nzSortKey="name">任务名称</th>
       <th nzShowSort nzSortKey="source">任务来源</th>
@@ -24,8 +23,8 @@
     </tr>
   </thead>
   <tbody>
-<tr *ngFor="let data of editRowTable.data">
-<td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+    <tr *ngFor="let data of editRowTable.data">
+      <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
       <td>
         <div class="editable-cell">
           <div class="editable-cell-text-wrapper">
@@ -81,7 +80,7 @@
       <td>
         <div class="editable-row-operations" style="display: inline-block;">
           <ng-container>
-            <a>启用</a>
+            <button nz-button [nzSize]="size" nzType="primary">启用</button>
           </ng-container>
         </div>
       </td>
@@ -108,8 +107,7 @@
     [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
     <thead (nzSortChange)="sort($event)" nzSingleSort>
       <tr>
-        <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
-          (nzCheckedChange)="checkAll($event)"></th>
+        <th></th>
         <th nzShowSort nzSortKey="num">序号</th>
         <th nzShowSort nzSortKey="name">任务名称</th>
         <th nzShowSort nzSortKey="link">当前环节</th>
@@ -120,7 +118,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of editTakTable.data">
-        <td nzShowCheckbox [(nzChecked)]="data.checked1" (nzCheckedChange)="refreshStatus($event)"></td>
+        <td nzShowCheckbox [(nzChecked)]="data.checked1" (nzCheckedChange)="refreshStatus1($event)"></td>
         <td>
           <div class="editable-cell">
             <div class="editable-cell-text-wrapper">
