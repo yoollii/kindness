@@ -13,10 +13,11 @@ export class TaskMonitoringComponent implements OnInit {
   isVisibleMiddle = false;
   sortName = null;
   sortValue = null;
+  size = 'small'; // 按钮尺寸
   listOfSearchName = [];
   searchAddress: string;
   inputValue = 'my site';
-  size = 'default';
+  taskShow = false;
   // 自定义选项开始
   listOfSelection = [
     {
@@ -29,14 +30,14 @@ export class TaskMonitoringComponent implements OnInit {
       text: 'Select Odd Row',
       onSelect: () => {
         this.dataSet.forEach((data, index) => data.checked = index % 2 !== 0);
-        this.refreshStatus();
+        this.refreshStatus(event);
       }
     },
     {
       text: 'Select Even Row',
       onSelect: () => {
         this.dataSet.forEach((data, index) => data.checked = index % 2 === 0);
-        this.refreshStatus();
+        this.refreshStatus(event);
       }
     }
   ];
@@ -44,7 +45,14 @@ export class TaskMonitoringComponent implements OnInit {
   // dataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
   indeterminate = false;
 
-  refreshStatus(): void {
+  refreshStatus(event): void {
+    const allChecked = this.dataSet.every(value => value.checked === true);
+    const allUnChecked = this.dataSet.every(value => !value.checked);
+    this.allChecked = allChecked;
+    this.indeterminate = (!allChecked) && (!allUnChecked);
+    this.changeTaskShow(event);
+  }
+  refreshStatus1(event): void {
     const allChecked = this.dataSet.every(value => value.checked === true);
     const allUnChecked = this.dataSet.every(value => !value.checked);
     this.allChecked = allChecked;
@@ -53,7 +61,7 @@ export class TaskMonitoringComponent implements OnInit {
 
   checkAll(value: boolean): void {
     this.dataSet.forEach(data => data.checked = value);
-    this.refreshStatus();
+    this.refreshStatus(event);
   }
   // 自定义选项结束
   startEdit(key: string): void {
@@ -62,6 +70,9 @@ export class TaskMonitoringComponent implements OnInit {
 
   cancelEdit(key: string): void {
     this.editCache[key].edit = false;
+  }
+  changeTaskShow(event): void {
+    this.taskShow = event;
   }
 
   saveEdit(key: string): void {
@@ -96,7 +107,8 @@ export class TaskMonitoringComponent implements OnInit {
         type: '',
         system: '***应用系统',
         describe: '进行***任务',
-        checked: false
+        checked: false,
+        checked1: false,
       });
     }
     this.loading = false;

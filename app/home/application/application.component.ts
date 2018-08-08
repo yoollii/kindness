@@ -11,10 +11,38 @@ export class ApplicationComponent implements OnInit {
   dataSet = [];
   loading = true;
   isVisibleMiddle = false;
+  isVisibleEditMiddle = false;
   sortName = null;
   sortValue = null;
+  size = 'small'; // 按钮尺寸
+  num: number;
+  name: string;
+  template: string;
+  describe: string;
   listOfSearchName = [];
   searchAddress: string;
+  listOfSelection = [
+    {
+      text: 'Select All Row',
+      onSelect: () => {
+        this.checkAll(true);
+      }
+    },
+    {
+      text: 'Select Odd Row',
+      onSelect: () => {
+        this.dataSet.forEach((data, index) => data.checked = index % 2 !== 0);
+        this.refreshStatus();
+      }
+    },
+    {
+      text: 'Select Even Row',
+      onSelect: () => {
+        this.dataSet.forEach((data, index) => data.checked = index % 2 === 0);
+        this.refreshStatus();
+      }
+    }
+  ];
   // 自定义选项开始
   allChecked = false;
   // dataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
@@ -33,7 +61,8 @@ export class ApplicationComponent implements OnInit {
   }
   // 自定义选项结束
   startEdit(key: string): void {
-    this.editCache[key].edit = true;
+    // this.editCache[key].edit = true;
+    this.showModalEditMiddle();
   }
 
   cancelEdit(key: string): void {
@@ -114,7 +143,18 @@ export class ApplicationComponent implements OnInit {
     console.log('click Cancel');
     this.isVisibleMiddle = false;
   }
+  showModalEditMiddle(): void {
+    this.isVisibleEditMiddle = true;
+  }
+  handleOkEditkMiddle(): void {
+    console.log('click ok');
+    this.isVisibleEditMiddle = false;
+  }
 
+  handleCancelEditMiddle(): void {
+    console.log('click Cancel');
+    this.isVisibleEditMiddle = false;
+  }
 
 
   // 添加一行数据

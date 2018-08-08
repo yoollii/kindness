@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -11,6 +11,9 @@ export class TableComponent implements OnInit {
   dataSet = [];
   loading = true;
   isVisibleMiddle = false;
+  name: string;
+  age: number;
+  address: string;
   sortName = null;
   sortValue = null;
   listOfSearchName = [];
@@ -107,10 +110,11 @@ export class TableComponent implements OnInit {
 
   search(): void {
     if (this.sortName) {
-      this.dataSet=this.dataSet.sort((a, b) => (this.sortValue === 'ascend') ? (a[ this.sortName ] > b[ this.sortName ] ? 1 : -1) : (b[ this.sortName ] > a[ this.sortName ] ? 1 : -1));
+      // tslint:disable-next-line:max-line-length
+      this.dataSet = this.dataSet.sort((a, b) => (this.sortValue === 'ascend') ? (a[ this.sortName ] > b[ this.sortName ] ? 1 : -1) : (b[ this.sortName ] > a[ this.sortName ] ? 1 : -1));
 //    this.updateEditCache();
     } else {
-      this.dataSet=this.dataSet;
+      this.dataSet = this.dataSet;
 //    this.updateEditCache();
     }
     console.log(this.dataSet);

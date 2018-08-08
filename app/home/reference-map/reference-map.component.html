@@ -5,3 +5,76 @@
   </nz-breadcrumb-item>
   <nz-breadcrumb-item>基准图导入</nz-breadcrumb-item>
 </nz-breadcrumb>
+
+<form nz-form [nzLayout]="'vertical'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12" class="form-wrap" nzType="flex" nzAlign="middle">
+      <nz-form-item>
+        <nz-form-label nzRequired>姓名</nz-form-label>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="anticon anticon-user">
+            <input formControlName="userName" nz-input placeholder="姓名">
+          </nz-input-group>
+          <nz-form-explain *ngIf="validateForm.get('userName').dirty && validateForm.get('userName').errors">请输入姓名</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12" class="form-wrap">
+      <nz-form-item>
+        <nz-form-label nzRequired>性别</nz-form-label>
+        <nz-form-control>
+          <nz-select id="gender" formControlName="gender" nzPlaceHolder="选择性别">
+            <nz-option nzLabel="男" nzValue="male"></nz-option>
+            <nz-option nzLabel="女" nzValue="female"></nz-option>
+          </nz-select>
+          <nz-form-explain *ngIf="validateForm.get('gender').dirty && validateForm.get('gender').errors">请选择性别</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12" class="form-wrap">
+      <nz-form-item>
+        <nz-form-label nzRequired>城市</nz-form-label>
+        <nz-form-control>
+          <nz-select id="city" formControlName="city" nzPlaceHolder="选择城市">
+            <nz-option nzLabel="成都" nzValue="chengdu"></nz-option>
+            <nz-option nzLabel="深圳" nzValue="shenzhen"></nz-option>
+          </nz-select>
+          <nz-form-explain *ngIf="validateForm.get('city').dirty && validateForm.get('city').errors">请选择城市</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12" class="form-wrap">
+      <nz-form-item>
+        <nz-form-label nzRequired>省份</nz-form-label>
+        <nz-form-control>
+          <nz-select id="province" formControlName="province" nzPlaceHolder="选择省份">
+            <nz-option nzLabel="四川" nzValue="sichuan"></nz-option>
+            <nz-option nzLabel="广东" nzValue="guangdong"></nz-option>
+          </nz-select>
+          <nz-form-explain *ngIf="validateForm.get('province').dirty && validateForm.get('province').errors">请选择省份</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="24" class="form-wrap">
+      <nz-form-item>
+        <nz-form-label nzRequired>备注</nz-form-label>
+        <nz-form-control>
+          <textarea formControlName="comment" nz-input placeholder="写点什么"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <nz-form-item>
+    <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" [nzFileList]="fileList" nzMultiple (nzChange)="handleChange($event)">
+      <span class="upload-wrap" nz-button>
+        <i class="anticon anticon-upload"></i>
+        <span>浏览</span>
+      </span>
+    </nz-upload>
+  </nz-form-item>
+<nz-form-item>
+  <nz-form-control>
+    <button nz-button nzType="primary">导入</button>
+  </nz-form-control>
+</nz-form-item>
+</form>

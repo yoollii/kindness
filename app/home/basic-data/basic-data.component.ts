@@ -10,6 +10,7 @@ export class BasicDataComponent implements OnInit {
   editCache = {};
   dataSet = [];
   loading = true;
+  basicShow = false;
   isVisibleMiddle = false;
   sortName = null;
   sortValue = null;
@@ -54,6 +55,9 @@ export class BasicDataComponent implements OnInit {
   checkAll(value: boolean): void {
     this.dataSet.forEach(data => data.checked = value);
     this.refreshStatus();
+  }
+  changShow(): void {
+    this.basicShow = !this.basicShow;
   }
   // 自定义选项结束
   startEdit(key: string): void {

@@ -13,8 +13,15 @@ export class ProcessManagementComponent implements OnInit {
   loading = true;
   isVisibleMiddle = false;
   isVisibleMiddle1 = false;
+  isVisibleEditMiddle = false;
   sortName = null;
   sortValue = null;
+  num: number;
+  size = 'small'; // 按钮尺寸
+  name: string;
+  template: string;
+  role: string;
+  describe: string;
   listOfSearchName = [];
   searchAddress: string;
   panels = [
@@ -72,7 +79,8 @@ export class ProcessManagementComponent implements OnInit {
   }
   // 自定义选项结束
   startEdit(key: string): void {
-    this.editCache[key].edit = true;
+   // this.editCache[key].edit = true;
+    this.showModalEditMiddle();
   }
 
   cancelEdit(key: string): void {
@@ -318,6 +326,19 @@ export class ProcessManagementComponent implements OnInit {
     console.log('click Cancel');
     this.isVisibleMiddle = false;
     this.isVisibleMiddle1 = false;
+  }
+
+  showModalEditMiddle(): void {
+    this.isVisibleEditMiddle = true;
+  }
+  handleOkEditMiddle(): void {
+    console.log('click ok');
+    this.isVisibleEditMiddle = false;
+  }
+
+  handleCancelEditMiddle(): void {
+    console.log('click Cancel');
+    this.isVisibleEditMiddle = false;
   }
 
 
