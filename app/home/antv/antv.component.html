@@ -1,4 +1,38 @@
+<div class="content-top" nz-row>
+  <div class="antvText" nz-col nzSpan="24">
+    <strong>总体统计：</strong>
+    <span>待处理任务数：10 正在执行任务数：10 已完成任务数：10</span>
+  </div>
+  <div id="c1" align="center" nz-col nzSpan="12"></div>
+  <div id="c2" align="center" nz-col nzSpan="12"></div>
+</div>
 <div nz-row>
-    <div id="c1" align="center" style="margin-top:100px" nz-col nzSpan="12">col-12</div>
-    <div id="c2" align="center" style="margin-top:100px" nz-col nzSpan="12">col-12</div>
+  <div class="antvText" nz-col nzSpan="24">
+    <strong>按型号统计：</strong>
+  </div>
+  <div align="center" nz-col nzSpan="12">
+    <nz-table #basicTable nzBordered [nzData]="dataSet">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>型号</th>
+          <th>研究室</th>
+          <th>待处理任务</th>
+          <th>正在执行任务</th>
+          <th>已结束任务</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{data.key}}</td>
+          <td>{{data.model}}</td>
+          <td>{{data.room}}</td>
+          <td>{{data.pending}}</td>
+          <td>{{data.executing}}</td>
+          <td>{{data.complete}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div id="c3" align="center" nz-col nzSpan="12"></div>
 </div>
