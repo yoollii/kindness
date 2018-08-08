@@ -8,12 +8,10 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   loading = false;
   constructor(public router: Router) { }
-
   ngOnInit() { }
   isCollapsed = false;
   triggerTemplate = null;
   @ViewChild('trigger') customTrigger: TemplateRef<void>;
-
   changeTrigger(): void {
     this.triggerTemplate = this.customTrigger;
   }
