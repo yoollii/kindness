@@ -27,7 +27,7 @@ import { ReferenceMapComponent } from './home/reference-map/reference-map.compon
 import { ResultsDataComponent } from './home/results-data/results-data.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
   { path: 'login', component: LoginComponent },
   {
     path: 'home',

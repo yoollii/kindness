@@ -35,7 +35,6 @@ import { BasicDataComponent } from './home/basic-data/basic-data.component';
 import { SpaceDataComponent } from './home/space-data/space-data.component';
 import { ReferenceMapComponent } from './home/reference-map/reference-map.component';
 import { ResultsDataComponent } from './home/results-data/results-data.component';
-
 registerLocaleData(zh);
 
 @NgModule({
