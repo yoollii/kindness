@@ -9,7 +9,7 @@ export class ProcessManagementComponent implements OnInit {
   i = 1;
   editCache = {};
   dataSet = [];
-  jsplmdIs:boolean=false;
+  jsplmdIs = false;
   loading = true;
   isVisibleMiddle = false;
   isVisibleMiddle1 = false;
@@ -48,14 +48,14 @@ export class ProcessManagementComponent implements OnInit {
       text: 'Select Odd Row',
       onSelect: () => {
         this.dataSet.forEach((data, index) => data.checked = index % 2 !== 0);
-        this.refreshStatus();
+        this.refreshStatus(event);
       }
     },
     {
       text: 'Select Even Row',
       onSelect: () => {
         this.dataSet.forEach((data, index) => data.checked = index % 2 === 0);
-        this.refreshStatus();
+        this.refreshStatus(event);
       }
     }
   ];
@@ -65,7 +65,7 @@ export class ProcessManagementComponent implements OnInit {
   indeterminate = false;
 
   refreshStatus(event): void {
-    this.jsplmdIs=event;
+    this.jsplmdIs = event;
     const allChecked = this.dataSet.every(value => value.checked === true);
     const allUnChecked = this.dataSet.every(value => !value.checked);
     this.allChecked = allChecked;
@@ -75,7 +75,7 @@ export class ProcessManagementComponent implements OnInit {
 
   checkAll(value: boolean): void {
     this.dataSet.forEach(data => data.checked = value);
-    this.refreshStatus();
+    this.refreshStatus(event);
   }
   // 自定义选项结束
   startEdit(key: string): void {
@@ -126,161 +126,161 @@ export class ProcessManagementComponent implements OnInit {
       // the overlays to decorate each connection with.  note that the label overlay uses a function to generate the label text; in this
       // case it returns the 'labelText' member that we set on each connection in the 'init' method below.
       ConnectionOverlays: [
-        ["Arrow", {
+        ['Arrow', {
           location: 1,
           visible: true,
           width: 5,
           length: 5,
-          id: "ARROW",
+          id: 'ARROW',
           events: {
-            click: function () { alert("you clicked on the arrow overlay") }
+            click: function () { alert('you clicked on the arrow overlay') }
           }
         }],
-        ["Label", {
+        ['Label', {
           location: 0.1,
-          id: "label",
-          cssClass: "aLabel",
+          id: 'label',
+          cssClass: 'aLabel',
           events: {
             // connection.getOverlay("label")
             tap: function () {
-              let label = prompt("请输入标签文字：");
+              let label = prompt('请输入标签文字：');
               this.setLabel(label);
             }
           }
         }]
       ],
-      Container: "canvas"
+      Container: 'canvas'
     });
 
     var basicType = {
-      connector: "StateMachine",
-      paintStyle: { stroke: "red", strokeWidth: 4 },
-      hoverPaintStyle: { stroke: "blue" },
+      connector: 'StateMachine',
+      paintStyle: { stroke: 'red', strokeWidth: 4 },
+      hoverPaintStyle: { stroke: 'blue' },
       overlays: [
-        "Arrow"
+        'Arrow'
       ]
     };
-    instance.registerConnectionType("basic", basicType);
+    instance.registerConnectionType('basic', basicType);
 
     // this is the paint style for the connecting lines..
     var connectorPaintStyle = {
         strokeWidth: 2,
-        stroke: "#61B7CF",
-        joinstyle: "round",
-        outlineStroke: "white",
+        stroke: '#61B7CF',
+        joinstyle: 'round',
+        outlineStroke: 'white',
         outlineWidth: 2
       },
       // .. and this is the hover style.
       connectorHoverStyle = {
         strokeWidth: 3,
-        stroke: "#216477",
+        stroke: '#216477',
         outlineWidth: 5,
-        outlineStroke: "white"
+        outlineStroke: 'white'
       },
       endpointHoverStyle = {
-        fill: "#216477",
-        stroke: "#216477"
+        fill: '#216477',
+        stroke: '#216477'
       },
       // the definition of source endpoints (the small blue ones)
       sourceEndpoint = {
-        endpoint: "Dot",
+        endpoint: 'Dot',
         paintStyle: {
-          stroke: "#7AB02C",
-          fill: "transparent",
+          stroke: '#7AB02C',
+          fill: 'transparent',
           radius: 7,
           strokeWidth: 1
         },
         isSource: true,
-        connector: ["Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }],
+        connector: ['Flowchart', { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }],
         connectorStyle: connectorPaintStyle,
         hoverPaintStyle: endpointHoverStyle,
         connectorHoverStyle: connectorHoverStyle,
         dragOptions: {},
         overlays: [
-          ["Arrow", {
+          ['Arrow', {
             location: [0.5, 1.5],
-            Arrow: "Drag",
-            cssClass: "endpointSourceLabel",
+            Arrow: 'Drag',
+            cssClass: 'endpointSourceLabel',
             visible: false
           }]
         ]
       },
       // the definition of target endpoints (will appear when the user drags a connection)
       targetEndpoint = {
-        endpoint: "Dot",
-        paintStyle: { fill: "#7AB02C", radius: 7 },
+        endpoint: 'Dot',
+        paintStyle: { fill: '#7AB02C', radius: 7 },
         hoverPaintStyle: endpointHoverStyle,
         maxConnections: -1,
-        dropOptions: { hoverClass: "hover", activeClass: "active" },
+        dropOptions: { hoverClass: 'hover', activeClass: 'active' },
         isTarget: true,
         overlays: [
-          ["Label", { location: [0.5, -0.5], label: "Drop", cssClass: "endpointTargetLabel", visible: false }]
+          ['Label', { location: [0.5, -0.5], label: 'Drop', cssClass: 'endpointTargetLabel', visible: false }]
         ]
       },
       init = function (connection) {
-        connection.getOverlay("label").setLabel(connection.sourceId.substring(15) + "-" + connection.targetId.substring(15));
+        connection.getOverlay('label').setLabel(connection.sourceId.substring(15) + '-' + connection.targetId.substring(15));
       };
     var _addEndpoints = function (toId, sourceAnchors, targetAnchors) {
-      for (var i = 0; i < sourceAnchors.length; i++) {
-        var sourceUUID = toId + sourceAnchors[i];
-        instance.addEndpoint("flowchart" + toId, sourceEndpoint, {
+      for (let i = 0; i < sourceAnchors.length; i++) {
+        let sourceUUID = toId + sourceAnchors[i];
+        instance.addEndpoint('flowchart' + toId, sourceEndpoint, {
           anchor: sourceAnchors[i], uuid: sourceUUID
         });
       }
-      for (var j = 0; j < targetAnchors.length; j++) {
-        var targetUUID = toId + targetAnchors[j];
-        instance.addEndpoint("flowchart" + toId, targetEndpoint, { anchor: targetAnchors[j], uuid: targetUUID });
+      for (let j = 0; j < targetAnchors.length; j++) {
+        const targetUUID = toId + targetAnchors[j];
+        instance.addEndpoint('flowchart' + toId, targetEndpoint, { anchor: targetAnchors[j], uuid: targetUUID });
       }
     };
 
     // suspend drawing and initialise.
     instance.batch(function () {
-      _addEndpoints("Window4", ["TopCenter", "BottomCenter"], ["LeftMiddle", "RightMiddle"]);
-      _addEndpoints("Window2", ["LeftMiddle", "BottomCenter"], ["TopCenter", "RightMiddle"]);
-      _addEndpoints("Window3", ["RightMiddle", "BottomCenter"], ["LeftMiddle", "TopCenter"]);
-      _addEndpoints("Window1", ["LeftMiddle", "RightMiddle"], ["TopCenter", "BottomCenter"]);
+      _addEndpoints('Window4', ['TopCenter', 'BottomCenter'], ['LeftMiddle', 'RightMiddle']);
+      _addEndpoints('Window2', ['LeftMiddle', 'BottomCenter'], ['TopCenter', 'RightMiddle']);
+      _addEndpoints('Window3', ['RightMiddle', 'BottomCenter'], ['LeftMiddle', 'TopCenter']);
+      _addEndpoints('Window1', ['LeftMiddle', 'RightMiddle'], ['TopCenter', 'BottomCenter']);
 
       // listen for new connections; initialise them the same way we initialise the connections at startup.
-      instance.bind("connection", function (connInfo, originalEvent) {
+      instance.bind('connection', function (connInfo, originalEvent) {
         init(connInfo.connection);
       });
 
       // make all the window divs draggable
-      instance.draggable(jsPlumb.getSelector(".flowchart-demo .window"), { grid: [20, 20] });
+      instance.draggable(jsPlumb.getSelector('.flowchart-demo .window'), { grid: [20, 20] });
       // THIS DEMO ONLY USES getSelector FOR CONVENIENCE. Use your library's appropriate selector
       // method, or document.querySelectorAll:
-      //jsPlumb.draggable(document.querySelectorAll(".window"), { grid: [20, 20] });
+      // jsPlumb.draggable(document.querySelectorAll(".window"), { grid: [20, 20] });
 
       // connect a few up
-      instance.connect({ uuids: ["Window1RightMiddle", "Window2LeftMiddle"], editable: true });
-      instance.connect({ uuids: ["Window2RightMiddle", "Window3LeftMiddle"], editable: true });
-      instance.connect({ uuids: ["Window3RightMiddle", "Window4LeftMiddle"], editable: true });
+      instance.connect({ uuids: ['Window1RightMiddle', 'Window2LeftMiddle'], editable: true });
+      instance.connect({ uuids: ['Window2RightMiddle', 'Window3LeftMiddle'], editable: true });
+      instance.connect({ uuids: ['Window3RightMiddle', 'Window4LeftMiddle'], editable: true });
 
-        instance.connect({ uuids: ["Window5RightMiddle", "Window6LeftMiddle"], editable: true });
-        instance.connect({ uuids: ["Window6RightMiddle", "Window7LeftMiddle"], editable: true });
-        instance.connect({ uuids: ["Window7RightMiddle", "Window8LeftMiddle"], editable: true });
+        instance.connect({ uuids: ['Window5RightMiddle', 'Window6LeftMiddle'], editable: true });
+        instance.connect({ uuids: ['Window6RightMiddle', 'Window7LeftMiddle'], editable: true });
+        instance.connect({ uuids: ['Window7RightMiddle', 'Window8LeftMiddle'], editable: true });
       // listen for clicks on connections, and offer to delete connections on click.
       //
-      instance.bind("click", function (conn, originalEvent) {
+      instance.bind('click', function (conn, originalEvent) {
         // if (confirm("Delete connection from " + conn.sourceId + " to " + conn.targetId + "?"))
         //   instance.detach(conn);
-        conn.toggleType("basic");
+        conn.toggleType('basic');
       });
 
-      instance.bind("connectionDrag", function (connection) {
-        console.log("connection " + connection.id + " is being dragged. suspendedElement is ", connection.suspendedElement, " of type ", connection.suspendedElementType);
+      instance.bind('connectionDrag', function (connection) {
+        console.log('connection ' + connection.id + ' is being dragged. suspendedElement is ', connection.suspendedElement, ' of type ', connection.suspendedElementType);
       });
 
-      instance.bind("connectionDragStop", function (connection) {
-        console.log("connection " + connection.id + " was dragged");
+      instance.bind('connectionDragStop', function (connection) {
+        console.log('connection ' + connection.id + ' was dragged');
       });
 
-      instance.bind("connectionMoved", function (params) {
-        console.log("connection " + params.connection.id + " was moved");
+      instance.bind('connectionMoved', function (params) {
+        console.log('connection ' + params.connection.id + ' was moved');
       });
     });
 
-    jsPlumb.fire("jsPlumbDemoLoaded", instance);
+    jsPlumb.fire('jsPlumbDemoLoaded', instance);
   }
   // 排序
   sort(sort: { key: string, value: string }): void {
@@ -359,9 +359,9 @@ export class ProcessManagementComponent implements OnInit {
   }
 
 
-  abdeRow(){
+  abdeRow() {
     console.log(1);
-    this.isVisibleMiddle1=true;
+    this.isVisibleMiddle1 = true;
   }
   // 删除
   deleteRow(i: string): void {
