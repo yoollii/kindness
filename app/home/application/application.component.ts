@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-application',
   templateUrl: './application.component.html',
@@ -85,8 +85,15 @@ export class ApplicationComponent implements OnInit {
       }
     });
   }
-  constructor() { }
-
+  constructor(public router: Router) { }
+  gorouter(item: any) {
+    // 	if(this.tabs.indexOf(item.split('/')[1])==-1){
+    // 		this.tabs.push(item.split('/')[1]);
+    this.router.navigateByUrl(item);
+    // 	}else{
+    // 		this.router.navigateByUrl(item);
+    // 	}
+  }
   ngOnInit(): void {
     for (let i = 0; i < 30; i++) {
       this.dataSet.push({

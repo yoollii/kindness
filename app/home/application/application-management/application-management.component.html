@@ -1,0 +1,86 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+  <nz-breadcrumb-item>
+    <span>当前位置：</span>
+    <a (click)="gorouter('home/application')">专用数据管理</a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>成果数据</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="search-group">
+  <ng-container>
+    <button [nzSize]="size" style='margin-left: 15px;' (click)='showModalSetMiddle()' nz-button nzType="default">保存</button>
+  </ng-container>
+  <nz-input-group nzSearch style="width: 300px;" nzSize="default" [nzSuffix]="suffixButton">
+    <input type="text" style="padding: 0" nz-input placeholder="输入搜索内容">
+  </nz-input-group>
+  <ng-template #suffixButton>
+    <button nz-button nzType="primary" nzSize="default" nzSearch>搜索</button>
+  </ng-template>
+</div>
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()"
+  (nzOnOk)="handleOkMiddle()">
+  <nz-table #rowSelectionTable [nzBordered]="true" [nzData]="data" (nzCurrentPageDataChange)="currentPageDataChange($event)"
+    (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()">
+    <thead>
+      <tr>
+        <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+        <th>编号</th>
+        <th>服务名称</th>
+        <th>状态</th>
+        <th>服务描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of rowSelectionTable.data">
+        <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus($event)"></td>
+        <td>{{data.num}}</td>
+        <td>{{data.name}}</td>
+        <td>{{data.state}}</td>
+        <td>{{data.descripe}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-modal>
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleSetMiddle" nzTitle="新增" (nzOnCancel)="handleCancelSetMiddle()"
+  (nzOnOk)="handleOkSetMiddle()">
+  <div class="find-select">
+    <label for="">流程数据映射</label>
+    <input nz-input placeholder="流程数据映射" [(ngModel)]="value">
+  </div>
+  <div class="find-select">
+    <label for="">输入配置</label>
+    <textarea row="4" nz-input [(ngModel)]="value"></textarea>
+  </div>
+  <div class="find-select">
+    <label for="">输出配置</label>
+    <textarea row="4" nz-input [(ngModel)]="value"></textarea>
+  </div>
+</nz-modal>
+<nz-card nzType="inner" nzTitle="查看选项">
+  <div nz-col nzSpan="12" class="find-select">
+    <label for="">应用名称</label>
+    <input nz-input placeholder="应用名称" [(ngModel)]="value">
+  </div>
+  <div nz-col nzSpan="12" class="find-select">
+    <label for="">应用标识</label>
+    <input nz-input placeholder="应用标识" [(ngModel)]="value">
+  </div>
+  <div nz-col nzSpan="12" class="find-select">
+    <label for="">基础地址</label>
+    <input nz-input placeholder="基础地址" [(ngModel)]="value">
+  </div>
+  <div nz-col nzSpan="12" class="find-select">
+    <label for="">流程模板</label>
+    <nz-select style="width: 100%;" [(ngModel)]="selectedValue" nzAllowClear nzPlaceHolder="流程模板">
+      <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+      <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+      <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+    </nz-select>
+  </div>
+  <div nz-col nzSpan="24" class="find-select">
+    <label for="">描述</label>
+    <textarea row="4" nz-input [(ngModel)]="inputValue"></textarea>
+  </div>
+</nz-card>
+<nz-card style='margin-top: 16px;' nzType="inner" nzTitle="检索选项">
+
+</nz-card>
