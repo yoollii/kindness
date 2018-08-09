@@ -36,6 +36,7 @@ import { SpaceDataComponent } from './home/space-data/space-data.component';
 import { ReferenceMapComponent } from './home/reference-map/reference-map.component';
 import { ResultsDataComponent } from './home/results-data/results-data.component';
 import { ProcessMaagementListComponent } from './home/process-maagement-list/process-maagement-list.component';
+import { ApplicationManagementComponent } from './home/application/application-management/application-management.component';
 registerLocaleData(zh);
 
 @NgModule({
@@ -67,6 +68,7 @@ registerLocaleData(zh);
     ReferenceMapComponent,
     ResultsDataComponent,
     ProcessMaagementListComponent,
+    ApplicationManagementComponent,
   ],
   imports: [
     BrowserModule,

@@ -22,21 +22,33 @@
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()"
   (nzOnOk)="handleOkMiddle()">
   <nz-form-item>
-    <nz-form-label nzFor="no">序号</nz-form-label>
+    <!-- <nz-form-label nzFor="no">序号</nz-form-label>
     <nz-form-control>
       <input nz-input [(ngModel)]="num" name="num" placeholder="请输入" id="no1">
-    </nz-form-control>
+    </nz-form-control> -->
     <nz-form-label nzFor="no">应用系统名称</nz-form-label>
+    <nz-form-control>
+      <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
+    </nz-form-control>
+    <nz-form-label nzFor="no">应用标识</nz-form-label>
+    <nz-form-control>
+      <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
+    </nz-form-control>
+    <nz-form-label nzFor="no">应用系统描述</nz-form-label>
+    <nz-form-control>
+      <textarea row="4" nz-input [(ngModel)]="describe" name="describe" placeholder="请输入" id="no3"></textarea>
+    </nz-form-control>
+    <nz-form-label nzFor="no">基础地址</nz-form-label>
     <nz-form-control>
       <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
     </nz-form-control>
     <nz-form-label nzFor="no">流程模板</nz-form-label>
     <nz-form-control>
-      <input nz-input [(ngModel)]="template" name="template" placeholder="请输入" id="no3">
-    </nz-form-control>
-    <nz-form-label nzFor="no">应用系统描述</nz-form-label>
-    <nz-form-control>
-      <input nz-input [(ngModel)]="describe" name="describe" placeholder="请输入" id="no3">
+      <nz-select style="width: 100%;" [(ngModel)]="template" name="template" nzAllowClear nzPlaceHolder="流程模板">
+        <nz-option nzValue="model1" nzLabel="模板一"></nz-option>
+        <nz-option nzValue="model2" nzLabel="模板二"></nz-option>
+        <nz-option nzValue="model3" nzLabel="模版三"></nz-option>
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
 </nz-modal>
@@ -128,6 +140,9 @@
           </ng-container>
           <ng-container>
             <button [nzSize]="size" nz-button nzType="default">另存</button>
+          </ng-container>
+          <ng-container>
+            <button [nzSize]="size" nz-button (click)="gorouter('home/applicationManagement')" nzType="default">配置</button>
           </ng-container>
           <ng-container *ngIf="editCache[data.key].edit">
             <button (click)="saveEdit(data.key)" nz-button nzType="default">保存</button>

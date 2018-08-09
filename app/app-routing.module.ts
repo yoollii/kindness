@@ -25,10 +25,12 @@ import { BasicDataComponent } from './home/basic-data/basic-data.component';
 import { SpaceDataComponent } from './home/space-data/space-data.component';
 import { ReferenceMapComponent } from './home/reference-map/reference-map.component';
 import { ResultsDataComponent } from './home/results-data/results-data.component';
+import { ApplicationManagementComponent } from './home/application/application-management/application-management.component';
 
 const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
@@ -36,6 +38,7 @@ const routes: Routes = [
       { path: '', component: HomePageComponent },
       { path: 'buttons', component: ButtonsComponent },
       { path: 'application', component: ApplicationComponent },
+      { path: 'applicationManagement', component: ApplicationManagementComponent },
       { path: 'homePage', component: HomePageComponent },
       { path: 'table', component: TableComponent },
       { path: 'form', component: FormComponent },
