@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
   changeTrigger(): void {
     this.triggerTemplate = this.customTrigger;
   }
-
   logout() {
     //  this.tokenService.clear();
     this.router.navigateByUrl('login');
