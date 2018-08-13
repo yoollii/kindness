@@ -1,20 +1,27 @@
 <div class="home-wrap">
   <div class="content-left">
-    <p style="margin-top:100px"></p>
-    <div class="diqiu-div">
-      <img class="diqiu-img" src="../../../assets/img/diqiu.png" />
+    <div style="background: #fafafa;padding:10px;">
+      <div nz-row [nzGutter]="8">
+        <div nz-col [nzSpan]="8" *ngFor="let panel of panels">
+          <nz-card nzTitle="{{panel.name}}">
+            <p>
+              <a>{{panel.data1}}</a>
+            </p>
+            <p>
+              <a>{{panel.data2}}</a>
+            </p>
+          </nz-card>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="content-right">
-    <nz-collapse [nzBordered]="false">
-      <nz-collapse-panel *ngFor="let panel of panels" [nzHeader]="panel.name" [nzActive]="panel.active" [ngStyle]="panel.customStyle">
-        <p>
-          <a>{{panel.data1}}</a>
-        </p>
-        <p>
-          <a>{{panel.data2}}</a>
-        </p>
-      </nz-collapse-panel>
-    </nz-collapse>
+    <div nz-col [nzSpan]="12" id="c1">
+      <strong>任务统计:</strong>
+    </div>
+    <div nz-col [nzSpan]="12" id="c2">
+      <strong>日志统计:</strong>
+    </div>
+    <!-- <div class="diqiu-div">
+      <img class="diqiu-img" src="../../../assets/img/diqiu.png" />
+    </div> -->
   </div>
 </div>
