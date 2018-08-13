@@ -32,7 +32,11 @@
     </nz-form-control>
     <nz-form-label nzFor="no">角色权限</nz-form-label>
     <nz-form-control>
-      <input nz-input [(ngModel)]="role" name="role" placeholder="请输入" id="no3">
+      <nz-select style="width: 100%;" [(ngModel)]="role" nzAllowClear nzPlaceHolder="角色权限">
+        <nz-option nzValue="superAdmin" nzLabel="超级管理员"></nz-option>
+        <nz-option nzValue="admin" nzLabel="管理员"></nz-option>
+        <nz-option nzValue="user" nzLabel="一般用户"></nz-option>
+      </nz-select>
     </nz-form-control>
     <nz-form-label nzFor="no">角色描述</nz-form-label>
     <nz-form-control>
@@ -53,7 +57,11 @@
     </nz-form-control>
     <nz-form-label nzFor="no">角色权限</nz-form-label>
     <nz-form-control>
-      <input nz-input [(ngModel)]="role" name="role" placeholder="请输入" id="no3">
+      <nz-select style="width: 100%;" [(ngModel)]="role" nzAllowClear nzPlaceHolder="角色权限">
+        <nz-option nzValue="superAdmin" nzLabel="超级管理员"></nz-option>
+        <nz-option nzValue="admin" nzLabel="管理员"></nz-option>
+        <nz-option nzValue="user" nzLabel="一般用户"></nz-option>
+      </nz-select>
     </nz-form-control>
     <nz-form-label nzFor="no">角色描述</nz-form-label>
     <nz-form-control>
