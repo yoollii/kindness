@@ -6,9 +6,7 @@
   <nz-breadcrumb-item>成果数据</nz-breadcrumb-item>
 </nz-breadcrumb>
 <div class="search-group">
-  <ng-container>
-    <button [nzSize]="size" style='margin-left: 15px;' (click)='showModalSetMiddle()' nz-button nzType="default">保存</button>
-  </ng-container>
+
   <nz-input-group nzSearch style="width: 300px;" nzSize="default" [nzSuffix]="suffixButton">
     <input type="text" style="padding: 0" nz-input placeholder="输入搜索内容">
   </nz-input-group>
@@ -40,20 +38,162 @@
     </tbody>
   </nz-table>
 </nz-modal>
-<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleSetMiddle" nzTitle="新增" (nzOnCancel)="handleCancelSetMiddle()"
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle1" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()"
+  (nzOnOk)="handleOkMiddle()">
+  <nz-table #rowSelectionTable1 [nzBordered]="true" [nzData]="data" (nzCurrentPageDataChange)="currentPageDataChange($event)"
+    (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()">
+    <thead>
+      <tr>
+        <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+        <th>编号</th>
+        <th>服务名称</th>
+        <th>状态</th>
+        <th>服务描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of rowSelectionTable1.data">
+        <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus($event)"></td>
+        <td>{{data.num}}</td>
+        <td>{{data.name}}</td>
+        <td>{{data.state}}</td>
+        <td>{{data.descripe}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-modal>
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="showpop" nzTitle="属性设置" (nzOnCancel)="handleCancelMiddle()"
+  (nzOnOk)="handleOkMiddle()">
+   <nz-form-item>
+          <nz-form-label nzFor="no">流程数据映射</nz-form-label>
+          <nz-form-control>
+              <input nz-input [(ngModel)]="num" name="num" placeholder="请输入" id="no1">
+          </nz-form-control>
+          <nz-form-label nzFor="no">输入配置</nz-form-label>
+          <nz-form-control>
+              <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
+          </nz-form-control>
+          <nz-form-label nzFor="no">输出配置</nz-form-label>
+          <nz-form-control>
+              <input nz-input [(ngModel)]="template" name="template" placeholder="请输入" id="no3">
+          </nz-form-control>
+      </nz-form-item>
+</nz-modal>
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()"
+  (nzOnOk)="handleOkMiddle()">
+  <nz-table #rowSelectionTable1 [nzBordered]="true" [nzData]="data" (nzCurrentPageDataChange)="currentPageDataChange($event)"
+    (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()">
+    <thead>
+      <tr>
+        <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+        <th>编号</th>
+        <th>服务名称</th>
+        <th>状态</th>
+        <th>服务描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of rowSelectionTable1.data">
+        <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus($event)"></td>
+        <td>{{data.num}}</td>
+        <td>{{data.name}}</td>
+        <td>{{data.state}}</td>
+        <td>{{data.descripe}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-modal>
+
+<nz-modal nzWrapClassName="vertical-center-modal"  [nzWidth]="800" [(nzVisible)]="isVisibleSetMiddleser" nzTitle="添加服务" (nzOnCancel)="handleCancelSetMiddle()"
   (nzOnOk)="handleOkSetMiddle()">
-  <div class="find-select">
-    <label for="">流程数据映射</label>
-    <input nz-input placeholder="流程数据映射" [(ngModel)]="value">
-  </div>
-  <div class="find-select">
-    <label for="">输入配置</label>
-    <textarea row="4" nz-input [(ngModel)]="value"></textarea>
-  </div>
-  <div class="find-select">
-    <label for="">输出配置</label>
-    <textarea row="4" nz-input [(ngModel)]="value"></textarea>
-  </div>
+  <nz-table style="width: 800px"  #editRowTable nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()"
+    [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+      <tr>
+        <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
+         ></th>
+        <th nzShowSort nzSortKey="num">序号</th>
+        <th nzShowSort nzSortKey="name">服务名称</th>
+        <th nzShowSort nzSortKey="template">状态</th>
+        <th nzShowSort nzSortKey="describe">服务描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of editRowTable.data">
+        <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+        <td>
+          <div class="editable-cell">
+            <div class="editable-cell-text-wrapper">
+              <ng-container >
+                {{data.num}}
+              </ng-container>
+            </div>
+          </div>
+        </td>
+        <td>
+          <ng-container >
+            {{data.name}}
+          </ng-container>
+        </td>
+        <td>
+          <ng-container >
+            {{data.template}}
+          </ng-container>
+        </td>
+        <td>
+          <ng-container>
+            {{data.describe}}
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-modal>
+
+<nz-modal nzWrapClassName="vertical-center-modal"  [nzWidth]="800" [(nzVisible)]="isVisibleSetMiddleser1" nzTitle="添加服务" (nzOnCancel)="handleCancelSetMiddle()"
+  (nzOnOk)="handleOkSetMiddle1()">
+  <nz-table style="width: 800px"  #editRowTable1 nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()"
+    [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+      <tr>
+        <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
+         ></th>
+        <th nzShowSort nzSortKey="num">序号</th>
+        <th nzShowSort nzSortKey="name">服务名称</th>
+        <th nzShowSort nzSortKey="template">状态</th>
+        <th nzShowSort nzSortKey="describe">服务描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of editRowTable1.data">
+        <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+        <td>
+          <div class="editable-cell">
+            <div class="editable-cell-text-wrapper">
+              <ng-container >
+                {{data.num}}
+              </ng-container>
+            </div>
+          </div>
+        </td>
+        <td>
+          <ng-container >
+            {{data.name}}
+          </ng-container>
+        </td>
+        <td>
+          <ng-container >
+            {{data.template}}
+          </ng-container>
+        </td>
+        <td>
+          <ng-container>
+            {{data.describe}}
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
 </nz-modal>
 <nz-card nzType="inner" nzTitle="查看选项">
   <div nz-col nzSpan="12" class="find-select">
@@ -71,9 +211,9 @@
   <div nz-col nzSpan="12" class="find-select">
     <label for="">流程模板</label>
     <nz-select style="width: 100%;" [(ngModel)]="selectedValue" nzAllowClear nzPlaceHolder="流程模板">
-      <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-      <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-      <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+      <nz-option nzValue="1" nzLabel="模版一"></nz-option>
+      <nz-option nzValue="2" nzLabel="模版二"></nz-option>
+      <nz-option nzValue="3" nzLabel="模版三(停用)" nzDisabled></nz-option>
     </nz-select>
   </div>
   <div nz-col nzSpan="24" class="find-select">
@@ -81,6 +221,18 @@
     <textarea row="4" nz-input [(ngModel)]="inputValue"></textarea>
   </div>
 </nz-card>
-<nz-card style='margin-top: 16px;' nzType="inner" nzTitle="检索选项">
 
+<nz-card style='margin-top: 16px;' nzType="inner" nzTitle="应用服务编配" [nzExtra]="trigger">
+   <div class="jtk-demo-canvas canvas-wide flowchart-demo jtk-surface jtk-surface-nopan" id="canvas"  [ngStyle]="{'display':jsplmdIs? 'block' : 'none' }">
+           <div class="window jtk-node" id="flowchartWindow1"><strong>开始</strong><br/><br/></div>
+            <div class="window jtk-node" id="flowchartWindow2" (click)="tjsq(1)" ><strong>提交申请</strong><br/><br/></div>
+             <div class="window jtk-node" id="flowchartWindow3" (click)="tjsq(2)"><strong>审批</strong><br/><br/></div>
+             <div class="window jtk-node" id="flowchartWindow4"><strong>结束</strong><br/><br/></div>
+              <div class="window jtk-node" id="flowchartWindow5" (click)="add()" *ngIf="mk1"><strong>服务一</strong><br/><br/></div>
+              <div class="window jtk-node" id="flowchartWindow6" (click)="add()" *ngIf="mk2"><strong>服务二</strong><br/><br/></div>
+         </div>
 </nz-card>
+<ng-template #trigger>
+   <a nz-popconfirm nzTitle="确认保存?" (nzOnConfirm)="confirm()" (nzOnCancel)="cancel()">保存</a>
+</ng-template>
+

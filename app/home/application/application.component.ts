@@ -87,6 +87,7 @@ export class ApplicationComponent implements OnInit {
   }
   constructor(public router: Router) { }
   gorouter(item: any) {
+    console.log(item);
     // 	if(this.tabs.indexOf(item.split('/')[1])==-1){
     // 		this.tabs.push(item.split('/')[1]);
     this.router.navigateByUrl(item);

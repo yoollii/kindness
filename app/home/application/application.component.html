@@ -20,7 +20,7 @@
 </div>
 
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()"
-  (nzOnOk)="handleOkMiddle()">
+  (nzOnOk)="gorouter('home/applicationManagement')">
   <nz-form-item>
     <!-- <nz-form-label nzFor="no">序号</nz-form-label>
     <nz-form-control>
@@ -140,9 +140,6 @@
           </ng-container>
           <ng-container>
             <button [nzSize]="size" nz-button nzType="default">另存</button>
-          </ng-container>
-          <ng-container>
-            <button [nzSize]="size" nz-button (click)="gorouter('home/applicationManagement')" nzType="default">配置</button>
           </ng-container>
           <ng-container *ngIf="editCache[data.key].edit">
             <button (click)="saveEdit(data.key)" nz-button nzType="default">保存</button>
