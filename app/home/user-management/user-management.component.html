@@ -47,6 +47,13 @@
         </nz-option>
       </nz-select>
     </nz-form-control>
+    <nz-form-label nzFor="no">所属机构</nz-form-label>
+    <nz-form-control>
+      <nz-select style="width: 100%;" [(ngModel)]="listOforgan" nzPlaceHolder="请选择所属机构">
+        <nz-option *ngFor="let option of listOforganList" [nzLabel]="option" [nzValue]="option">
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
   </nz-form-item>
 </nz-modal>
 
@@ -82,6 +89,13 @@
         </nz-option>
       </nz-select>
     </nz-form-control>
+    <nz-form-label nzFor="no">所属机构</nz-form-label>
+    <nz-form-control>
+      <nz-select style="width: 100%;" [(ngModel)]="listOforgan" nzPlaceHolder="请选择所属机构">
+        <nz-option *ngFor="let option of listOforganList" [nzLabel]="option" [nzValue]="option">
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
   </nz-form-item>
 </nz-modal>
 
@@ -96,23 +110,23 @@
       <div class="msgContent">
         <nz-form-label nzFor="no">用户信息</nz-form-label>
       </div>
-      
+
       <nz-form-control>
-<nz-form-label nzFor="no">用户名称</nz-form-label>
+        <nz-form-label nzFor="no">用户名称</nz-form-label>
         <input nz-input value='{{currentName}}' name="name" id="no2">
       </nz-form-control>
-      
+
       <nz-form-control>
-<nz-form-label nzFor="no">分组</nz-form-label>
+        <nz-form-label nzFor="no">分组</nz-form-label>
         <nz-select style="width: 100%;" nzShowSearch nzAllowClear nzPlaceHolder="选择分组" [(ngModel)]="currentGroup">
           <nz-option nzLabel="分组一" nzValue="group1"></nz-option>
           <nz-option nzLabel="分组二" nzValue="group2"></nz-option>
           <nz-option nzLabel="分组三" nzValue="group3"></nz-option>
         </nz-select>
       </nz-form-control>
-      
+
       <nz-form-control>
-<nz-form-label nzFor="no">状态</nz-form-label>
+        <nz-form-label nzFor="no">状态</nz-form-label>
         <nz-select style="width: 100%;" nzShowSearch nzAllowClear nzPlaceHolder="选择状态" [(ngModel)]="currentState">
           <nz-option nzLabel="启用" nzValue="start"></nz-option>
           <nz-option nzLabel="停用" nzValue="stop"></nz-option>

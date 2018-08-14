@@ -377,4 +377,53 @@ export class ApplicationManagementComponent implements OnInit {
 
   // 添加一行数据
 
+// <<<<<<< HEAD
+// =======
+//   finishEdit(key: string): void {
+//     this.editCache[key].edit = false;
+//     this.dataSet.find(item => item.key === key).name = this.editCache[key].name;
+//   }
+//   // 以上流程图代码------------------------------------------------------------------
+//   showModalSetMiddle(): void {
+//     this.isVisibleSetMiddle = true;
+//   }
+//   handleOkSetMiddle(): void {
+//     console.log('click ok');
+//     this.isVisibleSetMiddle = false;
+//     this.isVisibleSetMiddleser = false;
+//     this.mk1 = true;
+//   }
+//   handleOkSetMiddle1(): void {
+//
+//     this.isVisibleSetMiddleser1 = false;
+//     this.mk2 = true;
+//   }
+//   handleCancelSetMiddle(): void {
+//     console.log('click Cancel');
+//     this.isVisibleSetMiddle = false;
+//     this.isVisibleSetMiddleser = false;
+//     this.isVisibleSetMiddleser1 = false;
+//
+//   }
+//   currentPageDataChange($event: Array<{ name: string; age: number; address: string; checked: boolean; disabled: boolean; }>): void {
+//     this.displayData = $event;
+//     this.refreshStatus();
+//   }
+//
+//   refreshStatus(): void {
+//     const allChecked = this.displayData.filter(value => !value.disabled).every(value => value.checked === true);
+//     const allUnChecked = this.displayData.filter(value => !value.disabled).every(value => !value.checked);
+//     this.allChecked = allChecked;
+//     this.indeterminate = (!allChecked) && (!allUnChecked);
+//   }
+//
+//   checkAll(value: boolean): void {
+//     this.displayData.forEach(data => {
+//       if (!data.disabled) {
+//         data.checked = value;
+//       }
+//     });
+//     this.refreshStatus();
+//   }
+// >>>>>>> aa71694b8c7b6c2c66f2db78bf39bbf11a9501f8
 }

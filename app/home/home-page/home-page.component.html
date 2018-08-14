@@ -1,16 +1,21 @@
 <div class="home-wrap">
   <div class="content-left">
-    <div style="background: #fafafa;padding:10px;">
+    <div style="padding:10px; min-height: 170px;">
       <div nz-row [nzGutter]="8">
         <div nz-col [nzSpan]="8" *ngFor="let panel of panels">
-          <nz-card nzTitle="{{panel.name}}">
-            <p>
-              <a>{{panel.data1}}</a>
-            </p>
-            <p>
-              <a>{{panel.data2}}</a>
-            </p>
-          </nz-card>
+          <nz-collapse>
+            <nz-collapse-panel [nzHeader]="panel.name" [nzActive]="panel.active" [nzDisabled]="panel.disabled" [nzShowArrow]="panel.arrow">
+              <div class='more'>
+                <a (click)='showModalMiddle()'>更多</a>
+              </div>
+              <p>
+                <a>{{panel.data1}}</a>
+              </p>
+              <p>
+                <a>{{panel.data2}}</a>
+              </p>
+            </nz-collapse-panel>
+          </nz-collapse>
         </div>
       </div>
     </div>
@@ -25,3 +30,13 @@
     </div> -->
   </div>
 </div>
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="更多" (nzOnCancel)="handleCancelMiddle()"
+  (nzOnOk)="handleOkMiddle()">
+  <nz-card>
+    <p>更多信息</p>
+    <p>更多信息</p>
+    <p>更多信息</p>
+    <p>更多信息</p>
+    <p>更多信息</p>
+  </nz-card>
+</nz-modal>

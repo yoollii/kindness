@@ -7,6 +7,7 @@ import * as G2 from '@antv/g2';
 })
 export class HomePageComponent implements OnInit {
   private hide: Boolean = false;
+  isVisibleMiddle = false;
   chart;
   chart1;
   data = {};
@@ -16,40 +17,25 @@ export class HomePageComponent implements OnInit {
       active: true,
       disabled: false,
       name: '我的任务',
+      arrow: true,
       data1: '完成**运输',
       data2: '前往**部门报道',
-      customStyle: {
-        'background': '#f7f7f7',
-        'border-radius': '4px',
-        'margin-bottom': '24px',
-        'border': '0px'
-      }
     },
     {
       active: false,
-      disabled: true,
+      disabled: false,
       name: '消息列表',
+      arrow: true,
       data1: '**设备更新',
       data2: '今天建军节',
-      customStyle: {
-        'background': '#f7f7f7',
-        'border-radius': '4px',
-        'margin-bottom': '24px',
-        'border': '0px',
-      }
     },
     {
       active: false,
       disabled: false,
       name: '操作日志',
+      arrow: true,
       data1: '新增',
       data2: '删除',
-      customStyle: {
-        'background': '#f7f7f7',
-        'border-radius': '4px',
-        'margin-bottom': '24px',
-        'border': '0px'
-      }
     }
   ];
   constructor() {}
@@ -139,5 +125,18 @@ export class HomePageComponent implements OnInit {
       lineWidth: 1
     });
     this.chart1.render();
+  }
+  // 模态框
+  showModalMiddle(): void {
+    this.isVisibleMiddle = true;
+  }
+  handleOkMiddle(): void {
+    console.log('click ok');
+    this.isVisibleMiddle = false;
+  }
+
+  handleCancelMiddle(): void {
+    console.log('click Cancel');
+    this.isVisibleMiddle = false;
   }
 }
