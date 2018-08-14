@@ -70,7 +70,6 @@ export class ProcessManagementComponent implements OnInit {
     const allUnChecked = this.dataSet.every(value => !value.checked);
     this.allChecked = allChecked;
     this.indeterminate = (!allChecked) && (!allUnChecked);
-
   }
 
   checkAll(value: boolean): void {
@@ -219,7 +218,7 @@ export class ProcessManagementComponent implements OnInit {
     //   },
     //   init = function (connection) {
     //     connection.getOverlay('label').setLabel(connection.sourceId.substring(15) + '-' + connection.targetId.substring(15));
-    //   }; 
+    //   };
     // var _addEndpoints = function (toId, sourceAnchors, targetAnchors) {
     //   for (let i = 0; i < sourceAnchors.length; i++) {
     //     let sourceUUID = toId + sourceAnchors[i];
@@ -234,7 +233,7 @@ export class ProcessManagementComponent implements OnInit {
     // };
     //
     // // suspend drawing and initialise.
-    // instance.batch(function () { 
+    // instance.batch(function () {
     //   _addEndpoints('Window4', ['TopCenter', 'BottomCenter'], ['LeftMiddle', 'RightMiddle']);
     //   _addEndpoints('Window2', ['LeftMiddle', 'BottomCenter'], ['TopCenter', 'RightMiddle']);
     //   _addEndpoints('Window3', ['RightMiddle', 'BottomCenter'], ['LeftMiddle', 'TopCenter']);

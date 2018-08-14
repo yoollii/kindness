@@ -8,7 +8,7 @@
 <div class="add-search-group">
   <label for="">代办事项</label>
 </div>
-<nz-table #editRowTable nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()"
+<nz-table #editRowTable nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus($event)" (nzPageSizeChange)="refreshStatus($event)"
   [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
   <thead (nzSortChange)="sort($event)" nzSingleSort>
     <tr>
@@ -103,7 +103,7 @@
     <button nz-button nzType="default">
       <i class="anticon anticon-search"></i>查询</button>
   </div>
-  <nz-table #editTakTable nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()"
+  <nz-table #editTakTable nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus($event)" (nzPageSizeChange)="refreshStatus($event)"
     [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
     <thead (nzSortChange)="sort($event)" nzSingleSort>
       <tr>

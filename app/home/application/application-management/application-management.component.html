@@ -94,7 +94,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of rowSelectionTable1.data">
-        <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus($event)"></td>
+        <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td>
         <td>{{data.num}}</td>
         <td>{{data.name}}</td>
         <td>{{data.state}}</td>
@@ -120,7 +120,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of editRowTable.data">
-        <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+        <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus()"></td>
         <td>
           <div class="editable-cell">
             <div class="editable-cell-text-wrapper">
@@ -166,7 +166,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of editRowTable1.data">
-        <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+        <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus()"></td>
         <td>
           <div class="editable-cell">
             <div class="editable-cell-text-wrapper">

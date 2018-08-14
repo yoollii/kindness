@@ -12,20 +12,27 @@ export class ApplicationManagementComponent implements OnInit {
   selectedValue;
   value: string;
   dataSet = [];
+  name:string="";
+  num:number;
+  template:string;
+  loading:boolean;
+  listOfSelection:any;
+  handleOkMiddle:any;
+  sort:any;
   mk2:boolean=false;
   mk1:boolean=false;
   inputValue: string;
   size: string; // 按钮尺寸
-  isVisibleMiddle = false;
-  isVisibleMiddle1 = false;
-  isVisibleSetMiddle = false;
-  isVisibleSetMiddleser = false;
-  isVisibleSetMiddleser1 = false;
-  showpop = false;
-  allChecked = false;
-  indeterminate = false;
+  isVisibleMiddle:boolean = false;
+  isVisibleMiddle1:boolean = false;
+  isVisibleSetMiddle:boolean = false;
+  isVisibleSetMiddleser:boolean = false;
+  isVisibleSetMiddleser1:boolean = false;
+  showpop:boolean = false;
+  allChecked:boolean = false;
+  indeterminate:boolean= false;
   displayData = [];
-  jsplmdIs = true;
+  jsplmdIs:boolean = true;
   data = [
     {
       num: '1',
@@ -61,6 +68,78 @@ export class ApplicationManagementComponent implements OnInit {
   constructor(public router: Router,private nzMessageService: NzMessageService) {
 
   }
+  cancel(){
+    this.nzMessageService.info('取消保存!')
+  }
+
+  confirm(){
+    this.nzMessageService.info('保存成功!');
+    this.gorouter('home/application');
+  }
+
+  handleCancelMiddle():void{
+    this.isVisibleMiddle= false;
+    this.showpop = false;
+    this.isVisibleMiddle1 = false;
+  }
+
+  showModalEditMiddle(){
+
+  }
+  handleOkEditMiddle() {
+
+
+    this.showpop = false;
+  }
+
+  handleCancelEditMiddle() {
+
+
+    this.showpop = false;
+  }
+  //以上流程图代码------------------------------------------------------------------
+
+  showModalSetMiddle(){
+    this.isVisibleSetMiddle = true;
+  }
+  handleOkSetMiddle(){
+    console.log('click ok');
+    this.isVisibleSetMiddle = false;
+    this.isVisibleSetMiddleser=false;
+    this.mk1 = true;
+  }
+  handleOkSetMiddle1(){
+
+    this.isVisibleSetMiddleser1=false;
+    this.mk2 = true;
+  }
+  handleCancelSetMiddle(){
+    console.log('click Cancel');
+    this.isVisibleSetMiddle = false;
+    this.isVisibleSetMiddleser =false;
+    this.isVisibleSetMiddleser1 =false;
+
+  }
+  currentPageDataChange($event: Array<{ name: string; age: number; address: string; checked: boolean; disabled: boolean; }>):void{
+    this.displayData = $event;
+    this.refreshStatus();
+  }
+
+  refreshStatus(){
+    const allChecked = this.displayData.filter(value => !value.disabled).every(value => value.checked === true);
+    const allUnChecked = this.displayData.filter(value => !value.disabled).every(value => !value.checked);
+    this.allChecked = allChecked;
+    this.indeterminate = (!allChecked) && (!allUnChecked);
+  }
+
+  checkAll(value: boolean): void {
+    this.displayData.forEach(data => {
+      if (!data.disabled) {
+        data.checked = value;
+      }
+    });
+    this.refreshStatus();
+  }
   ngOnInit(){
     for (let i = 0; i < 30; i++) {
       this.dataSet.push({
@@ -88,15 +167,6 @@ export class ApplicationManagementComponent implements OnInit {
       this.isVisibleSetMiddleser1=true;
     }
   }
-  gorouter(item: any) {
-    console.log(item);
-    // 	if(this.tabs.indexOf(item.split('/')[1])==-1){
-    // 		this.tabs.push(item.split('/')[1]);
-    this.router.navigateByUrl(item);
-    // 	}else{
-    // 		this.router.navigateByUrl(item);
-    // 	}
-  }
   add(){
     this.showpop=true;
   }
@@ -105,7 +175,7 @@ export class ApplicationManagementComponent implements OnInit {
     // this.updateEditCache();
 
     var jsPlumb = jsp.jsPlumb;
-    jsPlumb.setContainer($("#canvas"));
+    (jsPlumb as any).setContainer($("#canvas"));
     var instance = jsPlumb.getInstance({
       // default drag options
       DragOptions: { cursor: 'pointer', zIndex: 2000 },
@@ -133,8 +203,7 @@ export class ApplicationManagementComponent implements OnInit {
               this.setLabel(label);
             }
           }
-        }],
-
+        }]
       ]
     });
 
@@ -208,13 +277,13 @@ export class ApplicationManagementComponent implements OnInit {
       var _addEndpoints = function (toId, sourceAnchors, targetAnchors) {
       for (var i = 0; i < sourceAnchors.length; i++) {
         var sourceUUID = toId + sourceAnchors[i];
-        instance.addEndpoint("flowchart" + toId, sourceEndpoint, {
+        (instance as any).addEndpoint("flowchart" + toId, sourceEndpoint, {
           anchor: sourceAnchors[i], uuid: sourceUUID
         });
       }
       for (var j = 0; j < targetAnchors.length; j++) {
         var targetUUID = toId + targetAnchors[j];
-        instance.addEndpoint("flowchart" + toId, targetEndpoint, { anchor: targetAnchors[j], uuid: targetUUID });
+        (instance as any).addEndpoint("flowchart" + toId, targetEndpoint, { anchor: targetAnchors[j], uuid: targetUUID });
       }
     };
 
@@ -243,9 +312,9 @@ export class ApplicationManagementComponent implements OnInit {
       // jsPlumb.draggable(document.querySelectorAll(".window"), { grid: [20, 20] });
 
       // connect a few up
-      instance.connect({ uuids: ['Window1RightMiddle', 'Window2LeftMiddle'], editable: true });
-      instance.connect({ uuids: ['Window2RightMiddle', 'Window3LeftMiddle'], editable: true });
-      instance.connect({ uuids: ['Window3RightMiddle', 'Window4LeftMiddle'], editable: true });
+      (instance as any).connect({ uuids: ['Window1RightMiddle', 'Window2LeftMiddle'], editable: true });
+      (instance as any).connect({ uuids: ['Window2RightMiddle', 'Window3LeftMiddle'], editable: true });
+      (instance as any).connect({ uuids: ['Window3RightMiddle', 'Window4LeftMiddle'], editable: true });
         // instance.connect({ uuids: ['Window5RightMiddle', 'Window6LeftMiddle'], editable: true });
         // instance.connect({ uuids: ['Window6RightMiddle', 'Window7LeftMiddle'], editable: true });
         // instance.connect({ uuids: ['Window7RightMiddle', 'Window8LeftMiddle'], editable: true });
@@ -254,184 +323,58 @@ export class ApplicationManagementComponent implements OnInit {
       instance.bind('click', function (conn, originalEvent) {
         // if (confirm("Delete connection from " + conn.sourceId + " to " + conn.targetId + "?"))
         //   instance.detach(conn);
-        conn.toggleType('basic');
+        (conn as any).toggleType('basic');
       });
 
       instance.bind('connectionDrag', function (connection) {
-        console.log('connection ' + connection.id + ' is being dragged. suspendedElement is ', connection.suspendedElement, ' of type ', connection.suspendedElementType);
+        console.log('connection ' + (connection as any).id + ' is being dragged. suspendedElement is ', (connection as any).suspendedElement, ' of type ', (connection as any).suspendedElementType);
       });
 
       instance.bind('connectionDragStop', function (connection) {
-        console.log('connection ' + connection.id + ' was dragged');
+        console.log('connection ' + (connection as any).id + ' was dragged');
       });
 
       instance.bind('connectionMoved', function (params) {
-        console.log('connection ' + params.connection.id + ' was moved');
+        console.log('connection ' + (params as any).connection.id + ' was moved');
       });
     });
-    jsPlumb.fire('jsPlumbDemoLoaded', instance);
+    (jsPlumb as any).fire('jsPlumbDemoLoaded', instance);
   }
-  // 排序
-  sort(sort: { key: string, value: string }): void {
-    this.sortName = sort.key;
-    this.sortValue = sort.value;
-    this.search();
-  }
+  // filter(listOfSearchName: string[], searchAddress: string): void {
+  //   this.listOfSearchName  = listOfSearchName;
+  //   this.searchAddress = searchAddress;
+  //   this.search();
+  // }
+  //
+  // search(): void {
+  //   if (this.sortName) {
+  //     this.dataSet = this.dataSet.sort((a, b) =>
+  //       (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
+  //     //    this.updateEditCache();
+  //   } else {
+  //     this.dataSet = this.dataSet;
+  //     //    this.updateEditCache();
+  //   }
 
-  filter(listOfSearchName: string[], searchAddress: string): void {
-    this.listOfSearchName = listOfSearchName;
-    this.searchAddress = searchAddress;
-    this.search();
-  }
-
-  search(): void {
-    if (this.sortName) {
-      this.dataSet = this.dataSet.sort((a, b) =>
-        (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
-      //    this.updateEditCache();
-    } else {
-      this.dataSet = this.dataSet;
-      //    this.updateEditCache();
-    }
-
-    console.log(this.dataSet);
-  }
 
 
 
 
 
   // 模态框
-  showModalMiddle(): void {
-    this.isVisibleMiddle = true;
-    this.isVisibleSetMiddleser=true;
-  }
-  handleOkMiddle(): void {
-    console.log('click ok');
-    this.isVisibleMiddle = false;
-    // this.isVisibleMiddle1 = false;
-    this.isVisibleSetMiddleser = false;
-    this.showpop = false;
-  }
-  cancel(): void {
-    this.nzMessageService.info('取消保存!');
-  }
 
-  confirm(): void {
-    this.nzMessageService.info('保存成功!');
-    this.gorouter('home/application');
-  }
+  // handleOkMiddle(): void {
+  //   console.log('click ok');
+  //   this.isVisibleMiddle = false;
+  //   // this.isVisibleMiddle1 = false;
+  //   this.isVisibleSetMiddleser = false;
+  //   this.showpop = false;
+  // }
 
-  handleCancelMiddle(): void {
 
-    console.log('click Cancel');
-    this.isVisibleMiddle = false;
-    this.showpop = false;
-    this.isVisibleMiddle1 = false;
-
-  }
-
-  showModalEditMiddle(): void {
-    this.isVisibleEditMiddle = true;
-  }
-  handleOkEditMiddle(): void {
-    console.log('click ok');
-    this.isVisibleEditMiddle = false;
-    this.showpop = false;
-  }
-
-  handleCancelEditMiddle(): void {
-    console.log('click Cancel');
-    this.isVisibleEditMiddle = false;
-    this.showpop = false;
-  }
 
 
 
   // 添加一行数据
-  addRow(): void {
-    this.showModalMiddle();
-    this.i++;
-    this.dataSet = [...this.dataSet, {
-      key: `${this.i}`,
-      name: '流程模板',
-      describe: '',
-      template: '',
-      roe: '',
-    }];
-    console.log(this.dataSet);
-    this.updateEditCache();
-  }
 
-
-  abdeRow() {
-    console.log(1);
-    this.isVisibleMiddle1 = true;
-  }
-  // 删除
-  deleteRow(i: string): void {
-    const dataSet = this.dataSet.filter(d => d.key !== i);
-    this.dataSet = dataSet;
-  }
-
-  finishEdit(key: string): void {
-    this.editCache[key].edit = false;
-    this.dataSet.find(item => item.key === key).name = this.editCache[key].name;
-  }
-  //以上流程图代码------------------------------------------------------------------
-  showModalMiddle(): void {
-    this.isVisibleMiddle = true;
-  }
-  handleOkMiddle(): void {
-    console.log('click ok');
-    this.isVisibleMiddle = false;
-    this.showpop = false;
-  }
-
-  handleCancelMiddle(): void {
-    console.log('click Cancel');
-    this.isVisibleMiddle = false;
-    this.showpop = false;
-  }
-  showModalSetMiddle(): void {
-    this.isVisibleSetMiddle = true;
-  }
-  handleOkSetMiddle(): void {
-    console.log('click ok');
-    this.isVisibleSetMiddle = false;
-    this.isVisibleSetMiddleser=false;
-    this.mk1 = true;
-  }
-  handleOkSetMiddle1(): void {
-
-    this.isVisibleSetMiddleser1=false;
-    this.mk2 = true;
-  }
-  handleCancelSetMiddle(): void {
-    console.log('click Cancel');
-    this.isVisibleSetMiddle = false;
-    this.isVisibleSetMiddleser =false;
-    this.isVisibleSetMiddleser1 =false;
-
-  }
-  currentPageDataChange($event: Array<{ name: string; age: number; address: string; checked: boolean; disabled: boolean; }>): void {
-    this.displayData = $event;
-    this.refreshStatus();
-  }
-
-  refreshStatus(): void {
-    const allChecked = this.displayData.filter(value => !value.disabled).every(value => value.checked === true);
-    const allUnChecked = this.displayData.filter(value => !value.disabled).every(value => !value.checked);
-    this.allChecked = allChecked;
-    this.indeterminate = (!allChecked) && (!allUnChecked);
-  }
-
-  checkAll(value: boolean): void {
-    this.displayData.forEach(data => {
-      if (!data.disabled) {
-        data.checked = value;
-      }
-    });
-    this.refreshStatus();
-  }
 }

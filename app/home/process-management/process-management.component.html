@@ -8,15 +8,6 @@
 <div class="add-search-group">
   <button nz-button (click)="addRow()" class="editable-add-btn">
     <i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
-  <!-- <div class="search-group">
-        <nz-input-group nzSearch nzSize="default" [nzSuffix]="suffixButton">
-            <input type="text" style="padding: 0" nz-input placeholder="input search text">
-        </nz-input-group>
-        <ng-template #suffixButton>
-            <button nz-button nzType="primary" nzSize="default" nzSearch>搜索</button>
-        </ng-template>
-    </div> -->
-
 </div>
  <div class="jtk-demo-canvas canvas-wide flowchart-demo jtk-surface jtk-surface-nopan" id="canvas"  [ngStyle]="{'display':jsplmdIs? 'block' : 'none' }">
          <div class="window jtk-node" id="flowchartWindow1"><strong>开始</strong><br/><br/></div>
@@ -71,7 +62,7 @@
         <div class="window jtk-node" id="flowchartWindow8"><strong>结束</strong><br/><br/></div>
  </div>
 </nz-modal>
-<nz-table #editRowTables nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()" [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
+<nz-table #editRowTables nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus($event)" (nzPageSizeChange)="refreshStatus($event)" [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
     <thead (nzSortChange)="sort($event)" nzSingleSort>
         <tr>
 <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
