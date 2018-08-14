@@ -27,6 +27,7 @@ import { ReferenceMapComponent } from './home/reference-map/reference-map.compon
 import { ResultsDataComponent } from './home/results-data/results-data.component';
 import { ApplicationManagementComponent } from './home/application/application-management/application-management.component';
 import { OrganmanagementComponent } from './home/organmanagement/organmanagement.component';
+import { ApplicationReadyonlyComponent } from './home/application-readyonly/application-readyonly.component';
 
 const routes: Routes = [
 
@@ -61,6 +62,7 @@ const routes: Routes = [
       { path: 'referenceMap', component: ReferenceMapComponent },
       { path: 'resultsData', component: ResultsDataComponent },
       { path: 'organmanagement', component: OrganmanagementComponent },
+      { path: 'applicationReadyonly', component: ApplicationReadyonlyComponent },
     ]
   }
 ];

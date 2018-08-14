@@ -38,6 +38,7 @@ import { ResultsDataComponent } from './home/results-data/results-data.component
 import { ProcessMaagementListComponent } from './home/process-maagement-list/process-maagement-list.component';
 import { ApplicationManagementComponent } from './home/application/application-management/application-management.component';
 import { OrganmanagementComponent } from './home/organmanagement/organmanagement.component';
+import { ApplicationReadyonlyComponent } from './home/application-readyonly/application-readyonly.component';
 registerLocaleData(zh);
 
 @NgModule({
@@ -71,6 +72,7 @@ registerLocaleData(zh);
     ProcessMaagementListComponent,
     ApplicationManagementComponent,
     OrganmanagementComponent,
+    ApplicationReadyonlyComponent,
   ],
   imports: [
     BrowserModule,
