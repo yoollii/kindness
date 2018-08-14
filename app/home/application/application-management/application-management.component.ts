@@ -378,40 +378,26 @@ export class ApplicationManagementComponent implements OnInit {
     this.editCache[key].edit = false;
     this.dataSet.find(item => item.key === key).name = this.editCache[key].name;
   }
-  //以上流程图代码------------------------------------------------------------------
-  showModalMiddle(): void {
-    this.isVisibleMiddle = true;
-  }
-  handleOkMiddle(): void {
-    console.log('click ok');
-    this.isVisibleMiddle = false;
-    this.showpop = false;
-  }
-
-  handleCancelMiddle(): void {
-    console.log('click Cancel');
-    this.isVisibleMiddle = false;
-    this.showpop = false;
-  }
+  // 以上流程图代码------------------------------------------------------------------
   showModalSetMiddle(): void {
     this.isVisibleSetMiddle = true;
   }
   handleOkSetMiddle(): void {
     console.log('click ok');
     this.isVisibleSetMiddle = false;
-    this.isVisibleSetMiddleser=false;
+    this.isVisibleSetMiddleser = false;
     this.mk1 = true;
   }
   handleOkSetMiddle1(): void {
 
-    this.isVisibleSetMiddleser1=false;
+    this.isVisibleSetMiddleser1 = false;
     this.mk2 = true;
   }
   handleCancelSetMiddle(): void {
     console.log('click Cancel');
     this.isVisibleSetMiddle = false;
-    this.isVisibleSetMiddleser =false;
-    this.isVisibleSetMiddleser1 =false;
+    this.isVisibleSetMiddleser = false;
+    this.isVisibleSetMiddleser1 = false;
 
   }
   currentPageDataChange($event: Array<{ name: string; age: number; address: string; checked: boolean; disabled: boolean; }>): void {

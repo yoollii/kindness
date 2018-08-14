@@ -16,11 +16,10 @@
       <button nz-button nzType="primary" nzSize="default" nzSearch>搜索</button>
     </ng-template>
   </div>
-
 </div>
 
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()"
-  (nzOnOk)="gorouter('home/applicationManagement')">
+  (nzOnOk)="handleOkMiddle()">
   <nz-form-item>
     <!-- <nz-form-label nzFor="no">序号</nz-form-label>
     <nz-form-control>

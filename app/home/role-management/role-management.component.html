@@ -30,17 +30,16 @@
     <nz-form-control>
       <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
     </nz-form-control>
-    <nz-form-label nzFor="no">角色权限</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="role" nzAllowClear nzPlaceHolder="角色权限">
-        <nz-option nzValue="superAdmin" nzLabel="超级管理员"></nz-option>
-        <nz-option nzValue="admin" nzLabel="管理员"></nz-option>
-        <nz-option nzValue="user" nzLabel="一般用户"></nz-option>
-      </nz-select>
-    </nz-form-control>
     <nz-form-label nzFor="no">角色描述</nz-form-label>
     <nz-form-control>
       <input nz-input [(ngModel)]="group" name="group" placeholder="请输入" id="no3">
+    </nz-form-control>
+    <nz-form-label nzFor="no">角色权限</nz-form-label>
+    <nz-form-control>
+      <nz-tree #nzTree [(ngModel)]="organnodes" [nzCheckable]="true" [nzMultiple]="true" [nzCheckStrictly]="true" [nzDefaultExpandedKeys]="organexpandKeys"
+        [nzDefaultCheckedKeys]="organcheckedKeys" [nzDefaultSelectedKeys]="organselectedKeys" [nzDefaultExpandAll]="organexpandDefault"
+        (nzClick)="organmouseAction('click',$event)" (nzCheckBoxChange)="organmouseAction('check',$event)" (nzDblClick)="organmouseAction('dblclick', $event)">
+      </nz-tree>
     </nz-form-control>
   </nz-form-item>
 </nz-modal>
@@ -55,17 +54,16 @@
     <nz-form-control>
       <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
     </nz-form-control>
-    <nz-form-label nzFor="no">角色权限</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="role" nzAllowClear nzPlaceHolder="角色权限">
-        <nz-option nzValue="superAdmin" nzLabel="超级管理员"></nz-option>
-        <nz-option nzValue="admin" nzLabel="管理员"></nz-option>
-        <nz-option nzValue="user" nzLabel="一般用户"></nz-option>
-      </nz-select>
-    </nz-form-control>
     <nz-form-label nzFor="no">角色描述</nz-form-label>
     <nz-form-control>
       <input nz-input [(ngModel)]="group" name="group" placeholder="请输入" id="no3">
+    </nz-form-control>
+    <nz-form-label nzFor="no">角色权限</nz-form-label>
+    <nz-form-control>
+      <nz-tree #nzTree [(ngModel)]="organnodes" [nzCheckable]="true" [nzMultiple]="true" [nzCheckStrictly]="true" [nzDefaultExpandedKeys]="organexpandKeys"
+        [nzDefaultCheckedKeys]="organcheckedKeys" [nzDefaultSelectedKeys]="organselectedKeys" [nzDefaultExpandAll]="organexpandDefault"
+        (nzClick)="organmouseAction('click',$event)" (nzCheckBoxChange)="organmouseAction('check',$event)" (nzDblClick)="organmouseAction('dblclick', $event)">
+      </nz-tree>
     </nz-form-control>
   </nz-form-item>
 </nz-modal>
@@ -86,7 +84,7 @@
         </nz-form-control>
         <nz-form-label nzFor="no">角色描述</nz-form-label>
         <nz-form-control>
-          <textarea name="group"  nz-input id="no3">{{currentDescribe}}</textarea>
+          <textarea name="group" nz-input id="no3">{{currentDescribe}}</textarea>
         </nz-form-control>
       </nz-form-item>
     </div>

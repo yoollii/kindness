@@ -26,6 +26,7 @@ import { SpaceDataComponent } from './home/space-data/space-data.component';
 import { ReferenceMapComponent } from './home/reference-map/reference-map.component';
 import { ResultsDataComponent } from './home/results-data/results-data.component';
 import { ApplicationManagementComponent } from './home/application/application-management/application-management.component';
+import { OrganmanagementComponent } from './home/organmanagement/organmanagement.component';
 
 const routes: Routes = [
 
@@ -59,6 +60,7 @@ const routes: Routes = [
       { path: 'spaceData', component: SpaceDataComponent },
       { path: 'referenceMap', component: ReferenceMapComponent },
       { path: 'resultsData', component: ResultsDataComponent },
+      { path: 'organmanagement', component: OrganmanagementComponent },
     ]
   }
 ];

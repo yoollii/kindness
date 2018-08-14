@@ -1,11 +1,12 @@
-import { Component, OnInit} from '@angular/core';
-import { NzFormatEmitEvent, NzTreeNode } from 'ng-zorro-antd';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NzFormatEmitEvent, NzTreeNode, NzTreeComponent } from 'ng-zorro-antd';
 @Component({
   selector: 'app-role-management',
   templateUrl: './role-management.component.html',
   styleUrls: ['./role-management.component.less']
 })
 export class RoleManagementComponent implements OnInit {
+  @ViewChild('nzTree') nzTree: NzTreeComponent;
   i = 1;
   editCache = {};
   dataSet = [];
@@ -24,6 +25,10 @@ export class RoleManagementComponent implements OnInit {
   role: string;
   group: string;
   searchAddress: string;
+  // 自定义选项开始
+  allChecked = false;
+  // dataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
+  indeterminate = false;
   expandKeys = ['1001', '10001'];
   checkedKeys = ['100011', '1002'];
   selectedKeys = ['10001', '100011'];
@@ -69,10 +74,39 @@ export class RoleManagementComponent implements OnInit {
       ]
     })
   ];
-  // 自定义选项开始
-  allChecked = false;
-  // dataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
-  indeterminate = false;
+  organexpandKeys = ['1001', '10001'];
+  organcheckedKeys = ['10001'];
+  organselectedKeys = ['10001', '100011'];
+  organexpandDefault = false;
+  organnodes = [
+    new NzTreeNode({
+      title: '角色权限',
+      key: '1001',
+      children: [
+        {
+          title: '超级管理员',
+          key: '10001',
+        },
+        {
+          title: '管理员',
+          key: '10002',
+        },
+        {
+          title: '一般用户',
+          key: '10003',
+        },
+      ]
+    })
+  ];
+
+  organmouseAction(name: string, event: NzFormatEmitEvent): void {
+    console.log(name, event);
+    // just for demo, should get in ngAfterViewInit
+    console.log('checkedNodes: %o', this.nzTree.getCheckedNodeList());
+    console.log('selectedNodes: %o', this.nzTree.getSelectedNodeList());
+    console.log('halfCheckedNodes: %o', this.nzTree.getHalfCheckedNodeList());
+    console.log(this.nzTree.nzTreeService.getCheckedNodeList());
+  }
 
   refreshStatus(): void {
     const allChecked = this.dataSet.every(value => value.checked === true);

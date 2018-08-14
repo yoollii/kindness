@@ -37,6 +37,7 @@ import { ReferenceMapComponent } from './home/reference-map/reference-map.compon
 import { ResultsDataComponent } from './home/results-data/results-data.component';
 import { ProcessMaagementListComponent } from './home/process-maagement-list/process-maagement-list.component';
 import { ApplicationManagementComponent } from './home/application/application-management/application-management.component';
+import { OrganmanagementComponent } from './home/organmanagement/organmanagement.component';
 registerLocaleData(zh);
 
 @NgModule({
@@ -69,6 +70,7 @@ registerLocaleData(zh);
     ResultsDataComponent,
     ProcessMaagementListComponent,
     ApplicationManagementComponent,
+    OrganmanagementComponent,
   ],
   imports: [
     BrowserModule,

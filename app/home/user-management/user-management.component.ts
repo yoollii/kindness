@@ -33,6 +33,8 @@ export class UserManagementComponent implements OnInit {
   listOfOption = [];
   listOfType: string;
   listOfTypelist = [];
+  listOforgan: string;
+  listOforganList = [];
   searchAddress: string;
   selectedValue = this.currentGroup;
   // 自定义选项开始
@@ -90,7 +92,9 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.listOfOption = ['1组', '2组', '3组', '4组'];
+    this.listOforganList = ['机构一', '机构二', '机构三', '机构四'];
     this.listOfTypelist = ['启用', '禁用'];
+
     this.listOfRoleList = ['超级管理员', '管理员', '一般用户'];
     for (let i = 0; i < 30; i++) {
       this.dataSet.push({
