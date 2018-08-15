@@ -104,6 +104,7 @@ export class UserManagementComponent implements OnInit {
         role: `超级管理员. ${i}`,
         group: `${i}组`,
         state: '启用',
+        organ: `机构${i}`,
         checked: false
       });
     }
@@ -189,7 +190,8 @@ export class UserManagementComponent implements OnInit {
       name: `user. ${this.i}`,
       role: `超级管理员. ${this.i}`,
       group: `${this.i}组`,
-      state: '启用'
+      state: '启用',
+      organ: `机构${this.i}`
     }];
     console.log(this.dataSet);
     this.updateEditCache();
