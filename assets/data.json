@@ -1,0 +1,35 @@
+{
+  "user":[
+    {"id":"123","name":"张三","jueshe":"1","fenzu":"1组","zhuangtai":"1"}
+  ,{"id":"1234","name":"李四","jueshe":"2","fenzu":"2组","zhuangtai":"1"}
+  ,{"id":"1235","name":"王二","jueshe":"3","fenzu":"3组","zhuangtai":"0"}
+  ,{"id":"28","name":"李逵","jueshe":"2","fenzu":"4组","zhuangtai":"1"}
+  ,{"id":"29","name":"颜爽","jueshe":"1","fenzu":"5组","zhuangtai":"0"}
+  ,{"id":"30","name":"老贺","jueshe":"2","fenzu":"6组","zhuangtai":"1"}
+  ,{"id":"31","name":"张一","jueshe":"3","fenzu":"7组","zhuangtai":"0"}
+  ],
+  "juese":[
+    {"id":"1","name":"超级管理员","quanxian":"1","miaoshu":"角色描述1"}
+    ,{"id":"2","name":"普通管理员","quanxian":"1","miaoshu":"角色描述1"}
+    ,{"id":"3","name":"用户","quanxian":"1","miaoshu":"角色描述1"}
+    ,{"id":"4","name":"超级管理员","quanxian":"1","miaoshu":"角色描述1"}
+    ,{"id":"5","name":"用户","quanxian":"1","miaoshu":"角色描述1"}
+    ,{"id":"6","name":"普通管理员","quanxian":"1","miaoshu":"角色描述1"}
+  ],
+  "jigou":[
+    {"id":"1","name":"机构1","code":"1","iphone":"135768798"}
+    ,{"id":"2","name":"机构2","code":"2","iphone":"135768798"}
+    ,{"id":"3","name":"机构3","code":"3","iphone":"135768798"}
+    ,{"id":"4","name":"机构4","code":"4","iphone":"135768798"}
+    ,{"id":"5","name":"机构5","code":"5","iphone":"135768798"}
+  ],
+  "yingyong":[
+    {"id":"1","name":"厚德平台","template":"模版一","miaoshu":"模版描述"}
+    ,{"id":"1","name":"厚德平台","template":"模版一","miaoshu":"模版描述"}
+    ,{"id":"1","name":"厚德平台","template":"模版一","miaoshu":"模版描述"}
+    ,{"id":"1","name":"厚德平台","template":"模版一","miaoshu":"模版描述"}
+    ,{"id":"1","name":"厚德平台","template":"模版一","miaoshu":"模版描述"}
+    ,{"id":"1","name":"厚德平台","template":"模版一","miaoshu":"模版描述"}
+    ,{"id":"1","name":"厚德平台","template":"模版一","miaoshu":"模版描述"}
+  ]
+}
