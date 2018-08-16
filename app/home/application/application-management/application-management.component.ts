@@ -67,22 +67,22 @@ export class ApplicationManagementComponent implements OnInit {
   constructor(public router: Router, private nzMessageService: NzMessageService) {
 
   }
-  cancel() {
-    this.nzMessageService.info('取消保存!');
+  cancel(){
+    this.nzMessageService.info('取消保存!')
   }
 
-  confirm() {
+  confirm(){
     this.nzMessageService.info('保存成功!');
     this.gorouter('home/application');
   }
 
-  handleCancelMiddle(): void {
-    this.isVisibleMiddle = false;
+  handleCancelMiddle():void{
+    this.isVisibleMiddle= false;
     this.showpop = false;
     this.isVisibleMiddle1 = false;
   }
 
-  showModalEditMiddle() {
+  showModalEditMiddle(){
 
   }
   handleOkEditMiddle() {
@@ -164,9 +164,12 @@ export class ApplicationManagementComponent implements OnInit {
     } else if (a === 2) {
       this.isVisibleSetMiddleser1 = true;
     }
+    else if(a==2){
+      this.isVisibleSetMiddleser1=true;
+    }
   }
-  add() {
-    this.showpop = true;
+  add(){
+    this.showpop=true;
   }
   ngAfterViewInit(): void {
     // this.loading = false;
@@ -325,8 +328,7 @@ export class ApplicationManagementComponent implements OnInit {
       });
 
       instance.bind('connectionDrag', function (connection) {
-        console.log('connection ' + (connection as any).id + ' is being dragged. suspendedElement is ',
-        (connection as any).suspendedElement, ' of type ', (connection as any).suspendedElementType);
+        console.log('connection ' + (connection as any).id + ' is being dragged. suspendedElement is ', (connection as any).suspendedElement, ' of type ', (connection as any).suspendedElementType);
       });
 
       instance.bind('connectionDragStop', function (connection) {

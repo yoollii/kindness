@@ -8,15 +8,6 @@
 <div class="add-search-group">
   <button nz-button (click)="addRow()" class="editable-add-btn">
     <i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
-  <!-- <div class="search-group">
-        <nz-input-group nzSearch nzSize="default" [nzSuffix]="suffixButton">
-            <input type="text" style="padding: 0" nz-input placeholder="input search text">
-        </nz-input-group>
-        <ng-template #suffixButton>
-            <button nz-button nzType="primary" nzSize="default" nzSearch>搜索</button>
-        </ng-template>
-    </div> -->
-
 </div>
  <div class="jtk-demo-canvas canvas-wide flowchart-demo jtk-surface jtk-surface-nopan" id="canvas"  [ngStyle]="{'display':jsplmdIs? 'block' : 'none' }">
          <div class="window jtk-node" id="flowchartWindow1"><strong>开始</strong><br/><br/></div>
@@ -50,7 +41,7 @@
 
 </nz-modal>
 
-<nz-modal nzWrapClassName="vertical-center-modal1" [(nzVisible)]="isVisibleMiddle1" nzTitle="流程配置" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
+<nz-modal nzWrapClassName="vertical-center-modal1" [(nzVisible)]="isVisibleMiddle1" nzTitle="流程图预览" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
     <nz-form-item>
       <nz-timeline>
         <nz-timeline-item>开始</nz-timeline-item>
@@ -64,15 +55,8 @@
       </nz-timeline>
      <div style="clear: both"></div>
     </nz-form-item>
- <div class="jtk-demo-canvas canvas-wide flowchart-demo jtk-surface jtk-surface-nopan" id="canvas">
-        <div class="window jtk-node" id="flowchartWindow5"><strong>开始</strong><br/><br/></div>
-        <div class="window jtk-node" id="flowchartWindow6"><strong>提交申请</strong><br/><br/></div>
-        <div class="window jtk-node" id="flowchartWindow7"><strong>审批</strong><br/><br/></div>
-        <div class="window jtk-node" id="flowchartWindow8"><strong>结束</strong><br/><br/></div>
- </div>
 </nz-modal>
-<nz-table #editRowTables nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus($event)" (nzPageSizeChange)="refreshStatus($event)"
-  [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
+<nz-table #editRowTables nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus($event)" (nzPageSizeChange)="refreshStatus($event)" [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
     <thead (nzSortChange)="sort($event)" nzSingleSort>
         <tr>
 <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
@@ -134,28 +118,32 @@
             </td>
             <td>
                 <div class="editable-row-operations" style="display: inline-block;">
-                    <ng-container  *ngIf="!editCache[data.key].edit">
-                        <a (click)="abdeRow()">编辑</a>
+                  <ng-container>
+                    <button [nzSize]="size" nz-button *ngIf="!editCache[data.key].edit" (click)="abdeRow()" nzType="primary">预览</button>
+                   </ng-container>
+                    <ng-container >
+                    <button [nzSize]="size" nz-button  nzType="primary">编辑</button>
                     </ng-container>
                     <ng-container>
-                        <a>启用</a>
+                    <button [nzSize]="size" nz-button nzType="default">启用</button>
                     </ng-container>
                     <ng-container>
-                        <a>停用</a>
+                    <button [nzSize]="size" nz-button nzType="default">停用</button>
                     </ng-container>
                     <ng-container>
-                        <a>另存</a>
+                    <button [nzSize]="size" nz-button nzType="default">另存</button>
                     </ng-container>
-                    <ng-container *ngIf="editCache[data.key].edit">
-                        <a (click)="saveEdit(data.key)">保存</a>
-                        <nz-popconfirm [nzTitle]="'确认取消?'" (nzOnConfirm)="cancelEdit(data.key)">
-                            <a nz-popconfirm>取消</a>
+
+                   <ng-container *ngIf="editCache[data.key].edit">
+                            <button (click)="saveEdit(data.key)" nz-button nzType="default">保存</button>
+                            <nz-popconfirm [nzTitle]="'确认取消?'" (nzOnConfirm)="cancelEdit(data.key)">
+                              <a nz-popconfirm>取消</a>
+                            </nz-popconfirm>
+                          </ng-container>
+                        </div>
+                        <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteRow(data.key)">
+                          <button [nzSize]="size" nz-button nz-popconfirm nzType="danger">删除</button>
                         </nz-popconfirm>
-                    </ng-container>
-                </div>
-                <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteRow(data.key)">
-                    <a nz-popconfirm>删除</a>
-                </nz-popconfirm>
             </td>
         </tr>
     </tbody>

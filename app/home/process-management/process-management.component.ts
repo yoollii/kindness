@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as jsp from 'jsplumb';
 @Component({
   selector: 'app-process-management',
@@ -63,14 +64,21 @@ export class ProcessManagementComponent implements OnInit {
   allChecked = false;
   // dataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
   indeterminate = false;
-
+  gorouter(item: any) {
+    console.log(item);
+    // 	if(this.tabs.indexOf(item.split('/')[1])==-1){
+    // 		this.tabs.push(item.split('/')[1]);
+    this.router.navigateByUrl(item);
+    // 	}else{
+    // 		this.router.navigateByUrl(item);
+    // 	}
+  }
   refreshStatus(event): void {
     this.jsplmdIs = event;
     const allChecked = this.dataSet.every(value => value.checked === true);
     const allUnChecked = this.dataSet.every(value => !value.checked);
     this.allChecked = allChecked;
     this.indeterminate = (!allChecked) && (!allUnChecked);
-
   }
 
   checkAll(value: boolean): void {
@@ -103,7 +111,7 @@ export class ProcessManagementComponent implements OnInit {
       }
     });
   }
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
     for (let i = 0; i < 30; i++) {
@@ -319,6 +327,7 @@ export class ProcessManagementComponent implements OnInit {
     console.log('click ok');
     this.isVisibleMiddle = false;
     this.isVisibleMiddle1 = false;
+    this.gorouter("home/processManagementList");
   }
 
   handleCancelMiddle(): void {
@@ -340,7 +349,10 @@ export class ProcessManagementComponent implements OnInit {
     console.log('click Cancel');
     this.isVisibleEditMiddle = false;
   }
+  //预览流程图
+  yulan(){
 
+  }
 
 
   // 添加一行数据
