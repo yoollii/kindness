@@ -135,11 +135,6 @@ export class UserManagementComponent implements OnInit {
     }
     console.log(this.dataSet);
   }
-
-
-
-
-
   // 模态框
   showModalMiddle(): void {
     this.isVisibleMiddle = true;
