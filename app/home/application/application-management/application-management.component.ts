@@ -3,6 +3,15 @@ import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import * as jsp from 'jsplumb';
 import * as $ from 'jquery';
+export interface TreeNodeInterface {
+  key: number;
+  name: string;
+  age: number;
+  level: number;
+  expand: boolean;
+  address: string;
+  children?: TreeNodeInterface[];
+}
 @Component({
   selector: 'app-application-management',
   templateUrl: './application-management.component.html',
@@ -498,11 +507,11 @@ export class ApplicationManagementComponent implements OnInit {
 //     this.isVisibleSetMiddleser = false;
 //     this.mk1 = true;
 //   }
-  handleOkSetMiddle1(): void {
-
-    this.isVisibleSetMiddleser1 = false;
-    this.mk2 = true;
-  }
+//   handleOkSetMiddle1(): void {
+//
+//     this.isVisibleSetMiddleser1 = false;
+//     this.mk2 = true;
+//   }
 //   handleCancelSetMiddle(): void {
 //     console.log('click Cancel');
 //     this.isVisibleSetMiddle = false;
