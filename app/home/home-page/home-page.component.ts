@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as G2 from '@antv/g2';
 import * as $ from 'jquery';
+import * as DataSet from '../../../assets/js/dataset';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
