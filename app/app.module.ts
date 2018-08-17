@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -38,8 +37,8 @@ import { ResultsDataComponent } from './home/results-data/results-data.component
 import { ProcessMaagementListComponent } from './home/process-maagement-list/process-maagement-list.component';
 import { ApplicationManagementComponent } from './home/application/application-management/application-management.component';
 import { OrganmanagementComponent } from './home/organmanagement/organmanagement.component';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 registerLocaleData(zh);
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,7 +81,7 @@ registerLocaleData(zh);
     NgZorroAntdModule,
     AppRoutingModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN }],
+  providers: [{ provide: NZ_I18N, useValue: zh_CN },{ provide: LocationStrategy, useClass: HashLocationStrategy,}],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

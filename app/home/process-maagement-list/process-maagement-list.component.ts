@@ -10,11 +10,11 @@ export class ProcessMaagementListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    let iframe=$("#iframe1");
-    let _this=this;
-    iframe.onload = function(){
-      alert("iframe load  done");
-    };
+    // let iframe=$("#iframe1");
+    // let _this=this;
+    // iframe.onload = function(){
+    //   alert("iframe load  done");
+    // };
   }
 
 }

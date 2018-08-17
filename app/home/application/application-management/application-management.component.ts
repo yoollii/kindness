@@ -32,39 +32,143 @@ export class ApplicationManagementComponent implements OnInit {
   allChecked:boolean = false;
   indeterminate:boolean= false;
   displayData = [];
+
   jsplmdIs:boolean = true;
+  // data = [
+  //   {
+  //     num: '1',
+  //     nam: '服务名称1',
+  //     state: '启动',
+  //     descripe: '服务描述1',
+  //   },
+  //   {
+  //     num: '2',
+  //     nam: '服务名称2',
+  //     state: '启动',
+  //     descripe: '服务描述2',
+  //   },
+  //   {
+  //     num: '3',
+  //     nam: '服务名称3',
+  //     state: '启动',
+  //     descripe: '服务描述3',
+  //   },
+  //   {
+  //     num: '4',
+  //     nam: '服务名称4',
+  //     state: '停用',
+  //     descripe: '服务描述4',
+  //   },
+  //   {
+  //     num: '5',
+  //     nam: '服务名称5',
+  //     state: '启动',
+  //     descripe: '服务描述5',
+  //   }
+  // ];
   data = [
     {
-      num: '1',
-      nam: '服务名称1',
-      state: '启动',
-      descripe: '服务描述1',
+      key     : 1,
+      name    : '服务一',
+      age     : "启用",
+      address : '厚德系统服务一',
+      children: [
+        {
+          key    : 11,
+          name   : '服务二',
+          age    : "启用",
+          address: '厚德系统服务二'
+        },
+        {
+          key     : 12,
+          name    : '服务三',
+          age     : "启用",
+          address : '厚德系统服务三',
+          children: [ {
+            key    : 121,
+            name   : '服务四',
+            age    : "启用",
+            address: '厚德系统服务四'
+          } ]
+        },
+        {
+          key     : 13,
+          name    : '服务五',
+          age     : "启用",
+          address : '厚德系统服务四',
+          children: [
+            {
+              key     : 131,
+              name    : '服务五',
+              age     : "启用",
+              address : '厚德系统服务四',
+              children: [
+                {
+                  key    : 1311,
+                  name   : '服务六',
+                  age    : "启用",
+                  address: '厚德系统服务五'
+                },
+                {
+                  key    : 1312,
+                  name   : '服务七',
+                  age    : "启用",
+                  address: '厚德系统服务六'
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
-      num: '2',
-      nam: '服务名称2',
-      state: '启动',
-      descripe: '服务描述2',
-    },
-    {
-      num: '3',
-      nam: '服务名称3',
-      state: '启动',
-      descripe: '服务描述3',
-    },
-    {
-      num: '4',
-      nam: '服务名称4',
-      state: '停用',
-      descripe: '服务描述4',
-    },
-    {
-      num: '5',
-      nam: '服务名称5',
-      state: '启动',
-      descripe: '服务描述5',
+      key    : 2,
+      name   : '服务八',
+      age    : "启用",
+      address: '厚德系统服务七'
     }
   ];
+  expandDataCache = {};
+
+  collapse(array: TreeNodeInterface[], data: TreeNodeInterface, $event: boolean): void {
+    if ($event === false) {
+      if (data.children) {
+        data.children.forEach(d => {
+          const target = array.find(a => a.key === d.key);
+          target.expand = false;
+          this.collapse(array, target, false);
+        });
+      } else {
+        return;
+      }
+    }
+  }
+
+  convertTreeToList(root: object): TreeNodeInterface[] {
+    const stack = [];
+    const array = [];
+    const hashMap = {};
+    stack.push({ ...root, level: 0, expand: false });
+
+    while (stack.length !== 0) {
+      const node = stack.pop();
+      this.visitNode(node, hashMap, array);
+      if (node.children) {
+        for (let i = node.children.length - 1; i >= 0; i--) {
+          stack.push({ ...node.children[ i ], level: node.level + 1, expand: false, parent: node });
+        }
+      }
+    }
+
+    return array;
+  }
+
+  visitNode(node: TreeNodeInterface, hashMap: object, array: TreeNodeInterface[]): void {
+    if (!hashMap[ node.key ]) {
+      hashMap[ node.key ] = true;
+      array.push(node);
+    }
+  }
   constructor(public router: Router,private nzMessageService: NzMessageService) {
 
   }
@@ -141,6 +245,9 @@ export class ApplicationManagementComponent implements OnInit {
     this.refreshStatus();
   }
   ngOnInit(){
+    this.data.forEach(item => {
+      this.expandDataCache[ item.key ] = this.convertTreeToList(item);
+    });
     for (let i = 0; i < 30; i++) {
       this.dataSet.push({
         key: i.toString(),
@@ -393,11 +500,11 @@ export class ApplicationManagementComponent implements OnInit {
 //     this.isVisibleSetMiddleser = false;
 //     this.mk1 = true;
 //   }
-//   handleOkSetMiddle1(): void {
-//
-//     this.isVisibleSetMiddleser1 = false;
-//     this.mk2 = true;
-//   }
+  handleOkSetMiddle1(): void {
+
+    this.isVisibleSetMiddleser1 = false;
+    this.mk2 = true;
+  }
 //   handleCancelSetMiddle(): void {
 //     console.log('click Cancel');
 //     this.isVisibleSetMiddle = false;

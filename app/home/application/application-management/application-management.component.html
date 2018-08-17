@@ -6,7 +6,6 @@
   <nz-breadcrumb-item>成果数据</nz-breadcrumb-item>
 </nz-breadcrumb>
 <div class="search-group">
-
   <nz-input-group nzSearch style="width: 300px;" nzSize="default" [nzSuffix]="suffixButton">
     <input type="text" style="padding: 0" nz-input placeholder="输入搜索内容">
   </nz-input-group>
@@ -106,94 +105,79 @@
 
 <nz-modal nzWrapClassName="vertical-center-modal"  [nzWidth]="800" [(nzVisible)]="isVisibleSetMiddleser" nzTitle="添加服务" (nzOnCancel)="handleCancelSetMiddle()"
   (nzOnOk)="handleOkSetMiddle()">
-  <nz-table style="width: 800px"  #editRowTable nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()"
-    [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
-    <thead (nzSortChange)="sort($event)" nzSingleSort>
-      <tr>
-        <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
-         ></th>
-        <th nzShowSort nzSortKey="num">序号</th>
-        <th nzShowSort nzSortKey="name">服务名称</th>
-        <th nzShowSort nzSortKey="template">状态</th>
-        <th nzShowSort nzSortKey="describe">服务描述</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of editRowTable.data">
-        <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus()"></td>
-        <td>
-          <div class="editable-cell">
-            <div class="editable-cell-text-wrapper">
-              <ng-container >
-                {{data.num}}
-              </ng-container>
-            </div>
-          </div>
-        </td>
-        <td>
-          <ng-container >
-            {{data.name}}
-          </ng-container>
-        </td>
-        <td>
-          <ng-container >
-            {{data.template}}
-          </ng-container>
-        </td>
-        <td>
-          <ng-container>
-            {{data.describe}}
-          </ng-container>
-        </td>
-      </tr>
-    </tbody>
-  </nz-table>
+<div class="add-search-group">
+  <p>目标信息</p>
+  <div class="search-group">
+    <nz-input-group nzSearch nzSize="default" [nzSuffix]="suffixButton">
+      <input type="text" style="padding: 0" nz-input placeholder="输入搜索内容">
+    </nz-input-group>
+    <ng-template #suffixButton>
+      <button nz-button nzType="primary" nzSize="default" nzSearch>搜索</button>
+    </ng-template>
+  </div>
+</div>
+  <nz-table #nzTable [nzData]="data">
+          <thead>
+            <tr>
+              <th nzWidth="5%">选择</th>
+              <th nzWidth="30%">服务名称</th>
+              <th nzWidth="20%">状态</th>
+              <th>服务描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-template ngFor let-data [ngForOf]="nzTable.data">
+              <ng-template ngFor let-item [ngForOf]="expandDataCache[data.key]">
+                <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent)">
+                  <td nzShowCheckbox [(nzChecked)]="item.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+                  <td [nzIndentSize]="item.level*20" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand" (nzExpandChange)="collapse(expandDataCache[data.key],item,$event)">
+                    {{item.name}}
+                  </td>
+                  <td>{{item.age}}</td>
+                  <td>{{item.address}}</td>
+                </tr>
+              </ng-template>
+            </ng-template>
+          </tbody>
+        </nz-table>
 </nz-modal>
-
 <nz-modal nzWrapClassName="vertical-center-modal"  [nzWidth]="800" [(nzVisible)]="isVisibleSetMiddleser1" nzTitle="添加服务" (nzOnCancel)="handleCancelSetMiddle()"
   (nzOnOk)="handleOkSetMiddle1()">
-  <nz-table style="width: 800px"  #editRowTable1 nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()"
-    [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
-    <thead (nzSortChange)="sort($event)" nzSingleSort>
-      <tr>
-        <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
-         ></th>
-        <th nzShowSort nzSortKey="num">序号</th>
-        <th nzShowSort nzSortKey="name">服务名称</th>
-        <th nzShowSort nzSortKey="template">状态</th>
-        <th nzShowSort nzSortKey="describe">服务描述</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of editRowTable1.data">
-        <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus()"></td>
-        <td>
-          <div class="editable-cell">
-            <div class="editable-cell-text-wrapper">
-              <ng-container >
-                {{data.num}}
-              </ng-container>
-            </div>
-          </div>
-        </td>
-        <td>
-          <ng-container >
-            {{data.name}}
-          </ng-container>
-        </td>
-        <td>
-          <ng-container >
-            {{data.template}}
-          </ng-container>
-        </td>
-        <td>
-          <ng-container>
-            {{data.describe}}
-          </ng-container>
-        </td>
-      </tr>
-    </tbody>
-  </nz-table>
+<div class="add-search-group">
+  <p>目标信息</p>
+  <div class="search-group">
+    <nz-input-group nzSearch nzSize="default" [nzSuffix]="suffixButton">
+      <input type="text" style="padding: 0" nz-input placeholder="输入搜索内容">
+    </nz-input-group>
+    <ng-template #suffixButton>
+      <button nz-button nzType="primary" nzSize="default" nzSearch>搜索</button>
+    </ng-template>
+  </div>
+</div>
+  <nz-table #nzTable1 [nzData]="data">
+          <thead>
+            <tr>
+              <th nzWidth="5%">选择</th>
+              <th nzWidth="30%">服务名称</th>
+              <th nzWidth="20%">状态</th>
+              <th>服务描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-template ngFor let-data [ngForOf]="nzTable1.data">
+              <ng-template ngFor let-item [ngForOf]="expandDataCache[data.key]">
+                <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent)">
+                  <td nzShowCheckbox [(nzChecked)]="item.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+                  <td [nzIndentSize]="item.level*20" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand" (nzExpandChange)="collapse(expandDataCache[data.key],item,$event)">
+                    {{item.name}}
+                  </td>
+                  <td>{{item.age}}</td>
+                  <td>{{item.address}}</td>
+                </tr>
+              </ng-template>
+            </ng-template>
+          </tbody>
+        </nz-table>
 </nz-modal>
 <nz-card nzType="inner" nzTitle="查看选项">
   <div nz-col nzSpan="12" class="find-select">
