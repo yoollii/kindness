@@ -1,51 +1,52 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-user-management',
-  templateUrl: './user-management.component.html',
-  styleUrls: ['./user-management.component.less']
+  selector: 'app-application-readyonly',
+  templateUrl: './application-readyonly.component.html',
+  styleUrls: ['./application-readyonly.component.less']
 })
-export class UserManagementComponent implements OnInit {
+export class ApplicationReadyonlyComponent implements OnInit {
   i = 1;
   editCache = {};
   dataSet = [];
-  sortValue = null;
-  listOfRole: string;
-  listOfName: string;
-  listOfRoleList = [];
-  currentGroup: String;
-  currentName: String;
-  currentState = '停用';
-  userName: string;
   loading = true;
-  isupdate = false;
-  generalUser = false;
-  admin = false;
-  superAdmin = true;
   isVisibleMiddle = false;
-  isVisibleMsgMiddle = false;
+  isVisibleEditMiddle = false;
+  sortName = null;
+  sortValue = null;
+  size = 'small'; // 按钮尺寸
   num: number;
   name: string;
-  sortName = null;
-  size = 'small'; // 按钮尺寸
+  template: string;
+  describe: string;
   listOfSearchName = [];
-  listOfTagOptions: string;
-  listOfOption = [];
-  listOfType: string;
-  listOfTypelist = [];
-  listOforgan: string;
-  listOforganList = [];
   searchAddress: string;
-  selectedValue = this.currentGroup;
+  listOfSelection = [
+    {
+      text: 'Select All Row',
+      onSelect: () => {
+        this.checkAll(true);
+      }
+    },
+    {
+      text: 'Select Odd Row',
+      onSelect: () => {
+        this.dataSet.forEach((data, index) => data.checked = index % 2 !== 0);
+        this.refreshStatus();
+      }
+    },
+    {
+      text: 'Select Even Row',
+      onSelect: () => {
+        this.dataSet.forEach((data, index) => data.checked = index % 2 === 0);
+        this.refreshStatus();
+      }
+    }
+  ];
   // 自定义选项开始
   allChecked = false;
   // dataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
   indeterminate = false;
-  rightsGroup = [
-    { label: '超级管理员', value: 'superAdmin', checked: this.superAdmin },
-    { label: '管理员', value: 'admin', checked: this.admin },
-    { label: '一般用户', value: 'generalUser', checked: this.generalUser}
-  ];
 
   refreshStatus(): void {
     const allChecked = this.dataSet.every(value => value.checked === true);
@@ -59,19 +60,15 @@ export class UserManagementComponent implements OnInit {
     this.refreshStatus();
   }
   // 自定义选项结束
-  startEdit(data): void {
+  startEdit(key: string): void {
     // this.editCache[key].edit = true;
-    this.listOfRole = data.role;
-    this.listOfName = data.name;
-    this.isupdate = true;
+    this.showModalEditMiddle();
   }
 
   cancelEdit(key: string): void {
     this.editCache[key].edit = false;
   }
-  log(value: object[]): void {
-    console.log(value);
-  }
+
   saveEdit(key: string): void {
     const index = this.dataSet.findIndex(item => item.key === key);
     this.dataSet[index] = this.editCache[key].data;
@@ -89,22 +86,14 @@ export class UserManagementComponent implements OnInit {
     });
   }
   constructor() { }
-
   ngOnInit(): void {
-    this.listOfOption = ['1组', '2组', '3组', '4组'];
-    this.listOforganList = ['机构一', '机构二', '机构三', '机构四'];
-    this.listOfTypelist = ['启用', '禁用'];
-
-    this.listOfRoleList = ['超级管理员', '管理员', '一般用户'];
     for (let i = 0; i < 30; i++) {
       this.dataSet.push({
         key: i.toString(),
         num: i,
-        userName: `user. ${i}`,
-        role: `超级管理员. ${i}`,
-        group: `${i}组`,
-        state: '启用',
-        organ: `机构${i}`,
+        name: '厚德平台',
+        describe: `操作系统 no. ${i}`,
+        template: '模板',
         checked: false
       });
     }
@@ -135,6 +124,11 @@ export class UserManagementComponent implements OnInit {
     }
     console.log(this.dataSet);
   }
+
+
+
+
+
   // 模态框
   showModalMiddle(): void {
     this.isVisibleMiddle = true;
@@ -142,37 +136,24 @@ export class UserManagementComponent implements OnInit {
   handleOkMiddle(): void {
     console.log('click ok');
     this.isVisibleMiddle = false;
-    this.isupdate = false;
-    this.dataSet.push({
-      userName: this.userName,
-      role: this.listOfRole,
-      group: this.listOfTagOptions,
-      state: this.listOfType,
-    });
   }
 
   handleCancelMiddle(): void {
     console.log('click Cancel');
     this.isVisibleMiddle = false;
-    this.isupdate = false;
   }
-
-  showModalMsgMiddle(data): void {
-    this.isVisibleMsgMiddle = true;
-    this.currentGroup = data.group;
-    this.currentName = data.userName;
-    this.currentState = data.state;
+  showModalEditMiddle(): void {
+    this.isVisibleEditMiddle = true;
   }
-  handleOkMsgMiddle(): void {
+  handleOkEditkMiddle(): void {
     console.log('click ok');
-    this.isVisibleMsgMiddle = false;
+    this.isVisibleEditMiddle = false;
   }
 
-  handleCancelMsgMiddle(): void {
+  handleCancelEditMiddle(): void {
     console.log('click Cancel');
-    this.isVisibleMsgMiddle = false;
+    this.isVisibleEditMiddle = false;
   }
-
 
 
   // 添加一行数据
@@ -181,12 +162,9 @@ export class UserManagementComponent implements OnInit {
     this.i++;
     this.dataSet = [...this.dataSet, {
       key: `${this.i}`,
-      num: this.i,
-      name: `user. ${this.i}`,
-      role: `超级管理员. ${this.i}`,
-      group: `${this.i}组`,
-      state: '启用',
-      organ: `机构${this.i}`
+      name: '厚德平台',
+      describe: `操作系统 no. ${this.i}`,
+      template: '模板',
     }];
     console.log(this.dataSet);
     this.updateEditCache();
@@ -201,5 +179,4 @@ export class UserManagementComponent implements OnInit {
     this.editCache[key].edit = false;
     this.dataSet.find(item => item.key === key).name = this.editCache[key].name;
   }
-
 }

@@ -12,27 +12,25 @@ export class ApplicationManagementComponent implements OnInit {
   selectedValue;
   value: string;
   dataSet = [];
-  name:string="";
-  num:number;
-  template:string;
-  loading:boolean;
-  listOfSelection:any;
-  handleOkMiddle:any;
-  sort:any;
-  mk2:boolean=false;
-  mk1:boolean=false;
+  name = '';
+  num: number;
+  template: string;
+  loading: boolean;
+  listOfSelection: any;
+  sort: any;
+  mk2 = false;
+  mk1 = false;
   inputValue: string;
   size: string; // 按钮尺寸
-  isVisibleMiddle:boolean = false;
-  isVisibleMiddle1:boolean = false;
-  isVisibleSetMiddle:boolean = false;
-  isVisibleSetMiddleser:boolean = false;
-  isVisibleSetMiddleser1:boolean = false;
-  showpop:boolean = false;
-  allChecked:boolean = false;
-  indeterminate:boolean= false;
+  isVisibleMiddle = false;
+  isVisibleMiddle1 = false;
+  isVisibleSetMiddle = false;
+  isVisibleSetMiddleser = false;
+  isVisibleSetMiddleser1 = false;
+  showpop = false;
+  allChecked = false;
+  indeterminate = false;
   displayData = [];
-
   jsplmdIs:boolean = true;
   // data = [
   //   {
@@ -170,24 +168,23 @@ export class ApplicationManagementComponent implements OnInit {
     }
   }
   constructor(public router: Router,private nzMessageService: NzMessageService) {
-
   }
-  cancel(){
-    this.nzMessageService.info('取消保存!')
+  cancel() {
+    this.nzMessageService.info('取消保存!');
   }
 
-  confirm(){
+  confirm() {
     this.nzMessageService.info('保存成功!');
     this.gorouter('home/application');
   }
 
-  handleCancelMiddle():void{
-    this.isVisibleMiddle= false;
+  handleCancelMiddle(): void {
+    this.isVisibleMiddle = false;
     this.showpop = false;
     this.isVisibleMiddle1 = false;
   }
 
-  showModalEditMiddle(){
+  showModalEditMiddle() {
 
   }
   handleOkEditMiddle() {
@@ -201,35 +198,35 @@ export class ApplicationManagementComponent implements OnInit {
 
     this.showpop = false;
   }
-  //以上流程图代码------------------------------------------------------------------
+  // 以上流程图代码------------------------------------------------------------------
 
-  showModalSetMiddle(){
+  showModalSetMiddle() {
     this.isVisibleSetMiddle = true;
   }
-  handleOkSetMiddle(){
+  handleOkSetMiddle() {
     console.log('click ok');
     this.isVisibleSetMiddle = false;
-    this.isVisibleSetMiddleser=false;
+    this.isVisibleSetMiddleser = false;
     this.mk1 = true;
   }
-  handleOkSetMiddle1(){
+  handleOkSetMiddle1() {
 
-    this.isVisibleSetMiddleser1=false;
+    this.isVisibleSetMiddleser1 = false;
     this.mk2 = true;
   }
-  handleCancelSetMiddle(){
+  handleCancelSetMiddle() {
     console.log('click Cancel');
     this.isVisibleSetMiddle = false;
-    this.isVisibleSetMiddleser =false;
-    this.isVisibleSetMiddleser1 =false;
+    this.isVisibleSetMiddleser = false;
+    this.isVisibleSetMiddleser1 = false;
 
   }
-  currentPageDataChange($event: Array<{ name: string; age: number; address: string; checked: boolean; disabled: boolean; }>):void{
+  currentPageDataChange($event: Array<{ name: string; age: number; address: string; checked: boolean; disabled: boolean; }>): void {
     this.displayData = $event;
     this.refreshStatus();
   }
 
-  refreshStatus(){
+  refreshStatus() {
     const allChecked = this.displayData.filter(value => !value.disabled).every(value => value.checked === true);
     const allUnChecked = this.displayData.filter(value => !value.disabled).every(value => !value.checked);
     this.allChecked = allChecked;
@@ -266,24 +263,25 @@ export class ApplicationManagementComponent implements OnInit {
     // 		this.router.navigateByUrl(item);
     // 	}
   }
-  tjsq(a:number){
-    if(a==1){
-      this.isVisibleSetMiddleser=true;
-    }
-    else if(a==2){
-      this.isVisibleSetMiddleser1=true;
+  tjsq(a: number) {
+    if (a === 1) {
+      this.isVisibleSetMiddleser = true;
+    } else if (a === 2) {
+      this.isVisibleSetMiddleser1 = true;
+    } else if (a === 2) {
+      this.isVisibleSetMiddleser1 = true;
     }
   }
-  add(){
-    this.showpop=true;
+  add() {
+    this.showpop = true;
   }
   ngAfterViewInit(): void {
     // this.loading = false;
     // this.updateEditCache();
 
-    var jsPlumb = jsp.jsPlumb;
-    (jsPlumb as any).setContainer($("#canvas"));
-    var instance = jsPlumb.getInstance({
+    const jsPlumb = jsp.jsPlumb;
+    (jsPlumb as any).setContainer($('#canvas'));
+    const instance = jsPlumb.getInstance({
       // default drag options
       DragOptions: { cursor: 'pointer', zIndex: 2000 },
       // the overlays to decorate each connection with.  note that the label overlay uses a function to generate the label text; in this
@@ -296,17 +294,17 @@ export class ApplicationManagementComponent implements OnInit {
           length: 5,
           id: 'ARROW',
           events: {
-            click: function () { alert('you clicked on the arrow overlay') }
+            click: function () { alert('you clicked on the arrow overlay'); }
           }
         }],
         ['Label', {
           location: 0.1,
           id: 'label',
-          cssClass: "aLabel",
+          cssClass: 'aLabel',
           events: {
             // connection.getOverlay("label")
             tap: function () {
-              let label = prompt('请输入标签文字：');
+              const label = prompt('请输入标签文字：');
               this.setLabel(label);
             }
           }
@@ -314,7 +312,7 @@ export class ApplicationManagementComponent implements OnInit {
       ]
     });
 
-    var basicType = {
+    const basicType = {
       connector: 'StateMachine',
       paintStyle: { stroke: 'red', strokeWidth: 4 },
       hoverPaintStyle: { stroke: 'blue' },
@@ -325,7 +323,7 @@ export class ApplicationManagementComponent implements OnInit {
     instance.registerConnectionType('basic', basicType);
 
     // this is the paint style for the connecting lines..
-    var connectorPaintStyle = {
+    const connectorPaintStyle = {
         strokeWidth: 3,
         stroke: '#61B7CF',
         outlineStroke: 'white',
@@ -381,16 +379,16 @@ export class ApplicationManagementComponent implements OnInit {
       init = function (connection) {
         // connection.getOverlay('label').setLabel(connection.sourceId.substring(15) + '-' + connection.targetId.substring(15));
       };
-      var _addEndpoints = function (toId, sourceAnchors, targetAnchors) {
-      for (var i = 0; i < sourceAnchors.length; i++) {
-        var sourceUUID = toId + sourceAnchors[i];
-        (instance as any).addEndpoint("flowchart" + toId, sourceEndpoint, {
+      const _addEndpoints = function (toId, sourceAnchors, targetAnchors) {
+      for (let i = 0; i < sourceAnchors.length; i++) {
+        const sourceUUID = toId + sourceAnchors[i];
+        (instance as any).addEndpoint('flowchart' + toId, sourceEndpoint, {
           anchor: sourceAnchors[i], uuid: sourceUUID
         });
       }
-      for (var j = 0; j < targetAnchors.length; j++) {
-        var targetUUID = toId + targetAnchors[j];
-        (instance as any).addEndpoint("flowchart" + toId, targetEndpoint, { anchor: targetAnchors[j], uuid: targetUUID });
+      for (let j = 0; j < targetAnchors.length; j++) {
+        const targetUUID = toId + targetAnchors[j];
+        (instance as any).addEndpoint('flowchart' + toId, targetEndpoint, { anchor: targetAnchors[j], uuid: targetUUID });
       }
     };
 
@@ -413,7 +411,7 @@ export class ApplicationManagementComponent implements OnInit {
       // make all the window divs draggable
       // instance.draggable(jsPlumb.getSelector('.flowchart-demo .window'), { grid: [20, 20] });
 
-      //上一句为元素拖动
+      // 上一句为元素拖动
       // THIS DEMO ONLY USES getSelector FOR CONVENIENCE. Use your library's appropriate selector
       // method, or document.querySelectorAll:
       // jsPlumb.draggable(document.querySelectorAll(".window"), { grid: [20, 20] });
@@ -470,13 +468,13 @@ export class ApplicationManagementComponent implements OnInit {
 
   // 模态框
 
-  // handleOkMiddle(): void {
-  //   console.log('click ok');
-  //   this.isVisibleMiddle = false;
-  //   // this.isVisibleMiddle1 = false;
-  //   this.isVisibleSetMiddleser = false;
-  //   this.showpop = false;
-  // }
+  handleOkMiddle(): void {
+    console.log('click ok');
+    this.isVisibleMiddle = false;
+    // this.isVisibleMiddle1 = false;
+    this.isVisibleSetMiddleser = false;
+    this.showpop = false;
+  }
 
 
 

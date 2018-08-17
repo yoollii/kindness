@@ -145,7 +145,7 @@ export class ApplicationComponent implements OnInit {
   handleOkMiddle(): void {
     console.log('click ok');
     this.isVisibleMiddle = false;
-    this.gorouter("home/applicationManagement")
+    this.gorouter('home/applicationManagement');
   }
 
   handleCancelMiddle(): void {

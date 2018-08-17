@@ -1,7 +1,6 @@
 .home-wrap {
     // display: flex;
-    .content-left {
-        flex: 1;
+    .container-box {
     //   margin-right: 10px;
     //   background-color: #061011;
     //   position: relative;
@@ -10,32 +9,86 @@
     //   .diqiu-img:hover {animation-play-state:paused; -webkit-animation-play-state:paused;}
     //   @keyframes myfirst {0% {transform:rotate(0deg);} 100% {transform:rotate(360deg);}}
     //   @-webkit-keyframes myfirst {0% {transform:rotate(0deg);} 100% {transform:rotate(360deg);}}
-    nz-collapse-panel{
-        position: relative;
-        .more{
-            position: absolute;
-            top: 12px;
-            right: 15px;
+        .box1{
+            background-color: #17a2b8;
+            border-radius: 3px;
             a{
-                color: blue;
+                color: #fff;
             }
-            a:hover{
-                color: red;
+        }
+        .box2{
+            background-color: #28a745;
+            border-radius: 3px;
+             a{
+                color: #fff;
+            }
+        }
+        .box3{
+            background-color: #ffc107;
+            border-radius: 3px;
+             a{
+                color: #fff;
+            }
+        }
+        .box4{
+            background-color: #dc3545;
+            border-radius: 3px;
+             a{
+                color: #fff;
+            }
+        }
+        .moreContainer{
+            text-align: center;
+            padding: 4px;
+            background: rgba(0,0,0,.1);
+        }
+        p{
+            padding: 15px 0;
+            margin: 0;
+        }
+        .box-detail{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            &>div{
+                flex: 1;
+            }
+            img{
+                width: 70px;
+                height: 70px;
             }
         }
     }
-     }
-    .content-right {
-        width: 300px;
-        nz-collapse-panel p{
-            margin-left: 40px;
+    .content-container{
+        .dataView ,.dataNotView{
+            display: none;
+        }
+        &>div{
+            margin: 10px 0;
+            &>div{
+                height: 360px;
+                border: 1px solid rgb(217, 217, 217);
+                border-radius: 4px;
+            }
+        }
+        .title{
+            margin: 10px 0;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            a{
+                color: #6c757d;
+                border-radius: 4px;
+                padding: 5px;
+            }
+            .buttonActived{
+                background-color: #007bff;
+                color: #fff;
+            }
+        }
+        #c1{
+            padding-top: 10px;
         }
     }
-    #c1,#c2{
-        padding-top: 10px;
-    }
-}
-
-.hide {
-    display: none
 }

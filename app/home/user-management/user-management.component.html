@@ -147,6 +147,7 @@
       <th nzShowSort nzSortKey="role">用户角色</th>
       <th nzShowSort nzSortKey="group">用户分组</th>
       <th nzShowSort nzSortKey="state">状态</th>
+      <th nzShowSort nzSortKey="organ">所属机构</th>
       <th nzShowSort>操作</th>
     </tr>
   </thead>
@@ -158,9 +159,6 @@
           <div class="editable-cell-text-wrapper">
             <ng-container *ngIf="!editCache[data.key].edit">
               {{data.num}}
-            </ng-container>
-            <ng-container *ngIf="editCache[data.key].edit">
-              <input type="text" nz-input [(ngModel)]="editCache[data.key].data.num">
             </ng-container>
           </div>
         </div>
@@ -174,24 +172,20 @@
         <ng-container *ngIf="!editCache[data.key].edit">
           {{data.role}}
         </ng-container>
-        <ng-container *ngIf="editCache[data.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.role">
-        </ng-container>
       </td>
       <td>
         <ng-container *ngIf="!editCache[data.key].edit">
           {{data.group}}
-        </ng-container>
-        <ng-container *ngIf="editCache[data.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.group">
         </ng-container>
       </td>
       <td>
         <ng-container *ngIf="!editCache[data.key].edit">
           {{data.state}}
         </ng-container>
-        <ng-container *ngIf="editCache[data.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.state">
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.organ}}
         </ng-container>
       </td>
       <td>

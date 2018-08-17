@@ -38,6 +38,7 @@ import { ProcessMaagementListComponent } from './home/process-maagement-list/pro
 import { ApplicationManagementComponent } from './home/application/application-management/application-management.component';
 import { OrganmanagementComponent } from './home/organmanagement/organmanagement.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import { ApplicationReadyonlyComponent } from './home/application-readyonly/application-readyonly.component';
 registerLocaleData(zh);
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ registerLocaleData(zh);
     ProcessMaagementListComponent,
     ApplicationManagementComponent,
     OrganmanagementComponent,
+    ApplicationReadyonlyComponent,
   ],
   imports: [
     BrowserModule,
