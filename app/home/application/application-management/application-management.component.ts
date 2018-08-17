@@ -67,22 +67,22 @@ export class ApplicationManagementComponent implements OnInit {
   constructor(public router: Router, private nzMessageService: NzMessageService) {
 
   }
-  cancel(){
-    this.nzMessageService.info('取消保存!')
+  cancel() {
+    this.nzMessageService.info('取消保存!');
   }
 
-  confirm(){
+  confirm() {
     this.nzMessageService.info('保存成功!');
     this.gorouter('home/application');
   }
 
-  handleCancelMiddle():void{
-    this.isVisibleMiddle= false;
+  handleCancelMiddle(): void {
+    this.isVisibleMiddle = false;
     this.showpop = false;
     this.isVisibleMiddle1 = false;
   }
 
-  showModalEditMiddle(){
+  showModalEditMiddle() {
 
   }
   handleOkEditMiddle() {
@@ -163,13 +163,12 @@ export class ApplicationManagementComponent implements OnInit {
       this.isVisibleSetMiddleser = true;
     } else if (a === 2) {
       this.isVisibleSetMiddleser1 = true;
-    }
-    else if(a==2){
-      this.isVisibleSetMiddleser1=true;
+    } else if (a === 2) {
+      this.isVisibleSetMiddleser1 = true;
     }
   }
-  add(){
-    this.showpop=true;
+  add() {
+    this.showpop = true;
   }
   ngAfterViewInit(): void {
     // this.loading = false;

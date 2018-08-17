@@ -13,9 +13,9 @@
     nz-layout{
         height:100%;
     }
-    .colorwhite{
-        color:#fff;
-    }
+    // .colorwhite{
+    //     color:#fff;
+    // }
     .ant-layout-header{
         padding:0;
     }
@@ -25,7 +25,7 @@
     left: 0;
     display: flex;
     align-items: center;
-    padding: 0 16px;
+    padding: 0 0 0 16px;
     width: 100%;
     height: 64px;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
@@ -33,6 +33,7 @@
     .logo {
     margin-left: -16px;
     width: 200px;
+    background-color:#232527;
     transition: width 0.2s cubic-bezier(0.25, 0, 0.15, 1);
     height:auto;
 
@@ -57,11 +58,13 @@
         flex: 1;
         display: flex;
         justify-content: space-between;
+        background: #fff;
     }
 
 }
 .ant-layout-sider-collapsed+nz-layout .header .logo {
-    width: 64px;
+    // width: 64px;
+    width: 80px;
 }
 .ant-layout-sider-collapsed+nz-layout .header .logo img.expanded {
     display: none;
@@ -82,7 +85,6 @@
     .item i {
     font-size: 18px;
     line-height: 100%;
-    color:#fff;
 }
 }
 
@@ -102,3 +104,6 @@
             border-radius: 0;
             background: rgba(0,0,0,0.1);
         }
+.ant-menu-item-selected{
+    background-color: #494e53;
+}
