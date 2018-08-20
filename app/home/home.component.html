@@ -1,4 +1,4 @@
-<nz-layout>
+<nz-layout class='layout-container'>
   <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate" style="margin-top:64px;overflow-y: scroll;">
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu [nzOpen]="true">
@@ -89,7 +89,7 @@
       </li>
     </ul>
   </nz-sider>
-  <nz-layout>
+  <nz-layout class='layout-content-container'>
     <nz-header class='header'>
       <div class="logo">
         <!-- <a ng-reflect-router-link="home/homePage" href="home/homePage"> -->
@@ -100,8 +100,7 @@
       </div>
 
       <div class="top-nav-wrap">
-        <i class="anticon trigger"  [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed"
-          (click)="isCollapsed=!isCollapsed"></i>
+        <i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
         <ul class="top-nav">
           <li>
             <nz-dropdown nzTrigger="click" nzPlacement="bottomRight" (nzVisibleChange)="change()">
@@ -138,7 +137,7 @@
     <nz-content #content style="margin:86px 16px 16px 16px;padding:16px;">
       <router-outlet></router-outlet>
     </nz-content>
-<nz-footer style="padding:20px 0;box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);text-align: center;">厚德管理平台 ©2018 </nz-footer>
+    <nz-footer style="padding:20px 0;color:#fff;box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);text-align: center;">厚德管理平台 ©2018 </nz-footer>
   </nz-layout>
 </nz-layout>
 <ng-template #trigger>
