@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import * as jsp from 'jsplumb';
 import * as $ from 'jquery';
+
 export interface TreeNodeInterface {
   key: number;
   name: string;
@@ -40,7 +41,7 @@ export class ApplicationManagementComponent implements OnInit {
   allChecked = false;
   indeterminate = false;
   displayData = [];
-  jsplmdIs:boolean = true;
+  jsplmdIs = true;
   // data = [
   //   {
   //     num: '1',
@@ -77,49 +78,49 @@ export class ApplicationManagementComponent implements OnInit {
     {
       key     : 1,
       name    : '服务一',
-      age     : "启用",
+      age     : '启用',
       address : '厚德系统服务一',
       children: [
         {
           key    : 11,
           name   : '服务二',
-          age    : "启用",
+          age    : '启用',
           address: '厚德系统服务二'
         },
         {
           key     : 12,
           name    : '服务三',
-          age     : "启用",
+          age     : '启用',
           address : '厚德系统服务三',
           children: [ {
             key    : 121,
             name   : '服务四',
-            age    : "启用",
+            age    : '启用',
             address: '厚德系统服务四'
           } ]
         },
         {
           key     : 13,
           name    : '服务五',
-          age     : "启用",
+          age     : '启用',
           address : '厚德系统服务四',
           children: [
             {
               key     : 131,
               name    : '服务五',
-              age     : "启用",
+              age     : '启用',
               address : '厚德系统服务四',
               children: [
                 {
                   key    : 1311,
                   name   : '服务六',
-                  age    : "启用",
+                  age    : '启用',
                   address: '厚德系统服务五'
                 },
                 {
                   key    : 1312,
                   name   : '服务七',
-                  age    : "启用",
+                  age    : '启用',
                   address: '厚德系统服务六'
                 }
               ]
@@ -131,7 +132,7 @@ export class ApplicationManagementComponent implements OnInit {
     {
       key    : 2,
       name   : '服务八',
-      age    : "启用",
+      age    : '启用',
       address: '厚德系统服务七'
     }
   ];
@@ -176,7 +177,7 @@ export class ApplicationManagementComponent implements OnInit {
       array.push(node);
     }
   }
-  constructor(public router: Router,private nzMessageService: NzMessageService) {
+  constructor(public router: Router, private nzMessageService: NzMessageService) {
   }
   cancel() {
     this.nzMessageService.info('取消保存!');
@@ -249,7 +250,7 @@ export class ApplicationManagementComponent implements OnInit {
     });
     this.refreshStatus();
   }
-  ngOnInit(){
+  ngOnInit() {
     this.data.forEach(item => {
       this.expandDataCache[ item.key ] = this.convertTreeToList(item);
     });
