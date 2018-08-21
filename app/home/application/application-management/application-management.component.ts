@@ -219,7 +219,6 @@ export class ApplicationManagementComponent implements OnInit {
     this.mk1 = true;
   }
   handleOkSetMiddle1() {
-
     this.isVisibleSetMiddleser1 = false;
     this.mk2 = true;
   }
@@ -506,11 +505,6 @@ export class ApplicationManagementComponent implements OnInit {
 //     this.isVisibleSetMiddle = false;
 //     this.isVisibleSetMiddleser = false;
 //     this.mk1 = true;
-//   }
-//   handleOkSetMiddle1(): void {
-//
-//     this.isVisibleSetMiddleser1 = false;
-//     this.mk2 = true;
 //   }
 //   handleCancelSetMiddle(): void {
 //     console.log('click Cancel');
