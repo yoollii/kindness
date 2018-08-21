@@ -32,10 +32,10 @@
     [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
     <thead (nzSortChange)="sort($event)" nzSingleSort>
       <tr>
-        <th style="background-color:white;" nzShowSort nzSortKey="num">序号</th>
-        <th style="background-color:white;" nzShowSort nzSortKey="index">成果编号</th>
-        <th style="background-color:white;" nzShowSort nzSortKey="id">目标ID </th>
-        <th style="background-color:white;" nzShowSort nzSortKey="workId">作业编号</th>
+        <th nzShowSort nzSortKey="num">序号</th>
+        <th nzShowSort nzSortKey="index">成果编号</th>
+        <th nzShowSort nzSortKey="id">目标ID </th>
+        <th nzShowSort nzSortKey="workId">作业编号</th>
       </tr>
     </thead>
     <tbody>

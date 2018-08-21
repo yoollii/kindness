@@ -10,7 +10,7 @@
   <div nz-row [nzGutter]="24">
     <div nz-col [nzSpan]="12" class="form-wrap" nzType="flex" nzAlign="middle">
       <nz-form-item>
-        <nz-form-label nzRequired>姓名</nz-form-label>
+        <label class='label-black' nzRequired>姓名</label>
         <nz-form-control>
           <nz-input-group nzPrefixIcon="anticon anticon-user">
             <input formControlName="userName" nz-input placeholder="姓名">
@@ -21,7 +21,7 @@
     </div>
     <div nz-col [nzSpan]="12" class="form-wrap">
       <nz-form-item>
-        <nz-form-label nzRequired>性别</nz-form-label>
+        <label class='label-black' nzRequired>性别</label>
         <nz-form-control>
           <nz-select id="gender" formControlName="gender" nzPlaceHolder="选择性别">
             <nz-option nzLabel="男" nzValue="male"></nz-option>
@@ -33,7 +33,7 @@
     </div>
     <div nz-col [nzSpan]="12" class="form-wrap">
       <nz-form-item>
-        <nz-form-label nzRequired>城市</nz-form-label>
+        <label class='label-black' nzRequired>城市</label>
         <nz-form-control>
           <nz-select id="city" formControlName="city" nzPlaceHolder="选择城市">
             <nz-option nzLabel="成都" nzValue="chengdu"></nz-option>
@@ -45,7 +45,7 @@
     </div>
     <div nz-col [nzSpan]="12" class="form-wrap">
       <nz-form-item>
-        <nz-form-label nzRequired>省份</nz-form-label>
+        <label class='label-black' nzRequired>省份</label>
         <nz-form-control>
           <nz-select id="province" formControlName="province" nzPlaceHolder="选择省份">
             <nz-option nzLabel="四川" nzValue="sichuan"></nz-option>
@@ -57,7 +57,7 @@
     </div>
     <div nz-col [nzSpan]="24" class="form-wrap">
       <nz-form-item>
-        <nz-form-label nzRequired>备注</nz-form-label>
+        <label class='label-black' nzRequired>备注</label>
         <nz-form-control>
           <textarea formControlName="comment" nz-input placeholder="写点什么"></textarea>
         </nz-form-control>
@@ -72,9 +72,9 @@
       </span>
     </nz-upload>
   </nz-form-item>
-<nz-form-item>
-  <nz-form-control>
-    <button nz-button nzType="primary">导入</button>
-  </nz-form-control>
-</nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button nzType="primary">导入</button>
+    </nz-form-control>
+  </nz-form-item>
 </form>
