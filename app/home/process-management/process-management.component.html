@@ -9,144 +9,163 @@
   <button nz-button (click)="addRow()" class="editable-add-btn">
     <i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
 </div>
- <div class="jtk-demo-canvas canvas-wide flowchart-demo jtk-surface jtk-surface-nopan" id="canvas"  [ngStyle]="{'display':jsplmdIs? 'block' : 'none' }">
-         <div class="window jtk-node" id="flowchartWindow1"><strong>开始</strong><br/><br/></div>
-          <div class="window jtk-node" id="flowchartWindow2"><strong>提交申请</strong><br/><br/></div>
-           <div class="window jtk-node" id="flowchartWindow3"><strong>审批</strong><br/><br/></div>
-           <div class="window jtk-node" id="flowchartWindow4"><strong>结束</strong><br/><br/></div>
-       </div>
-<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
-    <nz-form-item>
-        <nz-form-label nzFor="no">序号</nz-form-label>
-        <nz-form-control>
-            <input nz-input [(ngModel)]="num" name="num" placeholder="请输入" id="no1">
-        </nz-form-control>
-        <nz-form-label nzFor="no">流程模板名称</nz-form-label>
-        <nz-form-control>
-            <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
-        </nz-form-control>
-        <nz-form-label nzFor="no">部署状态</nz-form-label>
-        <nz-form-control>
-            <input nz-input [(ngModel)]="template" name="template" placeholder="请输入" id="no3">
-        </nz-form-control>
-        <nz-form-label nzFor="no">创建人</nz-form-label>
-        <nz-form-control>
-            <input nz-input [(ngModel)]="role" name="role" placeholder="请输入" id="no3">
-        </nz-form-control>
-        <nz-form-label nzFor="no">流程模板描述</nz-form-label>
-        <nz-form-control>
-            <input nz-input [(ngModel)]="describe" name="describe" placeholder="请输入" id="no3">
-        </nz-form-control>
-    </nz-form-item>
+<div class="jtk-demo-canvas canvas-wide flowchart-demo jtk-surface jtk-surface-nopan" id="canvas" [ngStyle]="{'display':jsplmdIs? 'block' : 'none' }">
+  <div class="window jtk-node" id="flowchartWindow1">
+    <strong>开始</strong>
+    <br/>
+    <br/>
+  </div>
+  <div class="window jtk-node" id="flowchartWindow2">
+    <strong>提交申请</strong>
+    <br/>
+    <br/>
+  </div>
+  <div class="window jtk-node" id="flowchartWindow3">
+    <strong>审批</strong>
+    <br/>
+    <br/>
+  </div>
+  <div class="window jtk-node" id="flowchartWindow4">
+    <strong>结束</strong>
+    <br/>
+    <br/>
+  </div>
+</div>
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()"
+  (nzOnOk)="handleOkMiddle()">
+  <nz-form-item>
+    <nz-form-label nzFor="no">序号</nz-form-label>
+    <nz-form-control>
+      <input nz-input [(ngModel)]="num" name="num" placeholder="请输入" id="no1">
+    </nz-form-control>
+    <nz-form-label nzFor="no">流程模板名称</nz-form-label>
+    <nz-form-control>
+      <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
+    </nz-form-control>
+    <nz-form-label nzFor="no">部署状态</nz-form-label>
+    <nz-form-control>
+      <input nz-input [(ngModel)]="template" name="template" placeholder="请输入" id="no3">
+    </nz-form-control>
+    <nz-form-label nzFor="no">创建人</nz-form-label>
+    <nz-form-control>
+      <input nz-input [(ngModel)]="role" name="role" placeholder="请输入" id="no3">
+    </nz-form-control>
+    <nz-form-label nzFor="no">流程模板描述</nz-form-label>
+    <nz-form-control>
+      <input nz-input [(ngModel)]="describe" name="describe" placeholder="请输入" id="no3">
+    </nz-form-control>
+  </nz-form-item>
 
 </nz-modal>
 
-<nz-modal nzWrapClassName="vertical-center-modal1" [(nzVisible)]="isVisibleMiddle1" nzTitle="流程图预览" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
-    <nz-form-item>
-      <nz-timeline>
-        <nz-timeline-item>开始</nz-timeline-item>
-        <nz-timeline-item>流程一</nz-timeline-item>
-        <nz-timeline-item>流程二</nz-timeline-item>
-        <nz-timeline-item>流程三</nz-timeline-item>
-        <nz-timeline-item>流程四</nz-timeline-item>
-        <nz-timeline-item>流程五</nz-timeline-item>
-        <nz-timeline-item>流程六</nz-timeline-item>
-        <nz-timeline-item>结束</nz-timeline-item>
-      </nz-timeline>
-     <div style="clear: both"></div>
-    </nz-form-item>
+<nz-modal nzWrapClassName="vertical-center-modal1" [(nzVisible)]="isVisibleMiddle1" nzTitle="流程图预览" (nzOnCancel)="handleCancelMiddle()"
+  (nzOnOk)="handleOkMiddle()">
+  <nz-form-item>
+    <nz-timeline>
+      <nz-timeline-item>开始</nz-timeline-item>
+      <nz-timeline-item>流程一</nz-timeline-item>
+      <nz-timeline-item>流程二</nz-timeline-item>
+      <nz-timeline-item>流程三</nz-timeline-item>
+      <nz-timeline-item>流程四</nz-timeline-item>
+      <nz-timeline-item>流程五</nz-timeline-item>
+      <nz-timeline-item>流程六</nz-timeline-item>
+      <nz-timeline-item>结束</nz-timeline-item>
+    </nz-timeline>
+    <div style="clear: both"></div>
+  </nz-form-item>
 </nz-modal>
-<nz-table #editRowTables nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus($event)" (nzPageSizeChange)="refreshStatus($event)" [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
-    <thead (nzSortChange)="sort($event)" nzSingleSort>
-        <tr>
-<th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
-  (nzCheckedChange)="checkAll($event)"></th>
-            <th nzShowSort nzSortKey="num">序号</th>
-            <th nzShowSort nzSortKey="name">流程模板名称</th>
-            <th nzShowSort nzSortKey="template">部署状态</th>
-            <th nzShowSort nzSortKey="role">创建人</th>
-            <th nzShowSort nzSortKey="describe">流程模板描述</th>
-            <th nzShowSort>操作</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let data of editRowTables.data">
-            <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
-            <td>
-                <div class="editable-cell">
-                    <div class="editable-cell-text-wrapper">
-                        <ng-container *ngIf="!editCache[data.key].edit">
-                            {{data.num}}
-                        </ng-container>
-                        <ng-container *ngIf="editCache[data.key].edit">
-                            <input type="text" nz-input [(ngModel)]="editCache[data.key].data.num">
-                        </ng-container>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <ng-container *ngIf="!editCache[data.key].edit">
-                    {{data.name}}
-                </ng-container>
-                <ng-container *ngIf="editCache[data.key].edit">
-                    <input type="text" nz-input [(ngModel)]="editCache[data.key].data.name">
-                </ng-container>
-            </td>
-            <td>
-                <ng-container *ngIf="!editCache[data.key].edit">
-                    {{data.template}}
-                </ng-container>
-                <ng-container *ngIf="editCache[data.key].edit">
-                    <input type="text" nz-input [(ngModel)]="editCache[data.key].data.template">
-                </ng-container>
-            </td>
-            <td>
-                <ng-container *ngIf="!editCache[data.key].edit">
-                    {{data.role}}
-                </ng-container>
-                <ng-container *ngIf="editCache[data.key].edit">
-                    <input type="text" nz-input [(ngModel)]="editCache[data.key].data.role">
-                </ng-container>
-            </td>
-            <td>
-                <ng-container *ngIf="!editCache[data.key].edit">
-                    {{data.describe}}
-                </ng-container>
-                <ng-container *ngIf="editCache[data.key].edit">
-                    <input type="text" nz-input [(ngModel)]="editCache[data.key].data.describe">
-                </ng-container>
-            </td>
-            <td>
-                <div class="editable-row-operations" style="display: inline-block;">
-                  <ng-container>
-                    <button [nzSize]="size" nz-button *ngIf="!editCache[data.key].edit" (click)="abdeRow()" nzType="primary">预览</button>
-                   </ng-container>
-                    <ng-container >
-                    <button [nzSize]="size" nz-button  nzType="primary">编辑</button>
-                    </ng-container>
-                    <ng-container>
-                    <button [nzSize]="size" nz-button nzType="default">启用</button>
-                    </ng-container>
-                    <ng-container>
-                    <button [nzSize]="size" nz-button nzType="default">停用</button>
-                    </ng-container>
-                    <ng-container>
-                    <button [nzSize]="size" nz-button nzType="default">另存</button>
-                    </ng-container>
+<nz-table #editRowTables nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus($event)" (nzPageSizeChange)="refreshStatus($event)"
+  [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
+  <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
+        (nzCheckedChange)="checkAll($event)"></th>
+      <th nzShowSort nzSortKey="num">序号</th>
+      <th nzShowSort nzSortKey="name">流程模板名称</th>
+      <th nzShowSort nzSortKey="template">部署状态</th>
+      <th nzShowSort nzSortKey="role">创建人</th>
+      <th nzShowSort nzSortKey="describe">流程模板描述</th>
+      <th nzShowSort>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of editRowTables.data">
+      <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+      <td>
+        <div class="editable-cell">
+          <div class="editable-cell-text-wrapper">
+            <ng-container *ngIf="!editCache[data.key].edit">
+              {{data.num}}
+            </ng-container>
+            <ng-container *ngIf="editCache[data.key].edit">
+              <input type="text" nz-input [(ngModel)]="editCache[data.key].data.num">
+            </ng-container>
+          </div>
+        </div>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.name}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.name">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.template}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.template">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.role}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.role">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.describe}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.describe">
+        </ng-container>
+      </td>
+      <td>
+        <div class="editable-row-operations" style="display: inline-block;">
+          <ng-container>
+            <button [nzSize]="size" nz-button *ngIf="!editCache[data.key].edit" (click)="abdeRow()" nzType="default">预览</button>
+          </ng-container>
+          <ng-container>
+            <button [nzSize]="size" nz-button nzType="default">编辑</button>
+          </ng-container>
+          <ng-container>
+            <button [nzSize]="size" nz-button nzType="default">启用</button>
+          </ng-container>
+          <ng-container>
+            <button [nzSize]="size" nz-button nzType="default">停用</button>
+          </ng-container>
+          <ng-container>
+            <button [nzSize]="size" nz-button nzType="default">另存</button>
+          </ng-container>
 
-                   <ng-container *ngIf="editCache[data.key].edit">
-                            <button (click)="saveEdit(data.key)" nz-button nzType="default">保存</button>
-                            <nz-popconfirm [nzTitle]="'确认取消?'" (nzOnConfirm)="cancelEdit(data.key)">
-                              <a nz-popconfirm>取消</a>
-                            </nz-popconfirm>
-                          </ng-container>
-                        </div>
-                        <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteRow(data.key)">
-                          <button [nzSize]="size" nz-button nz-popconfirm nzType="danger">删除</button>
-                        </nz-popconfirm>
-            </td>
-        </tr>
-    </tbody>
+          <ng-container *ngIf="editCache[data.key].edit">
+            <button (click)="saveEdit(data.key)" nz-button nzType="default">保存</button>
+            <nz-popconfirm [nzTitle]="'确认取消?'" (nzOnConfirm)="cancelEdit(data.key)">
+              <a nz-popconfirm>取消</a>
+            </nz-popconfirm>
+          </ng-container>
+        </div>
+        <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteRow(data.key)">
+          <button [nzSize]="size" nz-button nz-popconfirm nzType="danger">删除</button>
+        </nz-popconfirm>
+      </td>
+    </tr>
+  </tbody>
 </nz-table>
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()"
   (nzOnOk)="handleOkMiddle()">

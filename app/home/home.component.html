@@ -3,7 +3,7 @@
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu [nzOpen]="true">
         <span title>
-          <i class="anticon anticon-team"></i>
+          <i class="anticon anticon-home"></i>
           <span class="nav-text">基本功能</span>
         </span>
         <ul>
@@ -44,7 +44,7 @@
       </li>
       <li nz-submenu>
         <span title>
-          <i class="anticon anticon-team"></i>
+          <i class="anticon anticon-appstore-o"></i>
           <span class="nav-text">其他功能</span>
         </span>
         <ul>
@@ -65,7 +65,7 @@
       </li>
       <li nz-submenu>
         <span title>
-          <i class="anticon anticon-team"></i>
+          <i class="anticon anticon-star-o"></i>
           <span class="nav-text">应用系统</span>
         </span>
         <ul>
@@ -77,7 +77,7 @@
       </li>
       <li nz-submenu>
         <span title>
-          <i class="anticon anticon-team"></i>
+          <i class="anticon anticon-link"></i>
           <span class="nav-text">链接管理</span>
         </span>
 
@@ -100,7 +100,10 @@
       </div>
 
       <div class="top-nav-wrap">
-        <i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
+        <div>
+          <i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
+          <span>***作战任务规划系统</span>
+        </div>
         <ul class="top-nav">
           <li>
             <nz-dropdown nzTrigger="click" nzPlacement="bottomRight" (nzVisibleChange)="change()">

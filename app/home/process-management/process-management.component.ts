@@ -327,7 +327,7 @@ export class ProcessManagementComponent implements OnInit {
     console.log('click ok');
     this.isVisibleMiddle = false;
     this.isVisibleMiddle1 = false;
-    this.gorouter("home/processManagementList");
+    this.gorouter('home/processManagementList');
   }
 
   handleCancelMiddle(): void {
@@ -349,8 +349,8 @@ export class ProcessManagementComponent implements OnInit {
     console.log('click Cancel');
     this.isVisibleEditMiddle = false;
   }
-  //预览流程图
-  yulan(){
+  // 预览流程图
+  yulan() {
 
   }
 
