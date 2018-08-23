@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as G2 from '@antv/g2';
 import * as $ from 'jquery';
 import * as DataSet from '../../../assets/js/dataset';
+import { DragulaService } from 'ng2-dragula';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -12,6 +13,10 @@ export class HomePageComponent implements OnInit {
   isVisibleMiddle = false;
   dataView = false;
   dataNotView = true;
+  foledata = false;
+  foldmap = false;
+  foldcalendar = false;
+  folelog = false;
   chart;
   chart1;
   chart2;
@@ -51,7 +56,17 @@ export class HomePageComponent implements OnInit {
       data2: '删除',
     }
   ];
-  constructor() { }
+  constructor(private dragulaService: DragulaService) {
+    // use these if you want
+
+    this.dragulaService.createGroup('VAMPIRES', {
+      // ...
+    });
+
+    this.dragulaService.dropModel('VAMPIRES').subscribe(args => {
+      console.log(args);
+    });
+  }
   ngOnInit() {
     // this.init();
     this.chartData();
@@ -181,7 +196,7 @@ export class HomePageComponent implements OnInit {
     this.chart = new G2.Chart({
       container: 'c1', // 指定图表容器 ID
       width: 550, // 指定图表宽度
-      height: 280 // 指定图表高度
+      height: 314 // 指定图表高度
     });
     this.chart.source(this.data, {
       year: {
@@ -238,7 +253,7 @@ export class HomePageComponent implements OnInit {
     this.chart1 = new G2.Chart({
       container: 'c2',
       width: 550, // 指定图表宽度
-      height: 280 // 指定图表高度
+      height: 314 // 指定图表高度
     });
     this.chart1.source(this.data1);
     this.chart1.scale('value', {
@@ -282,7 +297,7 @@ export class HomePageComponent implements OnInit {
     this.chart2 = new G2.Chart({
       container: 'c3',
       width: 550, // 指定图表宽度
-      height: 280, // 指定图表高度
+      height: 314, // 指定图表高度
       animate: false
     });
     this.chart2.source(this.data2, {
@@ -328,7 +343,7 @@ export class HomePageComponent implements OnInit {
       this.chart3 = new G2.Chart({
         container: 'c4',
         width: 550, // 指定图表宽度
-        height: 280, // 指定图表高度
+        height: 314, // 指定图表高度
         padding: [55, 20]
       });
       this.chart3.tooltip({
@@ -474,5 +489,16 @@ export class HomePageComponent implements OnInit {
 
   onModeChange(mode: 'month' | 'year'): void {
     console.log(`Current mode: ${mode}`);
+  }
+  fold(type) {
+    if (type === 'foledata') {
+      this.foledata = !this.foledata;
+    } else if (type === 'foldmap') {
+      this.foldmap = !this.foldmap;
+    } else if (type === 'foldcalendar') {
+      this.foldcalendar = !this.foldcalendar;
+    } else if (type === 'folelog') {
+      this.folelog = !this.folelog;
+    }
   }
 }

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   loading = false;
+  tabs = [];
   constructor(public router: Router) { }
   ngOnInit() { }
   isCollapsed = false;
@@ -28,7 +29,6 @@ export class HomeComponent implements OnInit {
     // 		this.router.navigateByUrl(item);
     // 	}
   }
-  tabs = [];
   reviem(item: string) {
     this.router.navigateByUrl('home/' + item);
   }

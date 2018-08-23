@@ -6,7 +6,7 @@ import * as $ from 'jquery';
   styleUrls: ['./process-maagement-list.component.less']
 })
 export class ProcessMaagementListComponent implements OnInit {
-  jsplmdIs:boolean=true;
+  jsplmdIs = true;
   constructor() { }
 
   ngOnInit() {

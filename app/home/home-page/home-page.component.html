@@ -91,45 +91,56 @@
       <img class="diqiu-img" src="../../../assets/img/diqiu.png" />
     </div> -->
   </div>
-  <div nz-row nzGutter="16" class='content-container'>
-    <div nz-col nzSpan="12" class='moreContain'>
-      <div>
-        <div class='title'>
-          <strong>数据统计</strong>
-          <div>
-            <a (click)='changeNotView()' [ngClass]="{'buttonActived' : dataNotView}">折线图</a>
-            <a (click)='changeView()' [ngClass]="{'buttonActived' : dataView}">环图</a>
+  <div class='content-container'>
+    <div class='content-container-dragula' dragula="VAMPIRES">
+      <div class='moreContain'>
+        <div>
+          <div class='title'>
+            <strong>数据统计</strong>
+            <div class='moreContain-a'>
+              <div [ngClass]="{'foledata':foledata}" style="margin-right: 20px;">
+                <a (click)='changeNotView()' [ngClass]="{'buttonActived' : dataNotView}">折线图</a>
+                <a (click)='changeView()' [ngClass]="{'buttonActived' : dataView}">环图</a>
+              </div>
+              <i [ngClass]="{'anticon' : true,'anticon-minus':!foledata,'anticon-plus':foledata}" (click)="fold('foledata')"></i>
+            </div>
+
+          </div>
+          <div [ngClass]="{'dataView' : dataView,'foledata':foledata}" id="c1">
+          </div>
+          <div [ngClass]="{'dataNotView' : dataNotView,'foledata':foledata}" id="c3">
           </div>
         </div>
-        <div [ngClass]="{'dataView' : dataView}" id="c1">
-        </div>
-        <div [ngClass]="{'dataNotView' : dataNotView}" id="c3">
+      </div>
+      <div>
+        <div>
+          <div class='title'>
+            <strong>地图:</strong>
+            <i [ngClass]="{'anticon' : true,'anticon-minus':!foldmap,'anticon-plus':foldmap}" (click)="fold('foldmap')"></i>
+          </div>
+          <div [ngClass]="{'foldmap' : foldmap}" id="c4">
+          </div>
         </div>
       </div>
     </div>
-    <div nz-col nzSpan="12">
+    <div class='content-container-dragula' dragula="VAMPIRES">
       <div>
-        <div class='title'>
-          <strong>地图:</strong>
-        </div>
-        <div id="c4">
+        <div>
+          <div class='title'>
+            <strong>日历:</strong>
+            <i [ngClass]="{'anticon' : true,'anticon-minus':!foldcalendar,'anticon-plus':foldcalendar}" (click)="fold('foldcalendar')"></i>
+          </div>
+          <nz-calendar [ngClass]="{'foldcalendar' : foldcalendar}" nzCard (nzValueChange)="onValueChange($event)" (nzModeChange)="onModeChange($event)"></nz-calendar>
         </div>
       </div>
-    </div>
-    <div nz-col nzSpan="12">
       <div>
-        <div class='title'>
-          <strong>日历:</strong>
-        </div>
-        <nz-calendar nzCard (nzValueChange)="onValueChange($event)" (nzModeChange)="onModeChange($event)"></nz-calendar>
-      </div>
-    </div>
-    <div nz-col nzSpan="12">
-      <div>
-        <div class='title'>
-          <strong>日志统计:</strong>
-        </div>
-        <div id="c2">
+        <div>
+          <div class='title'>
+            <strong>日志统计:</strong>
+            <i [ngClass]="{'anticon' : true,'anticon-minus':!folelog,'anticon-plus':folelog}" (click)="fold('folelog')"></i>
+          </div>
+          <div [ngClass]="{'folelog' : folelog}" id="c2">
+          </div>
         </div>
       </div>
     </div>

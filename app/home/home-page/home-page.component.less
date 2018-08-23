@@ -64,13 +64,23 @@
         }
     }
     .content-container{
+        display: flex;
         .dataView ,.dataNotView{
             display: none;
+        }
+        .content-container-dragula{
+            flex: 1;
+            &>div{
+                margin: 10px 5px;
+            }
+            .foledata,.foldmap,.foldcalendar,.folelog{
+                display: none;
+            }
         }
         &>div{
             margin: 10px 0;
             &>div{
-                height: 360px;
+                // height: 360px;
                 border: 1px solid rgb(217, 217, 217);
                 border-radius: 4px;
             }
@@ -89,9 +99,9 @@
                 background-color: #007bff;
                 color: #fff;
             }
-        }
-        #c1{
-            padding-top: 10px;
+            .moreContain-a{
+                display: flex;
+            }
         }
     }
 }
