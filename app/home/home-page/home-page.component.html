@@ -93,7 +93,7 @@
   </div>
   <div class='content-container'>
     <div class='content-container-dragula' dragula="VAMPIRES">
-      <div class='moreContain'>
+      <div class='moreContain dragula-container'>
         <div>
           <div class='title'>
             <strong>数据统计</strong>
@@ -112,7 +112,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class='dragula-container'>
         <div>
           <div class='title'>
             <strong>地图:</strong>
@@ -124,7 +124,7 @@
       </div>
     </div>
     <div class='content-container-dragula' dragula="VAMPIRES">
-      <div>
+      <div class='dragula-container'>
         <div>
           <div class='title'>
             <strong>日历:</strong>
@@ -133,7 +133,7 @@
           <nz-calendar [ngClass]="{'foldcalendar' : foldcalendar}" nzCard (nzValueChange)="onValueChange($event)" (nzModeChange)="onModeChange($event)"></nz-calendar>
         </div>
       </div>
-      <div>
+      <div class='dragula-container'>
         <div>
           <div class='title'>
             <strong>日志统计:</strong>

@@ -59,13 +59,13 @@ export class HomePageComponent implements OnInit {
   constructor(private dragulaService: DragulaService) {
     // use these if you want
 
-    this.dragulaService.createGroup('VAMPIRES', {
-      // ...
-    });
+    // this.dragulaService.createGroup('VAMPIRES', {
+    //   // ...
+    // });
 
-    this.dragulaService.dropModel('VAMPIRES').subscribe(args => {
-      console.log(args);
-    });
+    // this.dragulaService.dropModel('VAMPIRES').subscribe(args => {
+    //   console.log(args);
+    // });
   }
   ngOnInit() {
     // this.init();

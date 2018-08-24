@@ -91,7 +91,7 @@
             display: flex;
             justify-content: space-between;
             a{
-                color: #6c757d;
+                color: #000;
                 border-radius: 4px;
                 padding: 5px;
             }
@@ -99,11 +99,27 @@
                 background-color: #007bff;
                 color: #fff;
             }
-            .moreContain-a{
-                display: flex;
-            }
         }
     }
+}
+.dragula-container{
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    flex: 0.5;
+    .anticon{
+        cursor: default;
+        padding: 5px;
+    }
+}
+.title{
+    margin: 10px 0;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    cursor: move;
+}
+.moreContain-a{
+    display: flex;
 }
 .ant-card p{
     color: #000;
