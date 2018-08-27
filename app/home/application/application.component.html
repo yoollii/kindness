@@ -19,37 +19,41 @@
 </div>
 
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()"
-  (nzOnOk)="handleOkMiddle()">
-  <nz-form-item>
-    <!-- <nz-form-label nzFor="no">序号</nz-form-label>
+  (nzOnOk)="handleOkMiddle(validateForm.value)">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm($event,validateForm.value)">
+    <nz-form-item>
+      <!-- <nz-form-label nzFor="no">序号</nz-form-label>
     <nz-form-control>
       <input nz-input [(ngModel)]="num" name="num" placeholder="请输入" id="no1">
     </nz-form-control> -->
-    <nz-form-label nzFor="no">应用系统名称</nz-form-label>
-    <nz-form-control>
-      <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
-    </nz-form-control>
-    <nz-form-label nzFor="no">应用标识</nz-form-label>
-    <nz-form-control>
-      <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
-    </nz-form-control>
-    <nz-form-label nzFor="no">应用系统描述</nz-form-label>
-    <nz-form-control>
-      <textarea row="4" nz-input [(ngModel)]="describe" name="describe" placeholder="请输入" id="no3"></textarea>
-    </nz-form-control>
-    <nz-form-label nzFor="no">基础地址</nz-form-label>
-    <nz-form-control>
-      <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
-    </nz-form-control>
-    <nz-form-label nzFor="no">流程模板</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="template" name="template" nzAllowClear nzPlaceHolder="流程模板">
-        <nz-option nzValue="model1" nzLabel="模板一"></nz-option>
-        <nz-option nzValue="model2" nzLabel="模板二"></nz-option>
-        <nz-option nzValue="model3" nzLabel="模版三"></nz-option>
-      </nz-select>
-    </nz-form-control>
-  </nz-form-item>
+      <nz-form-label nzRequired nzFor="no">应用系统名称</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName="name" [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
+<nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">Please input your name!</nz-form-explain>
+</nz-form-control>
+      <nz-form-label nzRequired nzFor="no">应用标识</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName="userFlag" [(ngModel)]="userFlag" name="userFlag" placeholder="请输入" id="no3">
+      </nz-form-control>
+      <nz-form-label nzRequired nzFor="no">应用系统描述</nz-form-label>
+      <nz-form-control>
+        <textarea row="4" formControlName="des" nz-input [(ngModel)]="des" name="des" placeholder="请输入" id="no4"></textarea>
+      </nz-form-control>
+      <nz-form-label nzRequired nzFor="no">基础地址</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName="baseUrl" [(ngModel)]="baseUrl" name="baseUrl" placeholder="请输入" id="no5">
+      </nz-form-control>
+      <nz-form-label nzRequired nzFor="no">流程模板</nz-form-label>
+      <nz-form-control>
+        <nz-select style="width: 100%;" formControlName="modelId" [(ngModel)]="modelId" name="modelId" nzAllowClear nzPlaceHolder="流程模板"
+          id="no6">
+          <nz-option nzValue="model1" nzLabel="模板一"></nz-option>
+          <nz-option nzValue="model2" nzLabel="模板二"></nz-option>
+          <nz-option nzValue="model3" nzLabel="模版三"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
 </nz-modal>
 
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleEditMiddle" nzTitle="编辑" (nzOnCancel)="handleCancelEditMiddle()"
@@ -65,7 +69,7 @@
     </nz-form-control>
     <nz-form-label nzFor="no">流程模板</nz-form-label>
     <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="template" name="template" nzAllowClear nzPlaceHolder="流程模板">
+      <nz-select style="width: 100%;" [(ngModel)]="modelId" name="modelId" nzAllowClear nzPlaceHolder="流程模板">
         <nz-option nzValue="model1" nzLabel="模板一"></nz-option>
         <nz-option nzValue="model2" nzLabel="模板二"></nz-option>
         <nz-option nzValue="model3" nzLabel="模版三"></nz-option>
@@ -73,7 +77,7 @@
     </nz-form-control>
     <nz-form-label nzFor="no">应用系统描述</nz-form-label>
     <nz-form-control>
-      <input nz-input [(ngModel)]="describe" name="describe" placeholder="请输入" id="no3">
+      <input nz-input [(ngModel)]="des" name="des" placeholder="请输入" id="no3">
     </nz-form-control>
   </nz-form-item>
 </nz-modal>
@@ -87,7 +91,7 @@
       <th nzShowSort nzSortKey="num">序号</th>
       <th nzShowSort nzSortKey="name">应用系统名字</th>
       <th nzShowSort nzSortKey="template">流程模板</th>
-      <th nzShowSort nzSortKey="describe">应用系统描述</th>
+      <th nzShowSort nzSortKey="des">应用系统描述</th>
       <th nzShowSort>操作</th>
     </tr>
   </thead>
@@ -124,10 +128,10 @@
       </td>
       <td>
         <ng-container *ngIf="!editCache[data.key].edit">
-          {{data.describe}}
+          {{data.des}}
         </ng-container>
         <ng-container *ngIf="editCache[data.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.describe">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.des">
         </ng-container>
       </td>
       <td>

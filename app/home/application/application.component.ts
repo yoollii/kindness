@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { HttpService } from '../../http/http.service';
 @Component({
   selector: 'app-application',
   templateUrl: './application.component.html',
@@ -17,10 +19,14 @@ export class ApplicationComponent implements OnInit {
   size = 'small'; // 按钮尺寸
   num: number;
   name: string;
-  template: string;
-  describe: string;
+  userFlag: number;
+  baseUrl: string;
+  modelId: string;
+  des: string;
   listOfSearchName = [];
   searchAddress: string;
+  validateForm: FormGroup;
+  editdateForm: FormGroup;
   listOfSelection = [
     {
       text: 'Select All Row',
@@ -85,7 +91,7 @@ export class ApplicationComponent implements OnInit {
       }
     });
   }
-  constructor(public router: Router) { }
+  constructor(public router: Router, private fb: FormBuilder, private http: HttpService) { }
   gorouter(item: any) {
     console.log(item);
     // 	if(this.tabs.indexOf(item.split('/')[1])==-1){
@@ -96,13 +102,20 @@ export class ApplicationComponent implements OnInit {
     // 	}
   }
   ngOnInit(): void {
+    this.validateForm = this.fb.group({
+      name: [null, [Validators.required] ],
+      userFlag: [null, [Validators.required] ],
+      des: [null, [Validators.required] ],
+      baseUrl: [null, [Validators.required] ],
+      modelId: [null, [Validators.required] ]
+    });
     for (let i = 0; i < 30; i++) {
       this.dataSet.push({
         key: i.toString(),
         num: i,
         name: '厚德平台',
-        describe: `操作系统 no. ${i}`,
-        template: '模板',
+        des: `操作系统 no. ${i}`,
+        modelId: '模板',
         checked: false
       });
     }
@@ -142,10 +155,8 @@ export class ApplicationComponent implements OnInit {
   showModalMiddle(): void {
     this.isVisibleMiddle = true;
   }
-  handleOkMiddle(): void {
-    console.log('click ok');
-    this.isVisibleMiddle = false;
-    this.gorouter('home/applicationManagement');
+  handleOkMiddle(data): void {
+    this.submitForm(Event, data);
   }
 
   handleCancelMiddle(): void {
@@ -173,8 +184,8 @@ export class ApplicationComponent implements OnInit {
     this.dataSet = [...this.dataSet, {
       key: `${this.i}`,
       name: '厚德平台',
-      describe: `操作系统 no. ${this.i}`,
-      template: '模板',
+      des: `操作系统 no. ${this.i}`,
+      modelId: '模板',
     }];
     console.log(this.dataSet);
     this.updateEditCache();
@@ -190,4 +201,19 @@ export class ApplicationComponent implements OnInit {
     this.dataSet.find(item => item.key === key).name = this.editCache[key].name;
   }
 
+  submitForm = ($event, value) => {
+    // $event.preventDefault();
+    for (const key in this.validateForm.controls) {
+      this.validateForm.controls[key].markAsDirty();
+      this.validateForm.controls[key].updateValueAndValidity();
+    }
+    value.state = 0;
+    value.id = 'string';
+    value = JSON.stringify(value);
+    console.log(value);
+    if (this.validateForm.invalid) { return; }
+    this.http.httpmender('/applicationsystem/addUser', value).subscribe(data => console.log(data));
+    this.isVisibleMiddle = false;
+    this.gorouter('home/applicationManagement');
+  }
 }

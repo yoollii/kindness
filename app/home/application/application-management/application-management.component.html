@@ -80,7 +80,7 @@
 </nz-modal>
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()"
   (nzOnOk)="handleOkMiddle()">
-  <nz-table #rowSelectionTable1 [nzBordered]="true" [nzData]="data" (nzCurrentPageDataChange)="currentPageDataChange($event)"
+  <nz-table #rowSelectionTable2 [nzBordered]="true" [nzData]="data" (nzCurrentPageDataChange)="currentPageDataChange($event)"
     (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()">
     <thead>
       <tr>
@@ -92,7 +92,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of rowSelectionTable1.data">
+      <tr *ngFor="let data of rowSelectionTable2.data">
         <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus()"></td>
         <td>{{data.num}}</td>
         <td>{{data.name}}</td>
