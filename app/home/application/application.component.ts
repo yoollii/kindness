@@ -11,6 +11,7 @@ export class ApplicationComponent implements OnInit {
   i = 1;
   editCache = {};
   dataSet = [];
+  dataId: string;
   loading = true;
   isVisibleMiddle = false;
   isVisibleEditMiddle = false;
@@ -66,9 +67,10 @@ export class ApplicationComponent implements OnInit {
     this.refreshStatus();
   }
   // 自定义选项结束
-  startEdit(key: string): void {
+  startEdit(id: string): void {
     // this.editCache[key].edit = true;
-    this.showModalEditMiddle();
+    this.dataId = id;
+    this.showModalEditMiddle(id);
   }
 
   cancelEdit(key: string): void {
@@ -109,18 +111,33 @@ export class ApplicationComponent implements OnInit {
       baseUrl: [null, [Validators.required] ],
       modelId: [null, [Validators.required] ]
     });
-    for (let i = 0; i < 30; i++) {
-      this.dataSet.push({
-        key: i.toString(),
-        num: i,
-        name: '厚德平台',
-        des: `操作系统 no. ${i}`,
-        modelId: '模板',
-        checked: false
-      });
-    }
+    this.initData();
     this.loading = false;
     this.updateEditCache();
+  }
+  forSearch(inputValue, selecValue): void {
+    let dataSearch = {};
+    if (selecValue === '应用系统名字') {
+      dataSearch = {
+        'name': inputValue,
+      };
+    } else if (selecValue === '流程模板') {
+      dataSearch = {
+        'modelId': inputValue,
+      };
+    }
+    // } else if (selecValue === '应用系统描述') {
+    //   dataSearch = {
+    //     'des': inputValue,
+    //   };
+    // }
+    console.log(JSON.stringify(dataSearch));
+    this.http.httpmender('/applicationsystem/findList', JSON.stringify(dataSearch)).subscribe(data => {
+      console.log(data.data.成功); this.dataSet = data.data.成功;
+    });
+      for (let i = 0; i < this.dataSet.length; i++) {
+      this.dataSet[i].checked = false;
+    }
   }
   // 排序
   sort(sort: { key: string, value: string }): void {
@@ -128,7 +145,12 @@ export class ApplicationComponent implements OnInit {
     this.sortValue = sort.value;
     this.search();
   }
-
+  initData(): void {
+    this.http.httpmender('/applicationsystem/findList', {}).subscribe(data => { this.dataSet = data.data.成功; });
+    for (let i = 0; i < this.dataSet.length; i++) {
+      this.dataSet[i].checked = false;
+    }
+  }
   filter(listOfSearchName: string[], searchAddress: string): void {
     this.listOfSearchName = listOfSearchName;
     this.searchAddress = searchAddress;
@@ -146,29 +168,23 @@ export class ApplicationComponent implements OnInit {
     }
     console.log(this.dataSet);
   }
-
-
-
-
-
   // 模态框
   showModalMiddle(): void {
     this.isVisibleMiddle = true;
   }
   handleOkMiddle(data): void {
-    this.submitForm(Event, data);
+    this.submitForm(data);
   }
 
   handleCancelMiddle(): void {
     console.log('click Cancel');
     this.isVisibleMiddle = false;
   }
-  showModalEditMiddle(): void {
+  showModalEditMiddle(id): void {
     this.isVisibleEditMiddle = true;
   }
-  handleOkEditkMiddle(): void {
-    console.log('click ok');
-    this.isVisibleEditMiddle = false;
+  handleOkEditkMiddle(data): void {
+    this.editForm(data);
   }
 
   handleCancelEditMiddle(): void {
@@ -180,40 +196,44 @@ export class ApplicationComponent implements OnInit {
   // 添加一行数据
   addRow(): void {
     this.showModalMiddle();
-    this.i++;
-    this.dataSet = [...this.dataSet, {
-      key: `${this.i}`,
-      name: '厚德平台',
-      des: `操作系统 no. ${this.i}`,
-      modelId: '模板',
-    }];
-    console.log(this.dataSet);
     this.updateEditCache();
   }
   // 删除
-  deleteRow(i: string): void {
-    const dataSet = this.dataSet.filter(d => d.key !== i);
-    this.dataSet = dataSet;
+  deleteRow(i: any): void {
+    // const dataSet = this.dataSet.filter(d => d.key !== i);
+    // this.dataSet = dataSet;
+    this.http.httpmenderdel('/applicationsystem/delAppliById?id=' + i ).subscribe(data => console.log(data));
+    this.initData();
   }
-
-  finishEdit(key: string): void {
-    this.editCache[key].edit = false;
-    this.dataSet.find(item => item.key === key).name = this.editCache[key].name;
-  }
-
-  submitForm = ($event, value) => {
+  submitForm = (value) => {
     // $event.preventDefault();
+    // tslint:disable-next-line:forin
     for (const key in this.validateForm.controls) {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
     value.state = 0;
-    value.id = 'string';
+    // value.id = 'string';
     value = JSON.stringify(value);
-    console.log(value);
     if (this.validateForm.invalid) { return; }
     this.http.httpmender('/applicationsystem/addUser', value).subscribe(data => console.log(data));
     this.isVisibleMiddle = false;
     this.gorouter('home/applicationManagement');
+  }
+  editForm = (value) => {
+    // $event.preventDefault();
+    // tslint:disable-next-line:forin
+    for (const key in this.validateForm.controls) {
+      this.validateForm.controls[key].markAsDirty();
+      this.validateForm.controls[key].updateValueAndValidity();
+    }
+    // value.state = 0;
+    value.id = this.dataId;
+    value = JSON.stringify(value);
+    console.log(value);
+    if (this.validateForm.invalid) { return; }
+    this.http.httpmenderput('/applicationsystem/updateAppli', value).subscribe(data => console.log(data));
+    this.initData();
+    this.isVisibleEditMiddle = false;
   }
 }
