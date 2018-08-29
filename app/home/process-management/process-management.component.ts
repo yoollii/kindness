@@ -13,8 +13,8 @@ import { ValidatorService } from '../../validator.service';
 export class ProcessManagementComponent implements OnInit {
   i = 1;
   editCache = {};
+  dataId: string; // 流程ID
   dataSet = []; // 初始化列表
-  editData = []; // 编辑页面数据
   jsplmdIs = false;
   loading = true;
   isVisibleMiddle = false;
@@ -94,7 +94,11 @@ export class ProcessManagementComponent implements OnInit {
   // 自定义选项结束
   startEdit(key: any): void {
    // this.editCache[key].edit = true;
-    this.editData = key;
+    this.name = key.name;
+    this.state = key.state;
+    this.cruser = key.cruser;
+    this.des = key.des;
+    this.dataId = key.id;
     this.showModalEditMiddle();
   }
 
@@ -166,9 +170,8 @@ export class ProcessManagementComponent implements OnInit {
   showModalEditMiddle(): void {
     this.isVisibleEditMiddle = true;
   }
-  handleOkEditMiddle(): void {
-    console.log('click ok');
-    this.isVisibleEditMiddle = false;
+  handleOkEditMiddle(data): void {
+    this.editForm(data);
   }
 
   handleCancelEditMiddle(): void {
@@ -194,20 +197,29 @@ export class ProcessManagementComponent implements OnInit {
   }
   // 删除
   deleteRow(i: string): void {
-    this.http.httpmenderdel('/flowmodel/delFlowModelById?id=' + i).subscribe(data => console.log(data));
-    this.initData();
+    this.http.httpmenderdel('/flowmodel/delFlowModelById?id=' + i).subscribe(data => {
+      if (data.result === '0000'){
+        this.initData();
+      }
+    });
   }
 
   finishEdit(key: string): void {
     this.editCache[key].edit = false;
     this.dataSet.find(item => item.key === key).name = this.editCache[key].name;
   }
+  // 初始化列表
   initData(): void {
-    this.http.httpmender('/flowmodel/findList', {}).subscribe(data => { console.log(data.data.成功); this.dataSet = data.data.成功; });
+    this.http.httpmender('/flowmodel/findList', {}).subscribe(data => {
+      if (data.result === '0000') {
+        this.dataSet = data.data.data;
+      }
+    });
     for (let i = 0; i < this.dataSet.length; i++) {
       this.dataSet[i].checked = false;
     }
   }
+  // 新增
   submitForm = (value) => {
     // $event.preventDefault();
     // tslint:disable-next-line:forin
@@ -225,6 +237,7 @@ export class ProcessManagementComponent implements OnInit {
     this.isVisibleMiddle1 = false;
     this.gorouter('home/processManagementList');
   }
+   // 编辑
   editForm = (value) => {
     // $event.preventDefault();
     // tslint:disable-next-line:forin
@@ -232,10 +245,14 @@ export class ProcessManagementComponent implements OnInit {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
+    value.id = this.dataId;
     value = JSON.stringify(value);
     if (this.validateForm.invalid) { return; }
-    this.http.httpmenderput('/flowmodel/updateFlowModel', value).subscribe(data => console.log(data));
-    this.initData();
+    this.http.httpmenderput('/flowmodel/updateFlowModel', value).subscribe(data => {
+        if (data.result === '0000') {
+          this.initData();
+        }
+    });
     this.isVisibleEditMiddle = false;
   }
 }

@@ -15,13 +15,13 @@
       <input type="text" style="padding: 0" #searchData3 nz-input placeholder="输入应用系统描述搜索内容">
     </nz-input-group> -->
     <nz-input-group nzCompact [nzSuffix]="suffixButton">
-      <nz-select [ngModel]="'应用系统名字'"  #searchSelect style="width:32%;">
+      <nz-select [ngModel]="'应用系统名字'" #searchSelect style="width:32%;">
         <nz-option [nzLabel]="'应用系统名字'" [nzValue]="'应用系统名字'"></nz-option>
         <nz-option [nzLabel]="'流程模板'" [nzValue]="'流程模板'"></nz-option>
         <!-- <nz-option [nzLabel]="'应用系统描述'" [nzValue]="'应用系统描述'"></nz-option> -->
       </nz-select>
       <!-- <input type="text" nz-input [ngModel]="'Xihu District, Hangzhou'" style="width:50%;"> -->
-      <input type="text" style="padding: 0" #searchData nz-input style="width:50%;" placeholder="输入应用系统名字搜索内容">
+      <input type="text" style="padding: 0" #searchData nz-input style="width:50%;" placeholder="输入搜索内容">
     </nz-input-group>
     <ng-template #suffixButton>
       <button nz-button nzType="primary" (click)="forSearch(searchData.value,searchSelect.value)" nzSize="default" nzSearch>搜索</button>
@@ -39,24 +39,24 @@
     </nz-form-control> -->
       <nz-form-label nzRequired nzFor="no">应用系统名称</nz-form-label>
       <nz-form-control>
-        <input nz-input formControlName="name" [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
+        <input nz-input formControlName="name" name="name" placeholder="请输入" id="no2">
         <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">Please input your name!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzRequired nzFor="no">应用标识</nz-form-label>
       <nz-form-control>
-        <input nz-input formControlName="userFlag" [(ngModel)]="userFlag" name="userFlag" placeholder="请输入" id="no3">
+        <input nz-input formControlName="userFlag" name="userFlag" placeholder="请输入" id="no3">
       </nz-form-control>
       <nz-form-label nzRequired nzFor="no">应用系统描述</nz-form-label>
       <nz-form-control>
-        <textarea row="4" formControlName="des" nz-input [(ngModel)]="des" name="des" placeholder="请输入" id="no4"></textarea>
+        <textarea row="4" formControlName="des" nz-input name="des" placeholder="请输入" id="no4"></textarea>
       </nz-form-control>
       <nz-form-label nzRequired nzFor="no">基础地址</nz-form-label>
       <nz-form-control>
-        <input nz-input formControlName="baseUrl" [(ngModel)]="baseUrl" name="baseUrl" placeholder="请输入" id="no5">
+        <input nz-input formControlName="baseUrl" name="baseUrl" placeholder="请输入" id="no5">
       </nz-form-control>
       <nz-form-label nzRequired nzFor="no">流程模板</nz-form-label>
       <nz-form-control>
-        <nz-select style="width: 100%;" formControlName="modelId" [(ngModel)]="modelId" name="modelId" nzAllowClear nzPlaceHolder="流程模板"
+        <nz-select style="width: 100%;" formControlName="modelId" name="modelId" nzAllowClear nzPlaceHolder="流程模板"
           id="no6">
           <nz-option nzValue="model1" nzLabel="模板一"></nz-option>
           <nz-option nzValue="model2" nzLabel="模板二"></nz-option>
@@ -94,8 +94,8 @@
       </nz-form-control>
       <nz-form-label nzRequired nzFor="no">流程模板</nz-form-label>
       <nz-form-control>
-        <nz-select style="width: 100%;" formControlName="modelId" [(ngModel)]="modelId" name="modelId" nzAllowClear nzPlaceHolder="流程模板"
-          id="no6">
+        <nz-select style="width: 100%;" formControlName="modelId" [(ngModel)]="modelId" name="modelId" nzAllowClear
+          nzPlaceHolder="流程模板" id="no6">
           <nz-option nzValue="model1" nzLabel="模板一"></nz-option>
           <nz-option nzValue="model2" nzLabel="模板二"></nz-option>
           <nz-option nzValue="model3" nzLabel="模版三"></nz-option>
@@ -119,12 +119,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of editRowTable.data">
+    <tr *ngFor="let data of editRowTable.data;let i = index">
       <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
       <td>
         <div class="editable-cell">
           <div class="editable-cell-text-wrapper">
-            {{data.num}}
+            {{(i+1)}}
           </div>
         </div>
       </td>
@@ -139,7 +139,7 @@
       </td>
       <td>
         <div class="editable-row-operations" style="display: inline-block;">
-          <button [nzSize]="size" nz-button (click)="startEdit(data.id)" nzType="default">编辑</button>
+          <button [nzSize]="size" nz-button (click)="startEdit(data)" nzType="default">编辑</button>
           <ng-container>
             <button [nzSize]="size" nz-button nzType="default">启用</button>
           </ng-container>

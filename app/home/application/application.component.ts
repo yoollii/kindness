@@ -10,11 +10,11 @@ import { HttpService } from '../../http/http.service';
 export class ApplicationComponent implements OnInit {
   i = 1;
   editCache = {};
-  dataSet = [];
-  dataId: string;
+  dataSet = [];   // 初始化列表
+  dataId: string; // 流程ID
   loading = true;
-  isVisibleMiddle = false;
-  isVisibleEditMiddle = false;
+  isVisibleMiddle = false;  // 控制弹框显示
+  isVisibleEditMiddle = false;  // 控制弹框显示
   sortName = null;
   sortValue = null;
   size = 'small'; // 按钮尺寸
@@ -27,7 +27,6 @@ export class ApplicationComponent implements OnInit {
   listOfSearchName = [];
   searchAddress: string;
   validateForm: FormGroup;
-  editdateForm: FormGroup;
   listOfSelection = [
     {
       text: 'Select All Row',
@@ -67,10 +66,15 @@ export class ApplicationComponent implements OnInit {
     this.refreshStatus();
   }
   // 自定义选项结束
-  startEdit(id: string): void {
+  startEdit(key: any): void {
     // this.editCache[key].edit = true;
-    this.dataId = id;
-    this.showModalEditMiddle(id);
+    this.name = key.name;
+    this.modelId = key.modelId;
+    this.des = key.des;
+    this.userFlag = key.userFlag;
+    this.baseUrl = key.baseUrl;
+    this.dataId = key.id;
+    this.showModalEditMiddle(key.id);
   }
 
   cancelEdit(key: string): void {
@@ -95,7 +99,6 @@ export class ApplicationComponent implements OnInit {
   }
   constructor(public router: Router, private fb: FormBuilder, private http: HttpService) { }
   gorouter(item: any) {
-    console.log(item);
     // 	if(this.tabs.indexOf(item.split('/')[1])==-1){
     // 		this.tabs.push(item.split('/')[1]);
     this.router.navigateByUrl(item);
@@ -106,7 +109,7 @@ export class ApplicationComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       name: [null, [Validators.required] ],
-      userFlag: [null, [Validators.required] ],
+      userFlag: [null],
       des: [null, [Validators.required] ],
       baseUrl: [null, [Validators.required] ],
       modelId: [null, [Validators.required] ]
@@ -131,9 +134,10 @@ export class ApplicationComponent implements OnInit {
     //     'des': inputValue,
     //   };
     // }
-    console.log(JSON.stringify(dataSearch));
     this.http.httpmender('/applicationsystem/findList', JSON.stringify(dataSearch)).subscribe(data => {
-      console.log(data.data.成功); this.dataSet = data.data.成功;
+      if (data.result === '0000') {
+        this.dataSet = data.data.data;
+      }
     });
       for (let i = 0; i < this.dataSet.length; i++) {
       this.dataSet[i].checked = false;
@@ -145,11 +149,13 @@ export class ApplicationComponent implements OnInit {
     this.sortValue = sort.value;
     this.search();
   }
+  // 初始化列表
   initData(): void {
-    this.http.httpmender('/applicationsystem/findList', {}).subscribe(data => { this.dataSet = data.data.成功; });
-    for (let i = 0; i < this.dataSet.length; i++) {
-      this.dataSet[i].checked = false;
-    }
+    this.http.httpmender('/applicationsystem/findList', {}).subscribe(data => {
+      if (data.result === '0000') {
+        this.dataSet = data.data.data;
+     }
+    });
   }
   filter(listOfSearchName: string[], searchAddress: string): void {
     this.listOfSearchName = listOfSearchName;
@@ -166,7 +172,6 @@ export class ApplicationComponent implements OnInit {
       this.dataSet = this.dataSet;
       //    this.updateEditCache();
     }
-    console.log(this.dataSet);
   }
   // 模态框
   showModalMiddle(): void {
@@ -202,8 +207,11 @@ export class ApplicationComponent implements OnInit {
   deleteRow(i: any): void {
     // const dataSet = this.dataSet.filter(d => d.key !== i);
     // this.dataSet = dataSet;
-    this.http.httpmenderdel('/applicationsystem/delAppliById?id=' + i ).subscribe(data => console.log(data));
-    this.initData();
+    this.http.httpmenderdel('/applicationsystem/delAppliById?id=' + i ).subscribe(data => {
+      if (data.result === '0000') {
+        this.initData();
+      }
+    });
   }
   submitForm = (value) => {
     // $event.preventDefault();
@@ -216,7 +224,11 @@ export class ApplicationComponent implements OnInit {
     // value.id = 'string';
     value = JSON.stringify(value);
     if (this.validateForm.invalid) { return; }
-    this.http.httpmender('/applicationsystem/addUser', value).subscribe(data => console.log(data));
+    this.http.httpmender('/applicationsystem/addUser', value).subscribe(data => {
+      if (data.result === '0000') {
+        this.initData();
+      }
+    });
     this.isVisibleMiddle = false;
     this.gorouter('home/applicationManagement');
   }
@@ -230,10 +242,12 @@ export class ApplicationComponent implements OnInit {
     // value.state = 0;
     value.id = this.dataId;
     value = JSON.stringify(value);
-    console.log(value);
     if (this.validateForm.invalid) { return; }
-    this.http.httpmenderput('/applicationsystem/updateAppli', value).subscribe(data => console.log(data));
-    this.initData();
+    this.http.httpmenderput('/applicationsystem/updateAppli', value).subscribe(data => {
+      if (data.result === '0000') {
+        this.initData();
+      }
+    });
     this.isVisibleEditMiddle = false;
   }
 }

@@ -11,83 +11,83 @@
 </div>
 
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="用户新增" (nzOnCancel)="handleCancelMiddle()"
-  (nzOnOk)="handleOkMiddle()">
-  <nz-form-item>
-    <nz-form-label nzFor="no">用户名称</nz-form-label>
-    <nz-form-control>
-      <input nz-input [(ngModel)]="userName" name="name" placeholder="请输入" id="no2">
-    </nz-form-control>
-    <nz-form-label nzFor="no">用户角色</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="listOfRole" nzPlaceHolder="请选择用户角色">
-        <nz-option *ngFor="let option of listOfRoleList" [nzLabel]="option" [nzValue]="option">
-        </nz-option>
-      </nz-select>
-    </nz-form-control>
-    <nz-form-label nzFor="no">用户分组</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="listOfTagOptions" nzPlaceHolder="请选择用户分组">
-        <nz-option *ngFor="let option of listOfOption" [nzLabel]="option" [nzValue]="option">
-        </nz-option>
-      </nz-select>
-    </nz-form-control>
-    <nz-form-label nzFor="no">用户状态</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="listOfType" nzPlaceHolder="请选择用户状态">
-        <nz-option *ngFor="let option of listOfTypelist" [nzLabel]="option" [nzValue]="option">
-        </nz-option>
-      </nz-select>
-    </nz-form-control>
-    <nz-form-label nzFor="no">所属机构</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="listOforgan" nzPlaceHolder="请选择所属机构">
-        <nz-option *ngFor="let option of listOforganList" [nzLabel]="option" [nzValue]="option">
-        </nz-option>
-      </nz-select>
-    </nz-form-control>
-  </nz-form-item>
+  (nzOnOk)="handleOkMiddle(validateForm.value)">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+    <nz-form-item>
+      <nz-form-label nzFor="no">用户名称</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName="name" name="name" placeholder="请输入" id="no2">
+      </nz-form-control>
+      <nz-form-label nzFor="no">用户角色</nz-form-label>
+      <nz-form-control>
+        <nz-select style="width: 100%;" formControlName="listOfRole" name="listOfRole" nzPlaceHolder="请选择用户角色">
+          <nz-option *ngFor="let option of listOfRoleList" [nzLabel]="option" [nzValue]="option">
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+      <nz-form-label nzFor="no">用户分组</nz-form-label>
+      <nz-form-control>
+        <nz-select style="width: 100%;" formControlName="group" name="group" nzPlaceHolder="请选择用户分组">
+          <nz-option *ngFor="let option of listOfOption" [nzLabel]="option" [nzValue]="option">
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+      <nz-form-label nzFor="no">用户状态</nz-form-label>
+      <nz-form-control>
+        <nz-select style="width: 100%;" formControlName="state" name="state" nzPlaceHolder="请选择用户状态">
+          <nz-option *ngFor="let option of listOfTypelist" [nzLabel]="option" [nzValue]="option">
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+      <nz-form-label nzFor="no">所属机构</nz-form-label>
+      <nz-form-control>
+        <nz-select style="width: 100%;" formControlName="listOforgan" name="listOforgan" nzPlaceHolder="请选择所属机构">
+          <nz-option *ngFor="let option of listOforganList" [nzLabel]="option" [nzValue]="option">
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
 </nz-modal>
 
-<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isupdate" nzTitle="用户编辑" (nzOnCancel)="handleCancelMiddle()"
-  (nzOnOk)="handleOkMiddle()">
-  <nz-form-item>
-    <nz-form-label nzFor="no">序号</nz-form-label>
-    <nz-form-control>
-      <input nz-input [(ngModel)]="num" name="num" placeholder="请输入" id="no1">
-    </nz-form-control>
-    <nz-form-label nzFor="no">用户名称</nz-form-label>
-    <nz-form-control>
-      <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
-    </nz-form-control>
-    <nz-form-label nzFor="no">用户角色</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="listOfRole" nzPlaceHolder="请选择用户角色">
-        <nz-option *ngFor="let option of listOfRoleList" [nzLabel]="option" [nzValue]="option">
-        </nz-option>
-      </nz-select>
-    </nz-form-control>
-    <nz-form-label nzFor="no">用户分组</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="listOfTagOptions" nzPlaceHolder="请选择用户分组">
-        <nz-option *ngFor="let option of listOfOption" [nzLabel]="option" [nzValue]="option">
-        </nz-option>
-      </nz-select>
-    </nz-form-control>
-    <nz-form-label nzFor="no">用户状态</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="listOfType" nzPlaceHolder="请选择用户状态">
-        <nz-option *ngFor="let option of listOfTypelist" [nzLabel]="option" [nzValue]="option">
-        </nz-option>
-      </nz-select>
-    </nz-form-control>
-    <nz-form-label nzFor="no">所属机构</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="listOforgan" nzPlaceHolder="请选择所属机构">
-        <nz-option *ngFor="let option of listOforganList" [nzLabel]="option" [nzValue]="option">
-        </nz-option>
-      </nz-select>
-    </nz-form-control>
-  </nz-form-item>
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isupdate" nzTitle="用户编辑" (nzOnCancel)="handleCancelEditMiddle()"
+  (nzOnOk)="handleOkEditMiddle(validateForm.value)">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="editForm(validateForm.value)">
+    <nz-form-item>
+      <nz-form-label nzFor="no">用户名称</nz-form-label>
+      <nz-form-control>
+        <input nz-input [(ngModel)]="name" formControlName="name" name="name" placeholder="请输入" id="no2">
+      </nz-form-control>
+      <nz-form-label nzFor="no">用户角色</nz-form-label>
+      <nz-form-control>
+        <nz-select style="width: 100%;" formControlName="listOfRole" name="listOfRole" [(ngModel)]="listOfRole" nzPlaceHolder="请选择用户角色">
+          <nz-option *ngFor="let option of listOfRoleList" [nzLabel]="option" [nzValue]="option">
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+      <nz-form-label nzFor="no">用户分组</nz-form-label>
+      <nz-form-control>
+        <nz-select style="width: 100%;" formControlName="groupName" name="groupName" [(ngModel)]="listOfTagOptions" nzPlaceHolder="请选择用户分组">
+          <nz-option *ngFor="let option of listOfOption" [nzLabel]="option" [nzValue]="option">
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+      <nz-form-label nzFor="no">用户状态</nz-form-label>
+      <nz-form-control>
+        <nz-select style="width: 100%;" formControlName="state" name="state" [(ngModel)]="listOfType" nzPlaceHolder="请选择用户状态">
+          <nz-option *ngFor="let option of listOfTypelist" [nzLabel]="option" [nzValue]="option">
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+      <nz-form-label nzFor="no">所属机构</nz-form-label>
+      <nz-form-control>
+        <nz-select style="width: 100%;" formControlName="listOforgan" name="listOforgan" [(ngModel)]="listOforgan" nzPlaceHolder="请选择所属机构">
+          <nz-option *ngFor="let option of listOforganList" [nzLabel]="option" [nzValue]="option">
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
 </nz-modal>
 
 <nz-modal nzWidth="600px" nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMsgMiddle" nzTitle="查看" (nzOnCancel)="handleCancelMsgMiddle()"
@@ -143,53 +143,36 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of editRowTable.data">
+    <tr *ngFor="let data of editRowTable.data;let i = index">
       <!-- <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td> -->
       <td>
         <div class="editable-cell">
           <div class="editable-cell-text-wrapper">
-            <ng-container *ngIf="!editCache[data.key].edit">
-              {{data.num}}
-            </ng-container>
+            {{(i+1)}}
           </div>
         </div>
       </td>
       <td>
-        <ng-container *ngIf="!editCache[data.key].edit">
-          {{data.userName}}
-        </ng-container>
+        {{data.name}}
       </td>
       <td>
-        <ng-container *ngIf="!editCache[data.key].edit">
-          {{data.role}}
-        </ng-container>
+        {{data.role}}
       </td>
       <td>
-        <ng-container *ngIf="!editCache[data.key].edit">
-          {{data.group}}
-        </ng-container>
+        {{data.groupName}}
       </td>
       <td>
-        <ng-container *ngIf="!editCache[data.key].edit">
-          {{data.state}}
-        </ng-container>
+        {{data.state}}
       </td>
       <td>
-        <ng-container *ngIf="!editCache[data.key].edit">
-          {{data.organ}}
-        </ng-container>
+        {{data.organ}}
       </td>
       <td>
         <div class="editable-row-operations" style="display: inline-block;">
-          <ng-container>
-            <button [nzSize]="size" (click)="showModalMsgMiddle(data)" nz-button nzType="default">查看</button>
-          </ng-container>
-          <ng-container *ngIf="!editCache[data.key].edit">
-            <button nz-button [nzSize]="size" (click)="startEdit(data.key)" nzType="default">编辑</button>
-          </ng-container>
-
+          <button [nzSize]="size" (click)="showModalMsgMiddle(data)" nz-button nzType="default">查看</button>
+          <button nz-button [nzSize]="size" (click)="startEdit(data)" nzType="default">编辑</button>
         </div>
-        <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteRow(data.key)">
+        <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteRow(data.id)">
           <button [nzSize]="size" nz-button nz-popconfirm nzType="danger">删除</button>
         </nz-popconfirm>
       </td>
