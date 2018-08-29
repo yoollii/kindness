@@ -42,6 +42,7 @@
       <nz-form-label nzFor="no">部署状态</nz-form-label>
       <nz-form-control>
         <input nz-input formControlName='state' [(ngModel)]="state" name="state" placeholder="请输入" id="no3">
+        <nz-form-explain *ngIf="validateForm.hasError('positiveNumber','state')">Please input 0 or 1!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">创建人</nz-form-label>
       <nz-form-control>
@@ -50,6 +51,31 @@
       <nz-form-label nzFor="no">流程模板描述</nz-form-label>
       <nz-form-control>
         <input nz-input formControlName='des' [(ngModel)]="des" name="des" placeholder="请输入" id="no5">
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
+
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleEditMiddle" nzTitle="编辑" (nzOnCancel)="handleCancelEditMiddle()"
+  (nzOnOk)="handleOkEditMiddle(validateForm.value)">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="editForm(validateForm.value)">
+    <nz-form-item>
+      <nz-form-label nzFor="no">流程模板名称</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName='name' [(ngModel)]='editData.name' name="name" placeholder="请输入" id="no2">
+      </nz-form-control>
+      <nz-form-label nzFor="no">部署状态</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName='state' [(ngModel)]="editData.state" name="state" placeholder="请输入" id="no3">
+        <nz-form-explain *ngIf="validateForm.hasError('positiveNumber','state')">Please input 0 or 1!</nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzFor="no">创建人</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName='cruser' [(ngModel)]="editData.cruser" name="cruser" placeholder="请输入" id="no4">
+      </nz-form-control>
+      <nz-form-label nzFor="no">流程模板描述</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName='des' [(ngModel)]="editData.des" name="des" placeholder="请输入" id="no5">
       </nz-form-control>
     </nz-form-item>
   </form>
@@ -113,7 +139,7 @@
             <button [nzSize]="size" nz-button (click)="abdeRow()" nzType="default">预览</button>
           </ng-container>
           <ng-container>
-            <button [nzSize]="size" nz-button nzType="default">编辑</button>
+            <button [nzSize]="size" (click)="startEdit(data)" nz-button nzType="default">编辑</button>
           </ng-container>
           <ng-container>
             <button [nzSize]="size" nz-button nzType="default">启用</button>
@@ -125,7 +151,7 @@
             <button [nzSize]="size" nz-button nzType="default">另存</button>
           </ng-container>
         </div>
-        <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteRow(data.key)">
+        <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteRow(data.id)">
           <button [nzSize]="size" nz-button nz-popconfirm nzType="danger">删除</button>
         </nz-popconfirm>
       </td>

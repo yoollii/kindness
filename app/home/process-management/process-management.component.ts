@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, enableProdMode } from '@angular/core';
+enableProdMode();
 import { Router } from '@angular/router';
 import * as jsp from 'jsplumb';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../http/http.service';
+import { ValidatorService } from '../../validator.service';
 @Component({
   selector: 'app-process-management',
   templateUrl: './process-management.component.html',
@@ -11,7 +13,8 @@ import { HttpService } from '../../http/http.service';
 export class ProcessManagementComponent implements OnInit {
   i = 1;
   editCache = {};
-  dataSet = [];
+  dataSet = []; // 初始化列表
+  editData = []; // 编辑页面数据
   jsplmdIs = false;
   loading = true;
   isVisibleMiddle = false;
@@ -69,7 +72,6 @@ export class ProcessManagementComponent implements OnInit {
   // dataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
   indeterminate = false;
   gorouter(item: any) {
-    console.log(item);
     // 	if(this.tabs.indexOf(item.split('/')[1])==-1){
     // 		this.tabs.push(item.split('/')[1]);
     this.router.navigateByUrl(item);
@@ -90,8 +92,9 @@ export class ProcessManagementComponent implements OnInit {
     this.refreshStatus(event);
   }
   // 自定义选项结束
-  startEdit(key: string): void {
+  startEdit(key: any): void {
    // this.editCache[key].edit = true;
+    this.editData = key;
     this.showModalEditMiddle();
   }
 
@@ -108,12 +111,12 @@ export class ProcessManagementComponent implements OnInit {
       }
     });
   }
-  constructor(public router: Router, private fb: FormBuilder, private http: HttpService) { }
+  constructor(public router: Router, private fb: FormBuilder, private http: HttpService, private Validator: ValidatorService) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       name: [null, [Validators.required]],
-      state: [null, [Validators.required]],
+      state: [null, [Validators.required, this.Validator.positiveNumberValidator]],
       des: [null, [Validators.required]],
       cruser: [null, [Validators.required]],
     });
@@ -191,8 +194,8 @@ export class ProcessManagementComponent implements OnInit {
   }
   // 删除
   deleteRow(i: string): void {
-    const dataSet = this.dataSet.filter(d => d.key !== i);
-    this.dataSet = dataSet;
+    this.http.httpmenderdel('/flowmodel/delFlowModelById?id=' + i).subscribe(data => console.log(data));
+    this.initData();
   }
 
   finishEdit(key: string): void {
@@ -212,6 +215,8 @@ export class ProcessManagementComponent implements OnInit {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
+    value.orders = 0;
+    // value.id = 'string';
     value = JSON.stringify(value);
     console.log(value);
     if (this.validateForm.invalid) { return; }
@@ -227,12 +232,9 @@ export class ProcessManagementComponent implements OnInit {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
-    // value.state = 0;
-    // value.id = this.dataId;
     value = JSON.stringify(value);
-    console.log(value);
     if (this.validateForm.invalid) { return; }
-    this.http.httpmenderput('/applicationsystem/updateAppli', value).subscribe(data => console.log(data));
+    this.http.httpmenderput('/flowmodel/updateFlowModel', value).subscribe(data => console.log(data));
     this.initData();
     this.isVisibleEditMiddle = false;
   }
