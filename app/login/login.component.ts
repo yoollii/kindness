@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

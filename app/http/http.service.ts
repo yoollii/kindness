@@ -25,7 +25,7 @@ export class HttpService {
     const options1 = new RequestOptions({ headers: headers1 });
     return this.http.post(this.url + funName, data, options1).pipe(map(res => res.json()));
   }
-
+  
   // get请求
   httpmenderget(funName: string, authorization: string) {
     const headers2 = new Headers();
