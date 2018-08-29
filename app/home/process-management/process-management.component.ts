@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as jsp from 'jsplumb';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpService } from '../../http/http.service';
 @Component({
   selector: 'app-process-management',
   templateUrl: './process-management.component.html',
@@ -20,9 +22,11 @@ export class ProcessManagementComponent implements OnInit {
   num: number;
   size = 'small'; // 按钮尺寸
   name: string;
-  template: string;
-  role: string;
-  describe: string;
+  state: string;
+  cruser: string;
+  des: string;
+  validateForm: FormGroup;
+  editdateForm: FormGroup;
   listOfSearchName = [];
   searchAddress: string;
   panels = [
@@ -94,13 +98,6 @@ export class ProcessManagementComponent implements OnInit {
   cancelEdit(key: string): void {
     this.editCache[key].edit = false;
   }
-
-  saveEdit(key: string): void {
-    const index = this.dataSet.findIndex(item => item.key === key);
-    this.dataSet[index] = this.editCache[key].data;
-    this.editCache[key].edit = false;
-  }
-
   updateEditCache(): void {
     this.dataSet.forEach(item => {
       if (!this.editCache[item.key]) {
@@ -111,183 +108,18 @@ export class ProcessManagementComponent implements OnInit {
       }
     });
   }
-  constructor(public router: Router) { }
+  constructor(public router: Router, private fb: FormBuilder, private http: HttpService) { }
 
   ngOnInit(): void {
-    for (let i = 0; i < 30; i++) {
-      this.dataSet.push({
-        key: i.toString(),
-        num: i,
-        name: '流程模板',
-        describe: '',
-        template: '',
-        roe: '',
-        checked: false
-      });
-    }
+    this.validateForm = this.fb.group({
+      name: [null, [Validators.required]],
+      state: [null, [Validators.required]],
+      des: [null, [Validators.required]],
+      cruser: [null, [Validators.required]],
+    });
+    this.initData();
     this.loading = false;
     this.updateEditCache();
-    // var jsPlumb = jsp.jsPlumb;
-    // var instance = jsPlumb.getInstance({
-    //   // default drag options
-    //   DragOptions: { cursor: 'pointer', zIndex: 2000 },
-    //   // the overlays to decorate each connection with.  note that the label overlay uses a function to generate the label text; in this
-    //   // case it returns the 'labelText' member that we set on each connection in the 'init' method below.
-    //   ConnectionOverlays: [
-    //     ['Arrow', {
-    //       location: 1,
-    //       visible: true,
-    //       width: 5,
-    //       length: 5,
-    //       id: 'ARROW',
-    //       events: {
-    //         click: function () { alert('you clicked on the arrow overlay') }
-    //       }
-    //     }],
-    //     ['Label', {
-    //       location: 0.1,
-    //       id: 'label',
-    //       cssClass: 'aLabel',
-    //       events: {
-    //         // connection.getOverlay("label")
-    //         tap: function () {
-    //           let label = prompt('请输入标签文字：');
-    //           this.setLabel(label);
-    //         }
-    //       }
-    //     }]
-    //   ],
-    //   Container: 'canvas'
-    // });
-    //
-    // var basicType = {
-    //   connector: 'StateMachine',
-    //   paintStyle: { stroke: 'red', strokeWidth: 4 },
-    //   hoverPaintStyle: { stroke: 'blue' },
-    //   overlays: [
-    //     'Arrow'
-    //   ]
-    // };
-    // instance.registerConnectionType('basic', basicType);
-    //
-    // // this is the paint style for the connecting lines..
-    // var connectorPaintStyle = {
-    //     strokeWidth: 2,
-    //     stroke: '#61B7CF',
-    //     joinstyle: 'round',
-    //     outlineStroke: 'white',
-    //     outlineWidth: 2
-    //   },
-    //   // .. and this is the hover style.
-    //   connectorHoverStyle = {
-    //     strokeWidth: 3,
-    //     stroke: '#216477',
-    //     outlineWidth: 5,
-    //     outlineStroke: 'white'
-    //   },
-    //   endpointHoverStyle = {
-    //     fill: '#216477',
-    //     stroke: '#216477'
-    //   },
-    //   // the definition of source endpoints (the small blue ones)
-    //   sourceEndpoint = {
-    //     endpoint: 'Dot',
-    //     paintStyle: {
-    //       stroke: '#7AB02C',
-    //       fill: 'transparent',
-    //       radius: 7,
-    //       strokeWidth: 1
-    //     },
-    //     isSource: true,
-    //     connector: ['Flowchart', { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }],
-    //     connectorStyle: connectorPaintStyle,
-    //     hoverPaintStyle: endpointHoverStyle,
-    //     connectorHoverStyle: connectorHoverStyle,
-    //     dragOptions: {},
-    //     overlays: [
-    //       ['Arrow', {
-    //         location: [0.5, 1.5],
-    //         Arrow: 'Drag',
-    //         cssClass: 'endpointSourceLabel',
-    //         visible: false
-    //       }]
-    //     ]
-    //   },
-    //   // the definition of target endpoints (will appear when the user drags a connection)
-    //   targetEndpoint = {
-    //     endpoint: 'Dot',
-    //     paintStyle: { fill: '#7AB02C', radius: 7 },
-    //     hoverPaintStyle: endpointHoverStyle,
-    //     maxConnections: -1,
-    //     dropOptions: { hoverClass: 'hover', activeClass: 'active' },
-    //     isTarget: true,
-    //     overlays: [
-    //       ['Label', { location: [0.5, -0.5], label: 'Drop', cssClass: 'endpointTargetLabel', visible: false }]
-    //     ]
-    //   },
-    //   init = function (connection) {
-    //     connection.getOverlay('label').setLabel(connection.sourceId.substring(15) + '-' + connection.targetId.substring(15));
-    //   };
-    // var _addEndpoints = function (toId, sourceAnchors, targetAnchors) {
-    //   for (let i = 0; i < sourceAnchors.length; i++) {
-    //     let sourceUUID = toId + sourceAnchors[i];
-    //     instance.addEndpoint('flowchart' + toId, sourceEndpoint, {
-    //       anchor: sourceAnchors[i], uuid: sourceUUID
-    //     });
-    //   }
-    //   for (let j = 0; j < targetAnchors.length; j++) {
-    //     const targetUUID = toId + targetAnchors[j];
-    //     instance.addEndpoint('flowchart' + toId, targetEndpoint, { anchor: targetAnchors[j], uuid: targetUUID });
-    //   }
-    // };
-    //
-    // // suspend drawing and initialise.
-    // instance.batch(function () {
-    //   _addEndpoints('Window4', ['TopCenter', 'BottomCenter'], ['LeftMiddle', 'RightMiddle']);
-    //   _addEndpoints('Window2', ['LeftMiddle', 'BottomCenter'], ['TopCenter', 'RightMiddle']);
-    //   _addEndpoints('Window3', ['RightMiddle', 'BottomCenter'], ['LeftMiddle', 'TopCenter']);
-    //   _addEndpoints('Window1', ['LeftMiddle', 'RightMiddle'], ['TopCenter', 'BottomCenter']);
-    //
-    //   // listen for new connections; initialise them the same way we initialise the connections at startup.
-    //   instance.bind('connection', function (connInfo, originalEvent) {
-    //     init(connInfo.connection);
-    //   });
-    //
-    //   // make all the window divs draggable
-    //   instance.draggable(jsPlumb.getSelector('.flowchart-demo .window'), { grid: [20, 20] });
-    //   // THIS DEMO ONLY USES getSelector FOR CONVENIENCE. Use your library's appropriate selector
-    //   // method, or document.querySelectorAll:
-    //   // jsPlumb.draggable(document.querySelectorAll(".window"), { grid: [20, 20] });
-    //
-    //   // connect a few up
-    //   instance.connect({ uuids: ['Window1RightMiddle', 'Window2LeftMiddle'], editable: true });
-    //   instance.connect({ uuids: ['Window2RightMiddle', 'Window3LeftMiddle'], editable: true });
-    //   instance.connect({ uuids: ['Window3RightMiddle', 'Window4LeftMiddle'], editable: true });
-    //
-    //     instance.connect({ uuids: ['Window5RightMiddle', 'Window6LeftMiddle'], editable: true });
-    //     instance.connect({ uuids: ['Window6RightMiddle', 'Window7LeftMiddle'], editable: true });
-    //     instance.connect({ uuids: ['Window7RightMiddle', 'Window8LeftMiddle'], editable: true });
-    //   // listen for clicks on connections, and offer to delete connections on click.
-    //   //
-    //   instance.bind('click', function (conn, originalEvent) {
-    //     // if (confirm("Delete connection from " + conn.sourceId + " to " + conn.targetId + "?"))
-    //     //   instance.detach(conn);
-    //     conn.toggleType('basic');
-    //   });
-    //
-    //   instance.bind('connectionDrag', function (connection) {
-    //     console.log('connection ' + connection.id + ' is being dragged. suspendedElement is ', connection.suspendedElement, ' of type ', connection.suspendedElementType);
-    //   });
-    //
-    //   instance.bind('connectionDragStop', function (connection) {
-    //     console.log('connection ' + connection.id + ' was dragged');
-    //   });
-    //
-    //   instance.bind('connectionMoved', function (params) {
-    //     console.log('connection ' + params.connection.id + ' was moved');
-    //   });
-    // });
-    // jsPlumb.fire('jsPlumbDemoLoaded', instance);
   }
   // 排序
   sort(sort: { key: string, value: string }): void {
@@ -314,22 +146,13 @@ export class ProcessManagementComponent implements OnInit {
 
     console.log(this.dataSet);
   }
-
-
-
-
-
   // 模态框
   showModalMiddle(): void {
     this.isVisibleMiddle = true;
   }
-  handleOkMiddle(): void {
-    console.log('click ok');
-    this.isVisibleMiddle = false;
-    this.isVisibleMiddle1 = false;
-    this.gorouter('home/processManagementList');
+  handleOkMiddle(data): void {
+    this.submitForm(data);
   }
-
   handleCancelMiddle(): void {
 
     console.log('click Cancel');
@@ -358,15 +181,6 @@ export class ProcessManagementComponent implements OnInit {
   // 添加一行数据
   addRow(): void {
     this.showModalMiddle();
-    this.i++;
-    this.dataSet = [...this.dataSet, {
-      key: `${this.i}`,
-      name: '流程模板',
-      describe: '',
-      template: '',
-      roe: '',
-    }];
-    console.log(this.dataSet);
     this.updateEditCache();
   }
 
@@ -385,5 +199,41 @@ export class ProcessManagementComponent implements OnInit {
     this.editCache[key].edit = false;
     this.dataSet.find(item => item.key === key).name = this.editCache[key].name;
   }
-
+  initData(): void {
+    this.http.httpmender('/flowmodel/findList', {}).subscribe(data => { console.log(data.data.成功); this.dataSet = data.data.成功; });
+    for (let i = 0; i < this.dataSet.length; i++) {
+      this.dataSet[i].checked = false;
+    }
+  }
+  submitForm = (value) => {
+    // $event.preventDefault();
+    // tslint:disable-next-line:forin
+    for (const key in this.validateForm.controls) {
+      this.validateForm.controls[key].markAsDirty();
+      this.validateForm.controls[key].updateValueAndValidity();
+    }
+    value = JSON.stringify(value);
+    console.log(value);
+    if (this.validateForm.invalid) { return; }
+    this.http.httpmender('/flowmodel/addModel', value).subscribe(data => console.log(data));
+    this.isVisibleMiddle = false;
+    this.isVisibleMiddle1 = false;
+    this.gorouter('home/processManagementList');
+  }
+  editForm = (value) => {
+    // $event.preventDefault();
+    // tslint:disable-next-line:forin
+    for (const key in this.validateForm.controls) {
+      this.validateForm.controls[key].markAsDirty();
+      this.validateForm.controls[key].updateValueAndValidity();
+    }
+    // value.state = 0;
+    // value.id = this.dataId;
+    value = JSON.stringify(value);
+    console.log(value);
+    if (this.validateForm.invalid) { return; }
+    this.http.httpmenderput('/applicationsystem/updateAppli', value).subscribe(data => console.log(data));
+    this.initData();
+    this.isVisibleEditMiddle = false;
+  }
 }

@@ -35,19 +35,18 @@ export class HttpService {
   }
 
    // put请求
-  httpmenderput(funName: string, data: any, authorization: string) {
+  httpmenderput(funName: string, data: any) {
     const headers2 = new Headers();
-    headers2.append('Content-Type', 'text/plain;charset=UTF-8');
-    headers2.append('Authorization', authorization);
+    headers2.append('Content-Type', 'application/json');
+    // headers2.append('Authorization', authorization);
     const options2 = new RequestOptions({ headers: headers2 });
     return this.http.put(this.url + funName, data, options2).pipe(map(res => res.json()));
   }
 
   // delete请求
-  httpmenderdel(funName: string, authorization: string) {
+  httpmenderdel(funName: string) {
     const headers2 = new Headers();
     headers2.append('Content-Type', 'text/plain;charset=UTF-8');
-    headers2.append('Authorization', authorization);
     const options2 = new RequestOptions({ headers: headers2 });
     return this.http.delete(this.url + funName, options2).pipe(map(res => res.json()));
   }

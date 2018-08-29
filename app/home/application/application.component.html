@@ -9,18 +9,29 @@
   <button nz-button (click)="addRow()" class="editable-add-btn">
     <i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
   <div class="search-group">
-    <nz-input-group nzSearch nzSize="default" [nzSuffix]="suffixButton">
-      <input type="text" style="padding: 0" nz-input placeholder="输入搜索内容">
+    <!-- <nz-input-group nzSearch nzSize="default" [nzSuffix]="suffixButton">
+      <input type="text" style="padding: 0" #searchData1 nz-input placeholder="输入应用系统名字搜索内容">
+      <input type="text" style="padding: 0" #searchData2 nz-input placeholder="输入流程模板搜索内容">
+      <input type="text" style="padding: 0" #searchData3 nz-input placeholder="输入应用系统描述搜索内容">
+    </nz-input-group> -->
+    <nz-input-group nzCompact [nzSuffix]="suffixButton">
+      <nz-select [ngModel]="'应用系统名字'"  #searchSelect style="width:32%;">
+        <nz-option [nzLabel]="'应用系统名字'" [nzValue]="'应用系统名字'"></nz-option>
+        <nz-option [nzLabel]="'流程模板'" [nzValue]="'流程模板'"></nz-option>
+        <!-- <nz-option [nzLabel]="'应用系统描述'" [nzValue]="'应用系统描述'"></nz-option> -->
+      </nz-select>
+      <!-- <input type="text" nz-input [ngModel]="'Xihu District, Hangzhou'" style="width:50%;"> -->
+      <input type="text" style="padding: 0" #searchData nz-input style="width:50%;" placeholder="输入应用系统名字搜索内容">
     </nz-input-group>
     <ng-template #suffixButton>
-      <button nz-button nzType="primary" nzSize="default" nzSearch>搜索</button>
+      <button nz-button nzType="primary" (click)="forSearch(searchData.value,searchSelect.value)" nzSize="default" nzSearch>搜索</button>
     </ng-template>
   </div>
 </div>
 
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()"
   (nzOnOk)="handleOkMiddle(validateForm.value)">
-  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm($event,validateForm.value)">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
     <nz-form-item>
       <!-- <nz-form-label nzFor="no">序号</nz-form-label>
     <nz-form-control>
@@ -29,8 +40,8 @@
       <nz-form-label nzRequired nzFor="no">应用系统名称</nz-form-label>
       <nz-form-control>
         <input nz-input formControlName="name" [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
-<nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">Please input your name!</nz-form-explain>
-</nz-form-control>
+        <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">Please input your name!</nz-form-explain>
+      </nz-form-control>
       <nz-form-label nzRequired nzFor="no">应用标识</nz-form-label>
       <nz-form-control>
         <input nz-input formControlName="userFlag" [(ngModel)]="userFlag" name="userFlag" placeholder="请输入" id="no3">
@@ -57,29 +68,41 @@
 </nz-modal>
 
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleEditMiddle" nzTitle="编辑" (nzOnCancel)="handleCancelEditMiddle()"
-  (nzOnOk)="handleOkEditkMiddle()">
-  <nz-form-item>
-    <nz-form-label nzFor="no">序号</nz-form-label>
+  (nzOnOk)="handleOkEditkMiddle(validateForm.value)">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="editForm(validateForm.value)">
+    <nz-form-item>
+      <!-- <nz-form-label nzFor="no">序号</nz-form-label>
     <nz-form-control>
       <input nz-input [(ngModel)]="num" name="num" placeholder="请输入" id="no1">
-    </nz-form-control>
-    <nz-form-label nzFor="no">应用系统名称</nz-form-label>
-    <nz-form-control>
-      <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
-    </nz-form-control>
-    <nz-form-label nzFor="no">流程模板</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="modelId" name="modelId" nzAllowClear nzPlaceHolder="流程模板">
-        <nz-option nzValue="model1" nzLabel="模板一"></nz-option>
-        <nz-option nzValue="model2" nzLabel="模板二"></nz-option>
-        <nz-option nzValue="model3" nzLabel="模版三"></nz-option>
-      </nz-select>
-    </nz-form-control>
-    <nz-form-label nzFor="no">应用系统描述</nz-form-label>
-    <nz-form-control>
-      <input nz-input [(ngModel)]="des" name="des" placeholder="请输入" id="no3">
-    </nz-form-control>
-  </nz-form-item>
+    </nz-form-control> -->
+      <nz-form-label nzRequired nzFor="no">应用系统名称</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName="name" [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
+        <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">Please input your name!</nz-form-explain>
+      </nz-form-control>
+      <nz-form-label nzRequired nzFor="no">应用标识</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName="userFlag" [(ngModel)]="userFlag" name="userFlag" placeholder="请输入" id="no3">
+      </nz-form-control>
+      <nz-form-label nzRequired nzFor="no">应用系统描述</nz-form-label>
+      <nz-form-control>
+        <textarea row="4" formControlName="des" nz-input [(ngModel)]="des" name="des" placeholder="请输入" id="no4"></textarea>
+      </nz-form-control>
+      <nz-form-label nzRequired nzFor="no">基础地址</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName="baseUrl" [(ngModel)]="baseUrl" name="baseUrl" placeholder="请输入" id="no5">
+      </nz-form-control>
+      <nz-form-label nzRequired nzFor="no">流程模板</nz-form-label>
+      <nz-form-control>
+        <nz-select style="width: 100%;" formControlName="modelId" [(ngModel)]="modelId" name="modelId" nzAllowClear nzPlaceHolder="流程模板"
+          id="no6">
+          <nz-option nzValue="model1" nzLabel="模板一"></nz-option>
+          <nz-option nzValue="model2" nzLabel="模板二"></nz-option>
+          <nz-option nzValue="model3" nzLabel="模版三"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
 </nz-modal>
 
 <nz-table #editRowTable nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()"
@@ -90,7 +113,7 @@
         (nzCheckedChange)="checkAll($event)"></th>
       <th nzShowSort nzSortKey="num">序号</th>
       <th nzShowSort nzSortKey="name">应用系统名字</th>
-      <th nzShowSort nzSortKey="template">流程模板</th>
+      <th nzShowSort nzSortKey="modelId">流程模板</th>
       <th nzShowSort nzSortKey="des">应用系统描述</th>
       <th nzShowSort>操作</th>
     </tr>
@@ -101,44 +124,22 @@
       <td>
         <div class="editable-cell">
           <div class="editable-cell-text-wrapper">
-            <ng-container *ngIf="!editCache[data.key].edit">
-              {{data.num}}
-            </ng-container>
-            <ng-container *ngIf="editCache[data.key].edit">
-              <input type="text" nz-input [(ngModel)]="editCache[data.key].data.num">
-            </ng-container>
+            {{data.num}}
           </div>
         </div>
       </td>
       <td>
-        <ng-container *ngIf="!editCache[data.key].edit">
-          {{data.name}}
-        </ng-container>
-        <ng-container *ngIf="editCache[data.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.name">
-        </ng-container>
+        {{data.name}}
       </td>
       <td>
-        <ng-container *ngIf="!editCache[data.key].edit">
-          {{data.template}}
-        </ng-container>
-        <ng-container *ngIf="editCache[data.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.template">
-        </ng-container>
+        {{data.modelId}}
       </td>
       <td>
-        <ng-container *ngIf="!editCache[data.key].edit">
-          {{data.des}}
-        </ng-container>
-        <ng-container *ngIf="editCache[data.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.des">
-        </ng-container>
+        {{data.des}}
       </td>
       <td>
         <div class="editable-row-operations" style="display: inline-block;">
-          <ng-container *ngIf="!editCache[data.key].edit">
-            <button [nzSize]="size" nz-button (click)="startEdit(data.key)" nzType="default">编辑</button>
-          </ng-container>
+          <button [nzSize]="size" nz-button (click)="startEdit(data.id)" nzType="default">编辑</button>
           <ng-container>
             <button [nzSize]="size" nz-button nzType="default">启用</button>
           </ng-container>
@@ -148,14 +149,9 @@
           <ng-container>
             <button [nzSize]="size" nz-button nzType="default">另存</button>
           </ng-container>
-          <ng-container *ngIf="editCache[data.key].edit">
-            <button (click)="saveEdit(data.key)" nz-button nzType="default">保存</button>
-            <nz-popconfirm [nzTitle]="'确认取消?'" (nzOnConfirm)="cancelEdit(data.key)">
-              <a nz-popconfirm>取消</a>
-            </nz-popconfirm>
-          </ng-container>
+
         </div>
-        <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteRow(data.key)">
+        <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteRow(data.id)">
           <button [nzSize]="size" nz-button nz-popconfirm nzType="danger">删除</button>
         </nz-popconfirm>
       </td>
