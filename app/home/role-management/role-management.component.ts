@@ -159,10 +159,8 @@ export class RoleManagementComponent implements OnInit {
               ? 1
               : -1
       );
-      //    this.updateEditCache();
     } else {
       this.dataSet = this.dataSet;
-      //    this.updateEditCache();
     }
     console.log(this.dataSet);
   }

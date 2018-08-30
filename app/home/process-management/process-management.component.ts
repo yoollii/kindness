@@ -201,7 +201,7 @@ export class ProcessManagementComponent implements OnInit {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
-    value.orders = 0;
+    // value.orders = 0;
     // value.id = 'string';
     value = JSON.stringify(value);
     if (this.validateForm.invalid) { return; }
