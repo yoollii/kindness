@@ -8,8 +8,6 @@ import { HttpService } from '../../http/http.service';
   styleUrls: ['./application.component.less']
 })
 export class ApplicationComponent implements OnInit {
-  i = 1;
-  editCache = {};
   dataSet = [];   // 初始化列表
   dataId: string; // 流程ID
   loading = true;
@@ -18,15 +16,15 @@ export class ApplicationComponent implements OnInit {
   sortName = null;
   sortValue = null;
   size = 'small'; // 按钮尺寸
-  num: number;
-  name: string;
-  userFlag: number;
-  baseUrl: string;
-  modelId: string;
-  des: string;
+  num: number;  // 序号
+  name: string; // 应用系统名称
+  userFlag: number; // 应用标识
+  baseUrl: string;  // 基础地址
+  modelId: string;  // 流程模板
+  des: string;  // 应用系统描述
   listOfSearchName = [];
   searchAddress: string;
-  validateForm: FormGroup;
+  validateForm: FormGroup;  // 表单
   listOfSelection = [
     {
       text: 'Select All Row',
@@ -76,27 +74,6 @@ export class ApplicationComponent implements OnInit {
     this.dataId = key.id;
     this.showModalEditMiddle(key.id);
   }
-
-  cancelEdit(key: string): void {
-    this.editCache[key].edit = false;
-  }
-
-  saveEdit(key: string): void {
-    const index = this.dataSet.findIndex(item => item.key === key);
-    this.dataSet[index] = this.editCache[key].data;
-    this.editCache[key].edit = false;
-  }
-
-  updateEditCache(): void {
-    this.dataSet.forEach(item => {
-      if (!this.editCache[item.key]) {
-        this.editCache[item.key] = {
-          edit: false,
-          data: item
-        };
-      }
-    });
-  }
   constructor(public router: Router, private fb: FormBuilder, private http: HttpService) { }
   gorouter(item: any) {
     // 	if(this.tabs.indexOf(item.split('/')[1])==-1){
@@ -116,7 +93,6 @@ export class ApplicationComponent implements OnInit {
     });
     this.initData();
     this.loading = false;
-    this.updateEditCache();
   }
   forSearch(inputValue, selecValue): void {
     let dataSearch = {};
@@ -157,20 +133,12 @@ export class ApplicationComponent implements OnInit {
      }
     });
   }
-  filter(listOfSearchName: string[], searchAddress: string): void {
-    this.listOfSearchName = listOfSearchName;
-    this.searchAddress = searchAddress;
-    this.search();
-  }
-
   search(): void {
     if (this.sortName) {
       this.dataSet = this.dataSet.sort((a, b) =>
       (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
-      //    this.updateEditCache();
     } else {
       this.dataSet = this.dataSet;
-      //    this.updateEditCache();
     }
   }
   // 模态框
@@ -201,18 +169,16 @@ export class ApplicationComponent implements OnInit {
   // 添加一行数据
   addRow(): void {
     this.showModalMiddle();
-    this.updateEditCache();
   }
   // 删除
   deleteRow(i: any): void {
-    // const dataSet = this.dataSet.filter(d => d.key !== i);
-    // this.dataSet = dataSet;
     this.http.httpmenderdel('/applicationsystem/delAppliById?id=' + i ).subscribe(data => {
       if (data.result === '0000') {
         this.initData();
       }
     });
   }
+  // 新增
   submitForm = (value) => {
     // $event.preventDefault();
     // tslint:disable-next-line:forin
@@ -232,6 +198,7 @@ export class ApplicationComponent implements OnInit {
     this.isVisibleMiddle = false;
     this.gorouter('home/applicationManagement');
   }
+  // 编辑
   editForm = (value) => {
     // $event.preventDefault();
     // tslint:disable-next-line:forin

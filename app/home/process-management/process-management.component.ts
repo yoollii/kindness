@@ -11,8 +11,6 @@ import { ValidatorService } from '../../validator.service';
   styleUrls: ['./process-management.component.less']
 })
 export class ProcessManagementComponent implements OnInit {
-  i = 1;
-  editCache = {};
   dataId: string; // 流程ID
   dataSet = []; // 初始化列表
   jsplmdIs = false;
@@ -22,14 +20,14 @@ export class ProcessManagementComponent implements OnInit {
   isVisibleEditMiddle = false;
   sortName = null;
   sortValue = null;
-  num: number;
+  num: number;  // 序号
   size = 'small'; // 按钮尺寸
-  name: string;
-  state: string;
-  cruser: string;
-  des: string;
-  validateForm: FormGroup;
-  editdateForm: FormGroup;
+  name: string; // 流程模板名称
+  state: string;  // 部署状态
+  cruser: string; // 创建人
+  des: string;  // 流程模板描述
+  validateForm: FormGroup; // 新增表单
+  editdateForm: FormGroup;  // 编辑表单
   listOfSearchName = [];
   searchAddress: string;
   panels = [
@@ -101,20 +99,6 @@ export class ProcessManagementComponent implements OnInit {
     this.dataId = key.id;
     this.showModalEditMiddle();
   }
-
-  cancelEdit(key: string): void {
-    this.editCache[key].edit = false;
-  }
-  updateEditCache(): void {
-    this.dataSet.forEach(item => {
-      if (!this.editCache[item.key]) {
-        this.editCache[item.key] = {
-          edit: false,
-          data: item
-        };
-      }
-    });
-  }
   constructor(public router: Router, private fb: FormBuilder, private http: HttpService, private Validator: ValidatorService) { }
 
   ngOnInit(): void {
@@ -126,7 +110,6 @@ export class ProcessManagementComponent implements OnInit {
     });
     this.initData();
     this.loading = false;
-    this.updateEditCache();
   }
   // 排序
   sort(sort: { key: string, value: string }): void {
@@ -150,7 +133,6 @@ export class ProcessManagementComponent implements OnInit {
       this.dataSet = this.dataSet;
       //    this.updateEditCache();
     }
-
     console.log(this.dataSet);
   }
   // 模态框
@@ -183,13 +165,10 @@ export class ProcessManagementComponent implements OnInit {
 
   }
 
-
   // 添加一行数据
   addRow(): void {
     this.showModalMiddle();
-    this.updateEditCache();
   }
-
 
   abdeRow() {
     console.log(1);
@@ -198,15 +177,10 @@ export class ProcessManagementComponent implements OnInit {
   // 删除
   deleteRow(i: string): void {
     this.http.httpmenderdel('/flowmodel/delFlowModelById?id=' + i).subscribe(data => {
-      if (data.result === '0000'){
+      if (data.result === '0000') {
         this.initData();
       }
     });
-  }
-
-  finishEdit(key: string): void {
-    this.editCache[key].edit = false;
-    this.dataSet.find(item => item.key === key).name = this.editCache[key].name;
   }
   // 初始化列表
   initData(): void {
@@ -230,7 +204,6 @@ export class ProcessManagementComponent implements OnInit {
     value.orders = 0;
     // value.id = 'string';
     value = JSON.stringify(value);
-    console.log(value);
     if (this.validateForm.invalid) { return; }
     this.http.httpmender('/flowmodel/addModel', value).subscribe(data => console.log(data));
     this.isVisibleMiddle = false;

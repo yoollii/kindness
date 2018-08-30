@@ -9,11 +9,9 @@ import { HttpService } from '../../http/http.service';
 })
 export class RoleManagementComponent implements OnInit {
   @ViewChild('nzTree') nzTree: NzTreeComponent;
-  i = 1;
-  editCache = {};
   dataSet = [];   // 初始化列表
   dataId: string; // 流程ID
-  validateForm: FormGroup;
+  validateForm: FormGroup;  // 表单
   loading = true;
   isVisibleMiddle = false;
   isVisibleEditMiddle = false;
@@ -24,10 +22,10 @@ export class RoleManagementComponent implements OnInit {
   currentDescribe: string;
   listOfSearchName = [];
   size = 'small'; // 按钮尺寸
-  num: number;
-  name: string;
-  role: string;
-  des: string;
+  num: number;  // 序号
+  name: string; // 角色名称
+  role: string; // 角色权限
+  des: string;  // 角色描述
   searchAddress: string;
   // 自定义选项开始
   allChecked = false;
@@ -132,29 +130,7 @@ export class RoleManagementComponent implements OnInit {
     this.dataId = key.id;
     this.showModalEditMiddle();
   }
-
-  cancelEdit(key: string): void {
-    this.editCache[key].edit = false;
-  }
-
-  saveEdit(key: string): void {
-    const index = this.dataSet.findIndex(item => item.key === key);
-    this.dataSet[index] = this.editCache[key].data;
-    this.editCache[key].edit = false;
-  }
-
-  updateEditCache(): void {
-    this.dataSet.forEach(item => {
-      if (!this.editCache[item.key]) {
-        this.editCache[item.key] = {
-          edit: false,
-          data: item
-        };
-      }
-    });
-  }
   constructor(private fb: FormBuilder, private http: HttpService) {}
-
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       name: [null, [Validators.required] ],
@@ -163,18 +139,11 @@ export class RoleManagementComponent implements OnInit {
     });
     this.initData();
     this.loading = false;
-    this.updateEditCache();
   }
   // 排序
   sort(sort: { key: string; value: string }): void {
     this.sortName = sort.key;
     this.sortValue = sort.value;
-    this.search();
-  }
-
-  filter(listOfSearchName: string[], searchAddress: string): void {
-    this.listOfSearchName = listOfSearchName;
-    this.searchAddress = searchAddress;
     this.search();
   }
 
@@ -239,7 +208,6 @@ export class RoleManagementComponent implements OnInit {
   // 添加一行数据
   addRow(): void {
     this.showModalMiddle();
-    this.updateEditCache();
   }
   // 删除
   deleteRow(i: string): void {
@@ -249,11 +217,6 @@ export class RoleManagementComponent implements OnInit {
       }
     });
   }
-
-  finishEdit(key: string): void {
-    this.editCache[key].edit = false;
-    this.dataSet.find(item => item.key === key).name = this.editCache[key].name;
-  }
   // 初始化列表
   initData(): void {
     this.http.httpmender('/role/findList', {}).subscribe(data => {
@@ -262,6 +225,7 @@ export class RoleManagementComponent implements OnInit {
       }
     });
   }
+  // 新增
   submitForm = (value) => {
     // $event.preventDefault();
     // tslint:disable-next-line:forin
@@ -280,6 +244,7 @@ export class RoleManagementComponent implements OnInit {
     });
     this.isVisibleMiddle = false;
   }
+  // 编辑
   editForm = (value) => {
     // $event.preventDefault();
     // tslint:disable-next-line:forin

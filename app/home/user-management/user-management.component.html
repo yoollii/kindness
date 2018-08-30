@@ -20,8 +20,8 @@
       </nz-form-control>
       <nz-form-label nzFor="no">用户角色</nz-form-label>
       <nz-form-control>
-        <nz-select style="width: 100%;" formControlName="listOfRole" name="listOfRole" nzPlaceHolder="请选择用户角色">
-          <nz-option *ngFor="let option of listOfRoleList" [nzLabel]="option" [nzValue]="option">
+        <nz-select style="width: 100%;" formControlName="rid" name="rid" nzPlaceHolder="请选择用户角色">
+          <nz-option *ngFor="let option of listOfRoleList" [nzLabel]="option.name" [nzValue]="option.id">
           </nz-option>
         </nz-select>
       </nz-form-control>
@@ -60,14 +60,15 @@
       </nz-form-control>
       <nz-form-label nzFor="no">用户角色</nz-form-label>
       <nz-form-control>
-        <nz-select style="width: 100%;" formControlName="listOfRole" name="listOfRole" [(ngModel)]="listOfRole" nzPlaceHolder="请选择用户角色">
-          <nz-option *ngFor="let option of listOfRoleList" [nzLabel]="option" [nzValue]="option">
+        <nz-select style="width: 100%;" formControlName="rid" name="rid" [(ngModel)]="rid" nzPlaceHolder="请选择用户角色">
+          <nz-option *ngFor="let option of listOfRoleList" [nzLabel]="option.name" [nzValue]="option.id">
           </nz-option>
         </nz-select>
       </nz-form-control>
       <nz-form-label nzFor="no">用户分组</nz-form-label>
       <nz-form-control>
-        <nz-select style="width: 100%;" formControlName="groupName" name="groupName" [(ngModel)]="listOfTagOptions" nzPlaceHolder="请选择用户分组">
+        <nz-select style="width: 100%;" formControlName="groupName" name="groupName" [(ngModel)]="listOfTagOptions"
+          nzPlaceHolder="请选择用户分组">
           <nz-option *ngFor="let option of listOfOption" [nzLabel]="option" [nzValue]="option">
           </nz-option>
         </nz-select>
@@ -81,7 +82,8 @@
       </nz-form-control>
       <nz-form-label nzFor="no">所属机构</nz-form-label>
       <nz-form-control>
-        <nz-select style="width: 100%;" formControlName="listOforgan" name="listOforgan" [(ngModel)]="listOforgan" nzPlaceHolder="请选择所属机构">
+        <nz-select style="width: 100%;" formControlName="listOforgan" name="listOforgan" [(ngModel)]="listOforgan"
+          nzPlaceHolder="请选择所属机构">
           <nz-option *ngFor="let option of listOforganList" [nzLabel]="option" [nzValue]="option">
           </nz-option>
         </nz-select>
@@ -90,8 +92,8 @@
   </form>
 </nz-modal>
 
-<nz-modal nzWidth="600px" nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMsgMiddle" nzTitle="查看" (nzOnCancel)="handleCancelMsgMiddle()"
-  (nzOnOk)="handleOkMsgMiddle()">
+<nz-modal nzWidth="600px" nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMsgMiddle" nzTitle="查看"
+  (nzOnCancel)="handleCancelMsgMiddle()" (nzOnOk)="handleOkMsgMiddle()">
   <div class="showMsg">
     <div class="showMsgTop">
       <nz-form-label nzFor="no">角色列表</nz-form-label>
@@ -156,7 +158,7 @@
         {{data.name}}
       </td>
       <td>
-        {{data.role}}
+        {{data.rname}}
       </td>
       <td>
         {{data.groupName}}
