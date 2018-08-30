@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup , Validators} from '@angular/forms';
 import { HttpService } from '../../http/http.service';
 @Component({
   selector: 'app-user-management',
@@ -103,7 +103,7 @@ export class UserManagementComponent implements OnInit {
 
     this.listOfRoleList = ['超级管理员', '管理员', '一般用户'];
     this.validateForm = this.fb.group({
-      name: [null],
+      name: [null, [Validators.required] ],
       listOfRole: [null],
       group: [null],
       groupName: [null],

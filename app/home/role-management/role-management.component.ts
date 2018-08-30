@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzFormatEmitEvent, NzTreeNode, NzTreeComponent } from 'ng-zorro-antd';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { HttpService } from '../../http/http.service';
 @Component({
   selector: 'app-role-management',
   templateUrl: './role-management.component.html',
@@ -9,7 +11,9 @@ export class RoleManagementComponent implements OnInit {
   @ViewChild('nzTree') nzTree: NzTreeComponent;
   i = 1;
   editCache = {};
-  dataSet = [];
+  dataSet = [];   // 初始化列表
+  dataId: string; // 流程ID
+  validateForm: FormGroup;
   loading = true;
   isVisibleMiddle = false;
   isVisibleEditMiddle = false;
@@ -23,7 +27,7 @@ export class RoleManagementComponent implements OnInit {
   num: number;
   name: string;
   role: string;
-  group: string;
+  des: string;
   searchAddress: string;
   // 自定义选项开始
   allChecked = false;
@@ -122,8 +126,10 @@ export class RoleManagementComponent implements OnInit {
     this.refreshStatus();
   }
   // 自定义选项结束
-  startEdit(key: string): void {
-    // this.editCache[key].edit = true;
+  startEdit(key: any): void {
+    this.name = key.name;
+    this.des = key.des;
+    this.dataId = key.id;
     this.showModalEditMiddle();
   }
 
@@ -147,19 +153,15 @@ export class RoleManagementComponent implements OnInit {
       }
     });
   }
-  constructor() {}
+  constructor(private fb: FormBuilder, private http: HttpService) {}
 
   ngOnInit(): void {
-    for (let i = 1; i < 30; i++) {
-      this.dataSet.push({
-        key: i.toString(),
-        num: i,
-        name: '超级管理员',
-        role: '',
-        group: '系统级用户角色',
-        checked: false
-      });
-    }
+    this.validateForm = this.fb.group({
+      name: [null, [Validators.required] ],
+      des: [null],
+      organnodes: [null],
+    });
+    this.initData();
     this.loading = false;
     this.updateEditCache();
   }
@@ -200,9 +202,8 @@ export class RoleManagementComponent implements OnInit {
   showModalMiddle(): void {
     this.isVisibleMiddle = true;
   }
-  handleOkMiddle(): void {
-    console.log('click ok');
-    this.isVisibleMiddle = false;
+  handleOkMiddle(data): void {
+    this.submitForm(data);
   }
 
   handleCancelMiddle(): void {
@@ -212,9 +213,8 @@ export class RoleManagementComponent implements OnInit {
   showModalEditMiddle(): void {
     this.isVisibleEditMiddle = true;
   }
-  handleOkEditMiddle(): void {
-    console.log('click ok');
-    this.isVisibleEditMiddle = false;
+  handleOkEditMiddle(data): void {
+    this.editForm(data);
   }
 
   handleCancelEditMiddle(): void {
@@ -223,7 +223,7 @@ export class RoleManagementComponent implements OnInit {
   }
   showModalMsgMiddle(data): void {
     this.isVisibleMsgMiddle = true;
-    this.currentDescribe = data.group;
+    this.currentDescribe = data.des;
     this.currentName = data.name;
   }
   handleOkMsgMiddle(): void {
@@ -239,28 +239,64 @@ export class RoleManagementComponent implements OnInit {
   // 添加一行数据
   addRow(): void {
     this.showModalMiddle();
-    this.i++;
-    this.dataSet = [
-      ...this.dataSet,
-      {
-        key: `${this.i}`,
-        num: this.i,
-        name: '超级管理员',
-        role: '',
-        group: '系统级用户角色',
-      }
-    ];
-    console.log(this.dataSet);
     this.updateEditCache();
   }
   // 删除
   deleteRow(i: string): void {
-    const dataSet = this.dataSet.filter(d => d.key !== i);
-    this.dataSet = dataSet;
+    this.http.httpmenderdel('/role/delRoleById?id=' + i).subscribe(data => {
+      if (data.result === '0000') {
+        this.initData();
+      }
+    });
   }
 
   finishEdit(key: string): void {
     this.editCache[key].edit = false;
     this.dataSet.find(item => item.key === key).name = this.editCache[key].name;
+  }
+  // 初始化列表
+  initData(): void {
+    this.http.httpmender('/role/findList', {}).subscribe(data => {
+      if (data.result === '0000') {
+        this.dataSet = data.data.data;
+      }
+    });
+  }
+  submitForm = (value) => {
+    // $event.preventDefault();
+    // tslint:disable-next-line:forin
+    for (const key in this.validateForm.controls) {
+      this.validateForm.controls[key].markAsDirty();
+      this.validateForm.controls[key].updateValueAndValidity();
+    }
+    value.organnodes = value.organnodes.key;
+    value = JSON.stringify(value);
+    console.log(value);
+    if (this.validateForm.invalid) { return; }
+    this.http.httpmender('/role/addRole', value).subscribe(data => {
+      if (data.result === '0000') {
+        this.initData();
+      }
+    });
+    this.isVisibleMiddle = false;
+  }
+  editForm = (value) => {
+    // $event.preventDefault();
+    // tslint:disable-next-line:forin
+    for (const key in this.validateForm.controls) {
+      this.validateForm.controls[key].markAsDirty();
+      this.validateForm.controls[key].updateValueAndValidity();
+    }
+    value.id = this.dataId;
+    value.organnodes = value.organnodes.key;
+    value = JSON.stringify(value);
+    console.log(value);
+    if (this.validateForm.invalid) { return; }
+    this.http.httpmenderput('/role/updateRole', value).subscribe(data => {
+      if (data.result === '0000') {
+        this.initData();
+      }
+    });
+    this.isVisibleEditMiddle = false;
   }
 }
