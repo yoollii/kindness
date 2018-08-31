@@ -208,7 +208,7 @@ export class ApplicationComponent implements OnInit {
     // value.id = 'string';
     value = JSON.stringify(value);
     if (this.validateForm.invalid) { return; }
-    this.http.httpmender('/applicationsystem/addUser', value).subscribe(data => {
+    this.http.httpmender('/applicationsystem/addAppli', value).subscribe(data => {
       if (data.result === '0000') {
         this.initData();
         this.message.create('success', '新增成功');
