@@ -72,8 +72,9 @@
             flex: 1;
             &>div{
                 margin: 10px 5px;
+                padding: 0;
             }
-            .foledata,.foldmap,.foldcalendar,.folelog{
+            .foledata,.foledata2,.foldmap,.foldcalendar,.folelog{
                 display: none;
             }
         }
@@ -83,21 +84,6 @@
                 // height: 360px;
                 border: 1px solid rgb(217, 217, 217);
                 border-radius: 4px;
-            }
-        }
-        .title{
-            margin: 10px 0;
-            padding: 0 30px;
-            display: flex;
-            justify-content: space-between;
-            a{
-                color: #000;
-                border-radius: 4px;
-                padding: 5px;
-            }
-            .buttonActived{
-                background-color: #007bff;
-                color: #fff;
             }
         }
     }
@@ -112,11 +98,16 @@
     }
 }
 .title{
-    margin: 10px 0;
-    padding: 0 30px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 0;
+    padding: 6px;
+    margin: -1px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    cursor: move;
+}
+.portlet{
+    margin: 0;
 }
 .moreContain-a{
     display: flex;

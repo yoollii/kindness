@@ -17,7 +17,7 @@
             <span title>业务功能组件管理</span>
             <ul>
               <li nz-menu-item (click)="gorouter('home/antv')">输入文字</li>
-              <li nz-menu-item>输入文字</li>
+              <li nz-menu-item (click)="gorouter('home/buttons')">输入文字</li>
               <li nz-menu-item>输入文字</li>
             </ul>
           </li>
@@ -101,7 +101,8 @@
 
       <div class="top-nav-wrap">
         <div>
-          <i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
+          <i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed"
+            (click)="isCollapsed=!isCollapsed"></i>
           <strong style="font-size:20px;">***作战任务规划系统</strong>
         </div>
         <ul class="top-nav">
@@ -117,8 +118,8 @@
           <li>
             <nz-dropdown nzPlacement="bottomRight">
               <div class="item d-flex align-items-center px-sm colorwhite" nz-dropdown>
-                <nz-avatar nzSrc="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3325718519,2192247856&fm=58&bpow=700&bpoh=400" nzSize="default"
-                  class="mr-sm"></nz-avatar>
+                <nz-avatar nzSrc="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3325718519,2192247856&fm=58&bpow=700&bpoh=400"
+                  nzSize="default" class="mr-sm"></nz-avatar>
                 用户001
               </div>
               <div nz-menu class="width-sm">
@@ -126,13 +127,13 @@
                   <i class="anticon anticon-user mr-sm"></i>个人中心</div>
                 <div nz-menu-item [nzDisabled]="true">
                   <i class="anticon anticon-setting mr-sm"></i>设置</div>
-                <li nz-menu-divider></li>
-                <div nz-menu-item (click)="logout()">
-                  <i class="anticon anticon-setting mr-sm"></i>退出登录</div>
-              </div>
-            </nz-dropdown>
-          </li>
-        </ul>
+          <li nz-menu-divider></li>
+          <div nz-menu-item (click)="logout()">
+            <i class="anticon anticon-setting mr-sm"></i>退出登录</div>
+      </div>
+      </nz-dropdown>
+      </li>
+      </ul>
       </div>
 
 
@@ -140,7 +141,8 @@
     <nz-content #content style="margin:65px 16px 16px 16px;padding:16px;">
       <router-outlet></router-outlet>
     </nz-content>
-    <nz-footer style="padding:20px 0;color:#fff;box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);text-align: center;">厚德管理平台 ©2018 </nz-footer>
+    <nz-footer style="padding:20px 0;color:#fff;box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);text-align: center;">厚德管理平台
+      ©2018 </nz-footer>
   </nz-layout>
 </nz-layout>
 <ng-template #trigger>

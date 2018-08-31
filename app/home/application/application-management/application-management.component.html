@@ -63,20 +63,20 @@
 </nz-modal>
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="showpop" nzTitle="属性设置" (nzOnCancel)="handleCancelMiddle()"
   (nzOnOk)="handleOkMiddle()">
-   <nz-form-item>
-          <nz-form-label nzFor="no">流程数据映射</nz-form-label>
-          <nz-form-control>
-              <input nz-input [(ngModel)]="num" name="num" placeholder="请输入" id="no1">
-          </nz-form-control>
-          <nz-form-label nzFor="no">输入配置</nz-form-label>
-          <nz-form-control>
-              <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
-          </nz-form-control>
-          <nz-form-label nzFor="no">输出配置</nz-form-label>
-          <nz-form-control>
-              <input nz-input [(ngModel)]="template" name="template" placeholder="请输入" id="no3">
-          </nz-form-control>
-      </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="no">流程数据映射</nz-form-label>
+    <nz-form-control>
+      <input nz-input [(ngModel)]="num" name="num" placeholder="请输入" id="no1">
+    </nz-form-control>
+    <nz-form-label nzFor="no">输入配置</nz-form-label>
+    <nz-form-control>
+      <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no2">
+    </nz-form-control>
+    <nz-form-label nzFor="no">输出配置</nz-form-label>
+    <nz-form-control>
+      <input nz-input [(ngModel)]="template" name="template" placeholder="请输入" id="no3">
+    </nz-form-control>
+  </nz-form-item>
 </nz-modal>
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()"
   (nzOnOk)="handleOkMiddle()">
@@ -103,81 +103,83 @@
   </nz-table>
 </nz-modal>
 
-<nz-modal nzWrapClassName="vertical-center-modal"  [nzWidth]="800" [(nzVisible)]="isVisibleSetMiddleser" nzTitle="添加服务" (nzOnCancel)="handleCancelSetMiddle()"
-  (nzOnOk)="handleOkSetMiddle()">
-<div class="add-search-group">
-  <p>目标信息</p>
-  <div class="search-group">
-    <nz-input-group nzSearch nzSize="default" [nzSuffix]="suffixButton">
-      <input type="text" style="padding: 0" nz-input placeholder="输入搜索内容">
-    </nz-input-group>
-    <ng-template #suffixButton>
-      <button nz-button nzType="primary" nzSize="default" nzSearch>搜索</button>
-    </ng-template>
+<nz-modal nzWrapClassName="vertical-center-modal" [nzWidth]="800" [(nzVisible)]="isVisibleSetMiddleser" nzTitle="添加服务"
+  (nzOnCancel)="handleCancelSetMiddle()" (nzOnOk)="handleOkSetMiddle()">
+  <div class="add-search-group">
+    <p>目标信息</p>
+    <div class="search-group">
+      <nz-input-group nzSearch nzSize="default" [nzSuffix]="suffixButton">
+        <input type="text" style="padding: 0" nz-input placeholder="输入搜索内容">
+      </nz-input-group>
+      <ng-template #suffixButton>
+        <button nz-button nzType="primary" nzSize="default" nzSearch>搜索</button>
+      </ng-template>
+    </div>
   </div>
-</div>
   <nz-table #nzTable [nzData]="data">
-          <thead>
-            <tr>
-              <th nzWidth="5%">选择</th>
-              <th nzWidth="30%">服务名称</th>
-              <th nzWidth="20%">状态</th>
-              <th>服务描述</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-template ngFor let-data [ngForOf]="nzTable.data">
-              <ng-template ngFor let-item [ngForOf]="expandDataCache[data.key]">
-                <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent)">
-                  <td nzShowCheckbox [(nzChecked)]="item.checked" (nzCheckedChange)="refreshStatus($event)"></td>
-                  <td [nzIndentSize]="item.level*20" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand" (nzExpandChange)="collapse(expandDataCache[data.key],item,$event)">
-                    {{item.name}}
-                  </td>
-                  <td>{{item.age}}</td>
-                  <td>{{item.address}}</td>
-                </tr>
-              </ng-template>
-            </ng-template>
-          </tbody>
-        </nz-table>
+    <thead>
+      <tr>
+        <th style='color: #000' nzWidth="5%">选择</th>
+        <th style='color: #000' nzWidth="30%">服务名称</th>
+        <th style='color: #000' nzWidth="20%">状态</th>
+        <th style='color: #000'>服务描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template ngFor let-data [ngForOf]="nzTable.data">
+        <ng-template ngFor let-item [ngForOf]="expandDataCache[data.key]">
+          <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent)">
+            <td nzShowCheckbox [(nzChecked)]="item.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+            <td [nzIndentSize]="item.level*20" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand"
+              (nzExpandChange)="collapse(expandDataCache[data.key],item,$event)">
+              {{item.name}}
+            </td>
+            <td>{{item.age}}</td>
+            <td>{{item.address}}</td>
+          </tr>
+        </ng-template>
+      </ng-template>
+    </tbody>
+  </nz-table>
 </nz-modal>
-<nz-modal nzWrapClassName="vertical-center-modal"  [nzWidth]="800" [(nzVisible)]="isVisibleSetMiddleser1" nzTitle="添加服务" (nzOnCancel)="handleCancelSetMiddle()"
-  (nzOnOk)="handleOkSetMiddle1()">
-<div class="add-search-group">
-  <p>目标信息</p>
-  <div class="search-group">
-    <nz-input-group nzSearch nzSize="default" [nzSuffix]="suffixButton">
-      <input type="text" style="padding: 0" nz-input placeholder="输入搜索内容">
-    </nz-input-group>
-    <ng-template #suffixButton>
-      <button nz-button nzType="primary" nzSize="default" nzSearch>搜索</button>
-    </ng-template>
+<nz-modal nzWrapClassName="vertical-center-modal" [nzWidth]="800" [(nzVisible)]="isVisibleSetMiddleser1" nzTitle="添加服务"
+  (nzOnCancel)="handleCancelSetMiddle()" (nzOnOk)="handleOkSetMiddle1()">
+  <div class="add-search-group">
+    <p>目标信息</p>
+    <div class="search-group">
+      <nz-input-group nzSearch nzSize="default" [nzSuffix]="suffixButton">
+        <input type="text" style="padding: 0" nz-input placeholder="输入搜索内容">
+      </nz-input-group>
+      <ng-template #suffixButton>
+        <button nz-button nzType="primary" nzSize="default" nzSearch>搜索</button>
+      </ng-template>
+    </div>
   </div>
-</div>
   <nz-table #nzTable1 [nzData]="data">
-          <thead>
-            <tr>
-              <th nzWidth="5%">选择</th>
-              <th nzWidth="30%">服务名称</th>
-              <th nzWidth="20%">状态</th>
-              <th>服务描述</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-template ngFor let-data [ngForOf]="nzTable1.data">
-              <ng-template ngFor let-item [ngForOf]="expandDataCache[data.key]">
-                <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent)">
-                  <td nzShowCheckbox [(nzChecked)]="item.checked" (nzCheckedChange)="refreshStatus($event)"></td>
-                  <td [nzIndentSize]="item.level*20" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand" (nzExpandChange)="collapse(expandDataCache[data.key],item,$event)">
-                    {{item.name}}
-                  </td>
-                  <td>{{item.age}}</td>
-                  <td>{{item.address}}</td>
-                </tr>
-              </ng-template>
-            </ng-template>
-          </tbody>
-        </nz-table>
+    <thead>
+      <tr>
+        <th style='color: #000' nzWidth="5%">选择</th>
+        <th style='color: #000' nzWidth="30%">服务名称</th>
+        <th style='color: #000' nzWidth="20%">状态</th>
+        <th style='color: #000'>服务描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template ngFor let-data [ngForOf]="nzTable1.data">
+        <ng-template ngFor let-item [ngForOf]="expandDataCache[data.key]">
+          <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent)">
+            <td nzShowCheckbox [(nzChecked)]="item.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+            <td [nzIndentSize]="item.level*20" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand"
+              (nzExpandChange)="collapse(expandDataCache[data.key],item,$event)">
+              {{item.name}}
+            </td>
+            <td>{{item.age}}</td>
+            <td>{{item.address}}</td>
+          </tr>
+        </ng-template>
+      </ng-template>
+    </tbody>
+  </nz-table>
 </nz-modal>
 <nz-card nzType="inner" nzTitle="查看选项">
   <div nz-col nzSpan="12" class="find-select">
@@ -207,16 +209,15 @@
 </nz-card>
 
 <nz-card style='margin-top: 16px;' nzType="inner" nzTitle="应用服务编配" [nzExtra]="trigger">
-   <div class="jtk-demo-canvas canvas-wide flowchart-demo jtk-surface jtk-surface-nopan" id="canvas"  [ngStyle]="{'display':jsplmdIs? 'block' : 'none' }">
-           <div class="window jtk-node" id="flowchartWindow1"><strong>开始</strong><br/><br/></div>
-            <div class="window jtk-node" id="flowchartWindow2" (click)="tjsq(1)" ><strong>提交申请</strong><br/><br/></div>
-             <div class="window jtk-node" id="flowchartWindow3" (click)="tjsq(2)"><strong>审批</strong><br/><br/></div>
-             <div class="window jtk-node" id="flowchartWindow4"><strong>结束</strong><br/><br/></div>
-              <div class="window jtk-node" id="flowchartWindow5" (click)="add()" *ngIf="mk1"><strong>服务一</strong><br/><br/></div>
-              <div class="window jtk-node" id="flowchartWindow6" (click)="add()" *ngIf="mk2"><strong>服务二</strong><br/><br/></div>
-         </div>
+  <div class="jtk-demo-canvas canvas-wide flowchart-demo jtk-surface jtk-surface-nopan" id="canvas" [ngStyle]="{'display':jsplmdIs? 'block' : 'none' }">
+    <div class="window jtk-node" id="flowchartWindow1"><strong>开始</strong><br /><br /></div>
+    <div class="window jtk-node" id="flowchartWindow2" (click)="tjsq(1)"><strong>提交申请</strong><br /><br /></div>
+    <div class="window jtk-node" id="flowchartWindow3" (click)="tjsq(2)"><strong>审批</strong><br /><br /></div>
+    <div class="window jtk-node" id="flowchartWindow4"><strong>结束</strong><br /><br /></div>
+    <div class="window jtk-node" id="flowchartWindow5" (click)="add()" *ngIf="mk1"><strong>服务一</strong><br /><br /></div>
+    <div class="window jtk-node" id="flowchartWindow6" (click)="add()" *ngIf="mk2"><strong>服务二</strong><br /><br /></div>
+  </div>
 </nz-card>
 <ng-template #trigger>
-   <a nz-popconfirm nzTitle="确认保存?" (nzOnConfirm)="confirm()" (nzOnCancel)="cancel()">保存</a>
+  <a nz-popconfirm nzTitle="确认保存?" (nzOnConfirm)="confirm()" (nzOnCancel)="cancel()">保存</a>
 </ng-template>
-

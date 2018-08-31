@@ -2,32 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { HttpService } from '../../http/http.service';
+import { NzMessageService } from 'ng-zorro-antd';
 @Component({
   selector: 'app-application',
   templateUrl: './application.component.html',
   styleUrls: ['./application.component.less']
 })
 export class ApplicationComponent implements OnInit {
-  i = 1;
-  editCache = {};
-  dataSet = [];
-  dataId: string;
+  dataSet = [];   // 初始化列表
+  dataId: string; // 流程ID
   loading = true;
-  isVisibleMiddle = false;
-  isVisibleEditMiddle = false;
+  isVisibleMiddle = false;  // 控制弹框显示
+  isVisibleEditMiddle = false;  // 控制弹框显示
   sortName = null;
   sortValue = null;
   size = 'small'; // 按钮尺寸
-  num: number;
-  name: string;
-  userFlag: number;
-  baseUrl: string;
-  modelId: string;
-  des: string;
+  num: number;  // 序号
+  name: string; // 应用系统名称
+  userFlag: number; // 应用标识
+  baseUrl: string;  // 基础地址
+  modelId: string;  // 流程模板
+  des: string;  // 应用系统描述
   listOfSearchName = [];
   searchAddress: string;
-  validateForm: FormGroup;
-  editdateForm: FormGroup;
+  validateForm: FormGroup;  // 表单
   listOfSelection = [
     {
       text: 'Select All Row',
@@ -67,35 +65,18 @@ export class ApplicationComponent implements OnInit {
     this.refreshStatus();
   }
   // 自定义选项结束
-  startEdit(id: string): void {
+  startEdit(key: any): void {
     // this.editCache[key].edit = true;
-    this.dataId = id;
-    this.showModalEditMiddle(id);
+    this.name = key.name;
+    this.modelId = key.modelId;
+    this.des = key.des;
+    this.userFlag = key.userFlag;
+    this.baseUrl = key.baseUrl;
+    this.dataId = key.id;
+    this.showModalEditMiddle(key.id);
   }
-
-  cancelEdit(key: string): void {
-    this.editCache[key].edit = false;
-  }
-
-  saveEdit(key: string): void {
-    const index = this.dataSet.findIndex(item => item.key === key);
-    this.dataSet[index] = this.editCache[key].data;
-    this.editCache[key].edit = false;
-  }
-
-  updateEditCache(): void {
-    this.dataSet.forEach(item => {
-      if (!this.editCache[item.key]) {
-        this.editCache[item.key] = {
-          edit: false,
-          data: item
-        };
-      }
-    });
-  }
-  constructor(public router: Router, private fb: FormBuilder, private http: HttpService) { }
+  constructor(public router: Router, private fb: FormBuilder, private http: HttpService, private message: NzMessageService) { }
   gorouter(item: any) {
-    console.log(item);
     // 	if(this.tabs.indexOf(item.split('/')[1])==-1){
     // 		this.tabs.push(item.split('/')[1]);
     this.router.navigateByUrl(item);
@@ -106,14 +87,13 @@ export class ApplicationComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       name: [null, [Validators.required] ],
-      userFlag: [null, [Validators.required] ],
+      userFlag: [null, [Validators.required]],
       des: [null, [Validators.required] ],
       baseUrl: [null, [Validators.required] ],
       modelId: [null, [Validators.required] ]
     });
     this.initData();
     this.loading = false;
-    this.updateEditCache();
   }
   forSearch(inputValue, selecValue): void {
     let dataSearch = {};
@@ -131,9 +111,10 @@ export class ApplicationComponent implements OnInit {
     //     'des': inputValue,
     //   };
     // }
-    console.log(JSON.stringify(dataSearch));
     this.http.httpmender('/applicationsystem/findList', JSON.stringify(dataSearch)).subscribe(data => {
-      console.log(data.data.成功); this.dataSet = data.data.成功;
+      if (data.result === '0000') {
+        this.dataSet = data.data.data;
+      }
     });
       for (let i = 0; i < this.dataSet.length; i++) {
       this.dataSet[i].checked = false;
@@ -145,28 +126,21 @@ export class ApplicationComponent implements OnInit {
     this.sortValue = sort.value;
     this.search();
   }
+  // 初始化列表
   initData(): void {
-    this.http.httpmender('/applicationsystem/findList', {}).subscribe(data => { this.dataSet = data.data.成功; });
-    for (let i = 0; i < this.dataSet.length; i++) {
-      this.dataSet[i].checked = false;
-    }
+    this.http.httpmender('/applicationsystem/findList', {}).subscribe(data => {
+      if (data.result === '0000') {
+        this.dataSet = data.data.data;
+     }
+    });
   }
-  filter(listOfSearchName: string[], searchAddress: string): void {
-    this.listOfSearchName = listOfSearchName;
-    this.searchAddress = searchAddress;
-    this.search();
-  }
-
   search(): void {
     if (this.sortName) {
       this.dataSet = this.dataSet.sort((a, b) =>
       (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
-      //    this.updateEditCache();
     } else {
       this.dataSet = this.dataSet;
-      //    this.updateEditCache();
     }
-    console.log(this.dataSet);
   }
   // 模态框
   showModalMiddle(): void {
@@ -196,15 +170,20 @@ export class ApplicationComponent implements OnInit {
   // 添加一行数据
   addRow(): void {
     this.showModalMiddle();
-    this.updateEditCache();
+    this.validateForm.reset();
   }
   // 删除
   deleteRow(i: any): void {
-    // const dataSet = this.dataSet.filter(d => d.key !== i);
-    // this.dataSet = dataSet;
-    this.http.httpmenderdel('/applicationsystem/delAppliById?id=' + i ).subscribe(data => console.log(data));
-    this.initData();
+    this.http.httpmenderdel('/applicationsystem/delAppliById?id=' + i ).subscribe(data => {
+      if (data.result === '0000') {
+        this.initData();
+        this.message.create('success', '删除成功');
+      } else {
+        this.message.create('error', '删除失败');
+      }
+    });
   }
+  // 新增
   submitForm = (value) => {
     // $event.preventDefault();
     // tslint:disable-next-line:forin
@@ -216,10 +195,18 @@ export class ApplicationComponent implements OnInit {
     // value.id = 'string';
     value = JSON.stringify(value);
     if (this.validateForm.invalid) { return; }
-    this.http.httpmender('/applicationsystem/addUser', value).subscribe(data => console.log(data));
+    this.http.httpmender('/applicationsystem/addUser', value).subscribe(data => {
+      if (data.result === '0000') {
+        this.initData();
+        this.message.create('success', '新增成功');
+      } else {
+        this.message.create('error', '新增失败');
+      }
+    });
     this.isVisibleMiddle = false;
     this.gorouter('home/applicationManagement');
   }
+  // 编辑
   editForm = (value) => {
     // $event.preventDefault();
     // tslint:disable-next-line:forin
@@ -230,10 +217,15 @@ export class ApplicationComponent implements OnInit {
     // value.state = 0;
     value.id = this.dataId;
     value = JSON.stringify(value);
-    console.log(value);
     if (this.validateForm.invalid) { return; }
-    this.http.httpmenderput('/applicationsystem/updateAppli', value).subscribe(data => console.log(data));
-    this.initData();
+    this.http.httpmenderput('/applicationsystem/updateAppli', value).subscribe(data => {
+      if (data.result === '0000') {
+        this.initData();
+        this.message.create('success', '编辑成功');
+      } else {
+        this.message.create('error', '编辑失败');
+      }
+    });
     this.isVisibleEditMiddle = false;
   }
 }

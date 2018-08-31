@@ -1,37 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FormBuilder, FormGroup , Validators} from '@angular/forms';
+import { HttpService } from '../../http/http.service';
+import { NzMessageService } from 'ng-zorro-antd';
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
   styleUrls: ['./user-management.component.less']
 })
 export class UserManagementComponent implements OnInit {
-  i = 1;
-  editCache = {};
-  dataSet = [];
+  dataSet = [];   // 初始化列表
+  dataId: string; // 流程ID
   sortValue = null;
-  listOfRole: string;
-  listOfName: string;
-  listOfRoleList = [];
+  rid: string; // 用户角色id
+  listOfRoleList = [];  // 角色下拉列表
   currentGroup: String;
   currentName: String;
   currentState = '停用';
-  userName: string;
+  name: string;   // 用户名称
   loading = true;
   isupdate = false;
   generalUser = false;
   admin = false;
   superAdmin = true;
+  validateForm: FormGroup;
   isVisibleMiddle = false;
   isVisibleMsgMiddle = false;
   num: number;
-  name: string;
   sortName = null;
   size = 'small'; // 按钮尺寸
   listOfSearchName = [];
-  listOfTagOptions: string;
+  listOfTagOptions: string;   //  用户分组
   listOfOption = [];
-  listOfType: string;
+  listOfType: string; // 用户状态
   listOfTypelist = [];
   listOforgan: string;
   listOforganList = [];
@@ -39,7 +39,6 @@ export class UserManagementComponent implements OnInit {
   selectedValue = this.currentGroup;
   // 自定义选项开始
   allChecked = false;
-  // dataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
   indeterminate = false;
   rightsGroup = [
     { label: '超级管理员', value: 'superAdmin', checked: this.superAdmin },
@@ -60,56 +59,31 @@ export class UserManagementComponent implements OnInit {
   }
   // 自定义选项结束
   startEdit(data): void {
-    // this.editCache[key].edit = true;
-    this.listOfRole = data.role;
-    this.listOfName = data.name;
+    this.rid = data.rid;
+    this.name = data.name;
+    this.listOfType = data.state;
+    this.listOforgan = data.listOforgan;
+    this.listOfTagOptions = data.groupName;
+    this.dataId = data.id;
     this.isupdate = true;
   }
-
-  cancelEdit(key: string): void {
-    this.editCache[key].edit = false;
-  }
-  log(value: object[]): void {
-    console.log(value);
-  }
-  saveEdit(key: string): void {
-    const index = this.dataSet.findIndex(item => item.key === key);
-    this.dataSet[index] = this.editCache[key].data;
-    this.editCache[key].edit = false;
-  }
-
-  updateEditCache(): void {
-    this.dataSet.forEach(item => {
-      if (!this.editCache[item.key]) {
-        this.editCache[item.key] = {
-          edit: false,
-          data: item
-        };
-      }
-    });
-  }
-  constructor() { }
+  constructor(private fb: FormBuilder, private http: HttpService, private message: NzMessageService) { }
 
   ngOnInit(): void {
     this.listOfOption = ['1组', '2组', '3组', '4组'];
     this.listOforganList = ['机构一', '机构二', '机构三', '机构四'];
-    this.listOfTypelist = ['启用', '禁用'];
-
-    this.listOfRoleList = ['超级管理员', '管理员', '一般用户'];
-    for (let i = 0; i < 30; i++) {
-      this.dataSet.push({
-        key: i.toString(),
-        num: i,
-        userName: `user. ${i}`,
-        role: `超级管理员. ${i}`,
-        group: `${i}组`,
-        state: '启用',
-        organ: `机构${i}`,
-        checked: false
-      });
-    }
+    this.listOfTypelist = [1, 0];
+   // this.findRoleList();
+    this.validateForm = this.fb.group({
+      name: [null, [Validators.required] ],
+      rid: [null, [Validators.required]],
+      group: [null, [Validators.required]],
+      groupName: [null, [Validators.required]],
+      state: [null, [Validators.required]],
+      listOforgan: [null],
+    });
+    this.initData();
     this.loading = false;
-    this.updateEditCache();
   }
   // 排序
   sort(sort: { key: string, value: string }): void {
@@ -117,21 +91,12 @@ export class UserManagementComponent implements OnInit {
     this.sortValue = sort.value;
     this.search();
   }
-
-  filter(listOfSearchName: string[], searchAddress: string): void {
-    this.listOfSearchName = listOfSearchName;
-    this.searchAddress = searchAddress;
-    this.search();
-  }
-
   search(): void {
     if (this.sortName) {
       this.dataSet = this.dataSet.sort((a, b) =>
         (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
-      //    this.updateEditCache();
     } else {
       this.dataSet = this.dataSet;
-      //    this.updateEditCache();
     }
     console.log(this.dataSet);
   }
@@ -139,16 +104,9 @@ export class UserManagementComponent implements OnInit {
   showModalMiddle(): void {
     this.isVisibleMiddle = true;
   }
-  handleOkMiddle(): void {
-    console.log('click ok');
-    this.isVisibleMiddle = false;
+  handleOkMiddle(data): void {
+    this.submitForm(data);
     this.isupdate = false;
-    this.dataSet.push({
-      userName: this.userName,
-      role: this.listOfRole,
-      group: this.listOfTagOptions,
-      state: this.listOfType,
-    });
   }
 
   handleCancelMiddle(): void {
@@ -156,10 +114,21 @@ export class UserManagementComponent implements OnInit {
     this.isVisibleMiddle = false;
     this.isupdate = false;
   }
+  showModalEditMiddle(): void {
+    this.isupdate = true;
+  }
+  handleOkEditMiddle(data): void {
+    this.editForm(data);
+  }
+
+  handleCancelEditMiddle(): void {
+    console.log('click Cancel');
+    this.isupdate = false;
+  }
 
   showModalMsgMiddle(data): void {
     this.isVisibleMsgMiddle = true;
-    this.currentGroup = data.group;
+    this.currentGroup = data.groupName;
     this.currentName = data.userName;
     this.currentState = data.state;
   }
@@ -173,33 +142,93 @@ export class UserManagementComponent implements OnInit {
     this.isVisibleMsgMiddle = false;
   }
 
-
+  log(data): void {
+    console.log(data);
+  }
 
   // 添加一行数据
   addRow(): void {
     this.showModalMiddle();
-    this.i++;
-    this.dataSet = [...this.dataSet, {
-      key: `${this.i}`,
-      num: this.i,
-      name: `user. ${this.i}`,
-      role: `超级管理员. ${this.i}`,
-      group: `${this.i}组`,
-      state: '启用',
-      organ: `机构${this.i}`
-    }];
-    console.log(this.dataSet);
-    this.updateEditCache();
+    this.validateForm.reset();
   }
   // 删除
   deleteRow(i: string): void {
-    const dataSet = this.dataSet.filter(d => d.key !== i);
-    this.dataSet = dataSet;
+    this.http.httpmenderdel('/user/delById?id=' + i).subscribe(data => {
+      if (data.result === '0000') {
+        this.initData();
+        this.message.create('success', '删除成功');
+      } else {
+        this.message.create('error', '删除失败');
+      }
+    });
   }
 
-  finishEdit(key: string): void {
-    this.editCache[key].edit = false;
-    this.dataSet.find(item => item.key === key).name = this.editCache[key].name;
+  // 角色列表
+  findRoleList(): void {
+    this.http.httpmender('/role/findList', {}).subscribe(data => {
+      if (data.result === '0000') {
+        this.listOfRoleList = data.data.data;
+        for (const i in this.dataSet) {
+          // tslint:disable-next-line:forin
+          for (const j in this.listOfRoleList) {
+            if (this.dataSet[i].rid === this.listOfRoleList[j].id) {
+              this.dataSet[i].rname = this.listOfRoleList[j].name;
+            }
+          }
+        }
+      }
+    });
   }
-
+  // 初始化列表
+  initData(): void {
+    this.http.httpmender('/user/findList', {}).subscribe(data => {
+      if (data.result === '0000') {
+        this.dataSet = data.data.data;
+        this.findRoleList();
+      }
+    });
+  }
+  // 新增
+  submitForm = (value) => {
+    // $event.preventDefault();
+    // tslint:disable-next-line:forin
+    for (const key in this.validateForm.controls) {
+      this.validateForm.controls[key].markAsDirty();
+      this.validateForm.controls[key].updateValueAndValidity();
+    }
+    // value.id = 'string';
+    value = JSON.stringify(value);
+    console.log(value);
+    if (this.validateForm.invalid) { return; }
+    this.http.httpmender('/user/addUser', value).subscribe(data => {
+      if (data.result === '0000') {
+        this.initData();
+        this.message.create('success', '新增成功');
+      } else {
+        this.message.create('error', '新增失败');
+      }
+    });
+    this.isVisibleMiddle = false;
+  }
+  // 编辑
+  editForm = (value) => {
+    // $event.preventDefault();
+    // tslint:disable-next-line:forin
+    for (const key in this.validateForm.controls) {
+      this.validateForm.controls[key].markAsDirty();
+      this.validateForm.controls[key].updateValueAndValidity();
+    }
+    value.id = this.dataId;
+    value = JSON.stringify(value);
+    if (this.validateForm.invalid) { return; }
+    this.http.httpmenderput('/user/updateUser', value).subscribe(data => {
+      if (data.result === '0000') {
+        this.initData();
+        this.message.create('success', '编辑成功');
+      } else {
+        this.message.create('error', '编辑失败');
+      }
+    });
+    this.isupdate = false;
+  }
 }
