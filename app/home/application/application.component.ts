@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { HttpService } from '../../http/http.service';
+import { NzMessageService } from 'ng-zorro-antd';
 @Component({
   selector: 'app-application',
   templateUrl: './application.component.html',
@@ -74,7 +75,7 @@ export class ApplicationComponent implements OnInit {
     this.dataId = key.id;
     this.showModalEditMiddle(key.id);
   }
-  constructor(public router: Router, private fb: FormBuilder, private http: HttpService) { }
+  constructor(public router: Router, private fb: FormBuilder, private http: HttpService, private message: NzMessageService) { }
   gorouter(item: any) {
     // 	if(this.tabs.indexOf(item.split('/')[1])==-1){
     // 		this.tabs.push(item.split('/')[1]);
@@ -86,7 +87,7 @@ export class ApplicationComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       name: [null, [Validators.required] ],
-      userFlag: [null],
+      userFlag: [null, [Validators.required]],
       des: [null, [Validators.required] ],
       baseUrl: [null, [Validators.required] ],
       modelId: [null, [Validators.required] ]
@@ -169,12 +170,16 @@ export class ApplicationComponent implements OnInit {
   // 添加一行数据
   addRow(): void {
     this.showModalMiddle();
+    this.validateForm.reset();
   }
   // 删除
   deleteRow(i: any): void {
     this.http.httpmenderdel('/applicationsystem/delAppliById?id=' + i ).subscribe(data => {
       if (data.result === '0000') {
         this.initData();
+        this.message.create('success', '删除成功');
+      } else {
+        this.message.create('error', '删除失败');
       }
     });
   }
@@ -193,6 +198,9 @@ export class ApplicationComponent implements OnInit {
     this.http.httpmender('/applicationsystem/addUser', value).subscribe(data => {
       if (data.result === '0000') {
         this.initData();
+        this.message.create('success', '新增成功');
+      } else {
+        this.message.create('error', '新增失败');
       }
     });
     this.isVisibleMiddle = false;
@@ -213,6 +221,9 @@ export class ApplicationComponent implements OnInit {
     this.http.httpmenderput('/applicationsystem/updateAppli', value).subscribe(data => {
       if (data.result === '0000') {
         this.initData();
+        this.message.create('success', '编辑成功');
+      } else {
+        this.message.create('error', '编辑失败');
       }
     });
     this.isVisibleEditMiddle = false;

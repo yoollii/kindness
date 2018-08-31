@@ -38,19 +38,26 @@
       <nz-form-label nzFor="no">流程模板名称</nz-form-label>
       <nz-form-control>
         <input nz-input formControlName='name' name="name" placeholder="请输入" id="no2">
+        <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">请输入流程模板名称!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">部署状态</nz-form-label>
       <nz-form-control>
-        <input nz-input formControlName='state' name="state" placeholder="请输入" id="no3">
-        <nz-form-explain *ngIf="validateForm.hasError('positiveNumber','state')">Please input 0 or 1!</nz-form-explain>
+        <nz-select style="width: 100%;" formControlName="state" name="state" [(ngModel)]="listOfType" nzPlaceHolder="请选择部署状态">
+          <nz-option *ngFor="let option of listOfTypelist" [nzLabel]="option" [nzValue]="option">
+          </nz-option>
+        </nz-select>
+        <!-- <nz-form-explain *ngIf="validateForm.hasError('positiveNumber','state')">Please input 0 or 1!</nz-form-explain> -->
+        <nz-form-explain *ngIf="validateForm.get('state').dirty && validateForm.get('state').errors">请选择部署状态!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">创建人</nz-form-label>
       <nz-form-control>
         <input nz-input formControlName='cruser' name="cruser" placeholder="请输入" id="no4">
+        <nz-form-explain *ngIf="validateForm.get('cruser').dirty && validateForm.get('cruser').errors">请输入创建人!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">流程模板描述</nz-form-label>
       <nz-form-control>
         <input nz-input formControlName='des' name="des" placeholder="请输入" id="no5">
+        <nz-form-explain *ngIf="validateForm.get('des').dirty && validateForm.get('des').errors">请输入流程模板描述!</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
   </form>
@@ -63,19 +70,26 @@
       <nz-form-label nzFor="no">流程模板名称</nz-form-label>
       <nz-form-control>
         <input nz-input formControlName='name' [(ngModel)]='name' name="name" placeholder="请输入" id="no2">
+        <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">请输入流程模板名称!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">部署状态</nz-form-label>
       <nz-form-control>
-        <input nz-input formControlName='state' [(ngModel)]="state" name="state" placeholder="请输入" id="no3">
-        <nz-form-explain *ngIf="validateForm.hasError('positiveNumber','state')">Please input 0 or 1!</nz-form-explain>
+        <nz-select style="width: 100%;" formControlName="state" name="state" [(ngModel)]="listOfType" nzPlaceHolder="请选择部署状态">
+          <nz-option *ngFor="let option of listOfTypelist" [nzLabel]="option" [nzValue]="option">
+          </nz-option>
+        </nz-select>
+        <!-- <nz-form-explain *ngIf="validateForm.hasError('positiveNumber','state')">Please input 0 or 1!</nz-form-explain> -->
+        <nz-form-explain *ngIf="validateForm.get('state').dirty && validateForm.get('state').errors">请选择部署状态!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">创建人</nz-form-label>
       <nz-form-control>
         <input nz-input formControlName='cruser' [(ngModel)]="cruser" name="cruser" placeholder="请输入" id="no4">
+        <nz-form-explain *ngIf="validateForm.get('cruser').dirty && validateForm.get('cruser').errors">请输入创建人!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">流程模板描述</nz-form-label>
       <nz-form-control>
         <input nz-input formControlName='des' [(ngModel)]="des" name="des" placeholder="请输入" id="no5">
+        <nz-form-explain *ngIf="validateForm.get('des').dirty && validateForm.get('des').errors">请输入流程模板描述!</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
   </form>
@@ -101,8 +115,8 @@
   [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
   <thead (nzSortChange)="sort($event)" nzSingleSort>
     <tr>
-      <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
-        (nzCheckedChange)="checkAll($event)"></th>
+      <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked"
+        [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
       <th nzShowSort nzSortKey="num">序号</th>
       <th nzShowSort nzSortKey="name">流程模板名称</th>
       <th nzShowSort nzSortKey="state">部署状态</th>

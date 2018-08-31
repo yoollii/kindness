@@ -17,6 +17,7 @@
       <nz-form-label nzFor="no">用户名称</nz-form-label>
       <nz-form-control>
         <input nz-input formControlName="name" name="name" placeholder="请输入" id="no2">
+        <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">请输入用户名称!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">用户角色</nz-form-label>
       <nz-form-control>
@@ -24,6 +25,7 @@
           <nz-option *ngFor="let option of listOfRoleList" [nzLabel]="option.name" [nzValue]="option.id">
           </nz-option>
         </nz-select>
+        <nz-form-explain *ngIf="validateForm.get('rid').dirty && validateForm.get('rid').errors">请选择用户角色!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">用户分组</nz-form-label>
       <nz-form-control>
@@ -31,6 +33,7 @@
           <nz-option *ngFor="let option of listOfOption" [nzLabel]="option" [nzValue]="option">
           </nz-option>
         </nz-select>
+        <nz-form-explain *ngIf="validateForm.get('groupName').dirty && validateForm.get('groupName').errors">请选择用户分组!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">用户状态</nz-form-label>
       <nz-form-control>
@@ -38,6 +41,7 @@
           <nz-option *ngFor="let option of listOfTypelist" [nzLabel]="option" [nzValue]="option">
           </nz-option>
         </nz-select>
+        <nz-form-explain *ngIf="validateForm.get('state').dirty && validateForm.get('state').errors">请选择用户状态!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">所属机构</nz-form-label>
       <nz-form-control>
@@ -57,6 +61,7 @@
       <nz-form-label nzFor="no">用户名称</nz-form-label>
       <nz-form-control>
         <input nz-input [(ngModel)]="name" formControlName="name" name="name" placeholder="请输入" id="no2">
+        <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">请输入用户名称!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">用户角色</nz-form-label>
       <nz-form-control>
@@ -64,6 +69,7 @@
           <nz-option *ngFor="let option of listOfRoleList" [nzLabel]="option.name" [nzValue]="option.id">
           </nz-option>
         </nz-select>
+        <nz-form-explain *ngIf="validateForm.get('rid').dirty && validateForm.get('rid').errors">请选择用户角色!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">用户分组</nz-form-label>
       <nz-form-control>
@@ -72,6 +78,7 @@
           <nz-option *ngFor="let option of listOfOption" [nzLabel]="option" [nzValue]="option">
           </nz-option>
         </nz-select>
+        <nz-form-explain *ngIf="validateForm.get('groupName').dirty && validateForm.get('groupName').errors">请选择用户分组!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">用户状态</nz-form-label>
       <nz-form-control>
@@ -79,6 +86,7 @@
           <nz-option *ngFor="let option of listOfTypelist" [nzLabel]="option" [nzValue]="option">
           </nz-option>
         </nz-select>
+        <nz-form-explain *ngIf="validateForm.get('state').dirty && validateForm.get('state').errors">请选择用户状态!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">所属机构</nz-form-label>
       <nz-form-control>
@@ -106,23 +114,21 @@
 
       <nz-form-control>
         <nz-form-label nzFor="no">用户名称</nz-form-label>
-        <input nz-input value='{{currentName}}' name="name" id="no2">
+        <input nz-input [(ngModel)]="name" name="name" id="no2">
       </nz-form-control>
 
       <nz-form-control>
         <nz-form-label nzFor="no">分组</nz-form-label>
-        <nz-select style="width: 100%;" nzShowSearch nzAllowClear nzPlaceHolder="选择分组" [(ngModel)]="currentGroup">
-          <nz-option nzLabel="分组一" nzValue="group1"></nz-option>
-          <nz-option nzLabel="分组二" nzValue="group2"></nz-option>
-          <nz-option nzLabel="分组三" nzValue="group3"></nz-option>
+        <nz-select style="width: 100%;" nzShowSearch nzAllowClear nzPlaceHolder="选择分组" [(ngModel)]="listOfTagOptions">
+          <nz-option *ngFor="let option of listOfOption" [nzLabel]="option" [nzValue]="option"></nz-option>
         </nz-select>
       </nz-form-control>
 
       <nz-form-control>
         <nz-form-label nzFor="no">状态</nz-form-label>
-        <nz-select style="width: 100%;" nzShowSearch nzAllowClear nzPlaceHolder="选择状态" [(ngModel)]="currentState">
-          <nz-option nzLabel="启用" nzValue="start"></nz-option>
-          <nz-option nzLabel="停用" nzValue="stop"></nz-option>
+        <nz-select style="width: 100%;" nzShowSearch nzAllowClear nzPlaceHolder="选择状态" [(ngModel)]="listOfType">
+          <nz-option *ngFor="let option of listOfTypelist" [nzLabel]="option" [nzValue]="option">
+          </nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>

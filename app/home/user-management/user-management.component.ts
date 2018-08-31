@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup , Validators} from '@angular/forms';
 import { HttpService } from '../../http/http.service';
+import { NzMessageService } from 'ng-zorro-antd';
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -23,7 +24,6 @@ export class UserManagementComponent implements OnInit {
   superAdmin = true;
   validateForm: FormGroup;
   isVisibleMiddle = false;
-  isVisibleEditMiddle = false;
   isVisibleMsgMiddle = false;
   num: number;
   sortName = null;
@@ -67,7 +67,7 @@ export class UserManagementComponent implements OnInit {
     this.dataId = data.id;
     this.isupdate = true;
   }
-  constructor(private fb: FormBuilder, private http: HttpService) { }
+  constructor(private fb: FormBuilder, private http: HttpService, private message: NzMessageService) { }
 
   ngOnInit(): void {
     this.listOfOption = ['1组', '2组', '3组', '4组'];
@@ -76,10 +76,10 @@ export class UserManagementComponent implements OnInit {
    // this.findRoleList();
     this.validateForm = this.fb.group({
       name: [null, [Validators.required] ],
-      rid: [null],
-      group: [null],
-      groupName: [null],
-      state: [null],
+      rid: [null, [Validators.required]],
+      group: [null, [Validators.required]],
+      groupName: [null, [Validators.required]],
+      state: [null, [Validators.required]],
       listOforgan: [null],
     });
     this.initData();
@@ -115,16 +115,14 @@ export class UserManagementComponent implements OnInit {
     this.isupdate = false;
   }
   showModalEditMiddle(): void {
-    this.isVisibleEditMiddle = true;
+    this.isupdate = true;
   }
   handleOkEditMiddle(data): void {
     this.editForm(data);
-    this.isupdate = false;
   }
 
   handleCancelEditMiddle(): void {
     console.log('click Cancel');
-    this.isVisibleEditMiddle = false;
     this.isupdate = false;
   }
 
@@ -144,17 +142,23 @@ export class UserManagementComponent implements OnInit {
     this.isVisibleMsgMiddle = false;
   }
 
-
+  log(data): void {
+    console.log(data);
+  }
 
   // 添加一行数据
   addRow(): void {
     this.showModalMiddle();
+    this.validateForm.reset();
   }
   // 删除
   deleteRow(i: string): void {
     this.http.httpmenderdel('/user/delById?id=' + i).subscribe(data => {
       if (data.result === '0000') {
         this.initData();
+        this.message.create('success', '删除成功');
+      } else {
+        this.message.create('error', '删除失败');
       }
     });
   }
@@ -199,6 +203,9 @@ export class UserManagementComponent implements OnInit {
     this.http.httpmender('/user/addUser', value).subscribe(data => {
       if (data.result === '0000') {
         this.initData();
+        this.message.create('success', '新增成功');
+      } else {
+        this.message.create('error', '新增失败');
       }
     });
     this.isVisibleMiddle = false;
@@ -213,13 +220,15 @@ export class UserManagementComponent implements OnInit {
     }
     value.id = this.dataId;
     value = JSON.stringify(value);
-    console.log(value);
     if (this.validateForm.invalid) { return; }
     this.http.httpmenderput('/user/updateUser', value).subscribe(data => {
       if (data.result === '0000') {
         this.initData();
+        this.message.create('success', '编辑成功');
+      } else {
+        this.message.create('error', '编辑失败');
       }
     });
-    this.isVisibleMsgMiddle = false;
+    this.isupdate = false;
   }
 }

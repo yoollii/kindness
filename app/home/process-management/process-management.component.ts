@@ -5,6 +5,7 @@ import * as jsp from 'jsplumb';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../http/http.service';
 import { ValidatorService } from '../../validator.service';
+import { NzMessageService } from 'ng-zorro-antd';
 @Component({
   selector: 'app-process-management',
   templateUrl: './process-management.component.html',
@@ -24,6 +25,8 @@ export class ProcessManagementComponent implements OnInit {
   size = 'small'; // 按钮尺寸
   name: string; // 流程模板名称
   state: string;  // 部署状态
+  listOfType: string; // 用户状态
+  listOfTypelist = [];
   cruser: string; // 创建人
   des: string;  // 流程模板描述
   validateForm: FormGroup; // 新增表单
@@ -99,7 +102,8 @@ export class ProcessManagementComponent implements OnInit {
     this.dataId = key.id;
     this.showModalEditMiddle();
   }
-  constructor(public router: Router, private fb: FormBuilder, private http: HttpService, private Validator: ValidatorService) { }
+  constructor(public router: Router, private fb: FormBuilder, private message: NzMessageService,
+     private http: HttpService, private Validator: ValidatorService) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -108,6 +112,7 @@ export class ProcessManagementComponent implements OnInit {
       des: [null, [Validators.required]],
       cruser: [null, [Validators.required]],
     });
+    this.listOfTypelist = [1, 0];
     this.initData();
     this.loading = false;
   }
@@ -168,6 +173,7 @@ export class ProcessManagementComponent implements OnInit {
   // 添加一行数据
   addRow(): void {
     this.showModalMiddle();
+    this.validateForm.reset();
   }
 
   abdeRow() {
@@ -179,6 +185,9 @@ export class ProcessManagementComponent implements OnInit {
     this.http.httpmenderdel('/flowmodel/delFlowModelById?id=' + i).subscribe(data => {
       if (data.result === '0000') {
         this.initData();
+        this.message.create('success', '删除成功');
+      } else {
+        this.message.create('error', '删除失败');
       }
     });
   }
@@ -205,7 +214,14 @@ export class ProcessManagementComponent implements OnInit {
     // value.id = 'string';
     value = JSON.stringify(value);
     if (this.validateForm.invalid) { return; }
-    this.http.httpmender('/flowmodel/addModel', value).subscribe(data => console.log(data));
+    this.http.httpmender('/flowmodel/addModel', value).subscribe(data => {
+      if (data.result === '0000') {
+        this.initData();
+        this.message.create('success', '新增成功');
+      } else {
+        this.message.create('error', '新增失败');
+      }
+    });
     this.isVisibleMiddle = false;
     this.isVisibleMiddle1 = false;
     this.gorouter('home/processManagementList');
@@ -224,6 +240,9 @@ export class ProcessManagementComponent implements OnInit {
     this.http.httpmenderput('/flowmodel/updateFlowModel', value).subscribe(data => {
         if (data.result === '0000') {
           this.initData();
+          this.message.create('success', '编辑成功');
+        } else {
+          this.message.create('error', '编辑失败');
         }
     });
     this.isVisibleEditMiddle = false;

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzFormatEmitEvent, NzTreeNode, NzTreeComponent } from 'ng-zorro-antd';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { HttpService } from '../../http/http.service';
+import { NzMessageService } from 'ng-zorro-antd';
 @Component({
   selector: 'app-role-management',
   templateUrl: './role-management.component.html',
@@ -130,11 +131,11 @@ export class RoleManagementComponent implements OnInit {
     this.dataId = key.id;
     this.showModalEditMiddle();
   }
-  constructor(private fb: FormBuilder, private http: HttpService) {}
+  constructor(private fb: FormBuilder, private http: HttpService, private message: NzMessageService) {}
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       name: [null, [Validators.required] ],
-      des: [null],
+      des: [null, [Validators.required] ],
       organnodes: [null],
     });
     this.initData();
@@ -206,12 +207,16 @@ export class RoleManagementComponent implements OnInit {
   // 添加一行数据
   addRow(): void {
     this.showModalMiddle();
+    this.validateForm.reset();
   }
   // 删除
   deleteRow(i: string): void {
     this.http.httpmenderdel('/role/delRoleById?id=' + i).subscribe(data => {
       if (data.result === '0000') {
         this.initData();
+        this.message.create('success', '删除成功');
+      } else {
+        this.message.create('error', '删除失败');
       }
     });
   }
@@ -233,11 +238,13 @@ export class RoleManagementComponent implements OnInit {
     }
     value.organnodes = value.organnodes.key;
     value = JSON.stringify(value);
-    console.log(value);
     if (this.validateForm.invalid) { return; }
     this.http.httpmender('/role/addRole', value).subscribe(data => {
       if (data.result === '0000') {
         this.initData();
+        this.message.create('success', '新增成功');
+      } else {
+        this.message.create('error', '新增失败');
       }
     });
     this.isVisibleMiddle = false;
@@ -258,6 +265,9 @@ export class RoleManagementComponent implements OnInit {
     this.http.httpmenderput('/role/updateRole', value).subscribe(data => {
       if (data.result === '0000') {
         this.initData();
+        this.message.create('success', '编辑成功');
+      } else {
+        this.message.create('error', '编辑失败');
       }
     });
     this.isVisibleEditMiddle = false;
