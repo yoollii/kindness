@@ -19,7 +19,7 @@ export class ApplicationComponent implements OnInit {
   size = 'small'; // 按钮尺寸
   num: number;  // 序号
   name: string; // 应用系统名称
-  userFlag: number; // 应用标识
+  useFlag: number; // 应用标识
   baseUrl: string;  // 基础地址
   modelId: string;  // 流程模板
   des: string;  // 应用系统描述
@@ -70,7 +70,7 @@ export class ApplicationComponent implements OnInit {
     this.name = key.name;
     this.modelId = key.modelId;
     this.des = key.des;
-    this.userFlag = key.userFlag;
+    this.useFlag = key.useFlag;
     this.baseUrl = key.baseUrl;
     this.dataId = key.id;
     this.showModalEditMiddle(key.id);
@@ -87,7 +87,7 @@ export class ApplicationComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       name: [null, [Validators.required] ],
-      userFlag: [null, [Validators.required]],
+      useFlag: [null, [Validators.required]],
       des: [null, [Validators.required] ],
       baseUrl: [null, [Validators.required] ],
       modelId: [null, [Validators.required] ]
@@ -104,6 +104,10 @@ export class ApplicationComponent implements OnInit {
     } else if (selecValue === '流程模板') {
       dataSearch = {
         'modelId': inputValue,
+      };
+    } else if (selecValue === '应用系统标识') {
+      dataSearch = {
+        'useFlag': inputValue,
       };
     }
     // } else if (selecValue === '应用系统描述') {
@@ -131,6 +135,15 @@ export class ApplicationComponent implements OnInit {
     this.http.httpmender('/applicationsystem/findList', {}).subscribe(data => {
       if (data.result === '0000') {
         this.dataSet = data.data.data;
+        for (const i in this.dataSet) {
+          if (this.dataSet[i].modelId === 'model1') {
+            this.dataSet[i].modelName = '模板一';
+          } else if (this.dataSet[i].modelId === 'model2') {
+            this.dataSet[i].modelName = '模板二';
+          } else if (this.dataSet[i].modelId === 'model3') {
+            this.dataSet[i].modelName = '模板三';
+          }
+        }
      }
     });
   }

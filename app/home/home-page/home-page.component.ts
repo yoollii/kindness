@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as G2 from '@antv/g2';
-import * as $ from 'jquery';
+// import * as $ from 'jquery';
+declare var $: any;
 import * as DataSet from '../../../assets/js/dataset';
 import { DragulaService } from 'ng2-dragula';
 @Component({
@@ -9,7 +10,6 @@ import { DragulaService } from 'ng2-dragula';
   styleUrls: ['./home-page.component.less']
 })
 export class HomePageComponent implements OnInit {
-  private hide: Boolean = false;
   isVisibleMiddle = false;
   dataView = false;
   dataNotView = true;
@@ -68,9 +68,28 @@ export class HomePageComponent implements OnInit {
     //   console.log(args);
     // });
   }
+
   ngOnInit() {
     // this.init();
     this.chartData();
+    $('.column').sortable({
+      connectWith: '.column',
+      handle: '.portlet-header',
+      cancel: '.portlet-toggle',
+      placeholder: 'portlet-placeholder ui-corner-all'
+    });
+
+    $('.portlet')
+      .addClass('ui-widget ui-widget-content ui-helper-clearfix ui-corner-all')
+      .find('.portlet-header')
+      .addClass('ui-widget-header ui-corner-all')
+      .prepend('<span class=\'ui-icon ui-icon-minusthick portlet-toggle\'></span>');
+
+    $('.portlet-toggle').click(function () {
+      const icon = $(this);
+      icon.toggleClass('ui-icon-minusthick ui-icon-plusthick');
+      icon.closest('.portlet').find('.portlet-content').toggle();
+    });
   }
   changeView() {
     this.dataView = true;
