@@ -92,55 +92,56 @@
     </div> -->
   </div>
   <div class='content-container'>
-    <div class='content-container-dragula' dragula="VAMPIRES">
-      <div class='moreContain dragula-container'>
-        <div>
-          <div class='title'>
-            <strong>数据统计</strong>
-            <div class='moreContain-a'>
-              <div [ngClass]="{'foledata':foledata}" style="margin-right: 20px;">
-                <a (click)='changeNotView()' [ngClass]="{'buttonActived' : dataNotView}">折线图</a>
-                <a (click)='changeView()' [ngClass]="{'buttonActived' : dataView}">环图</a>
-              </div>
-              <i [ngClass]="{'anticon' : true,'anticon-minus':!foledata,'anticon-plus':foledata}" (click)="fold('foledata')"></i>
+    <!-- <div class='content-container-dragula' dragula="VAMPIRES"> -->
+    <div class='column content-container-dragula'>
+      <div class='moreContain portlet dragula-container'>
+        <div class='portlet-header title'>
+          <strong>数据统计</strong>
+          <!-- <div class='moreContain-a'>
+            <div [ngClass]="{'foledata':foledata}" style="margin-right: 20px;">
+              <a (click)='changeNotView()' [ngClass]="{'buttonActived' : dataNotView}">折线图</a>
+              <a (click)='changeView()' [ngClass]="{'buttonActived' : dataView}">环图</a>
             </div>
-
-          </div>
-          <div [ngClass]="{'dataView' : dataView,'foledata':foledata}" id="c1">
-          </div>
-          <div [ngClass]="{'dataNotView' : dataNotView,'foledata':foledata}" id="c3">
-          </div>
+            <i [ngClass]="{'anticon' : true,'anticon-minus':!foledata,'anticon-plus':foledata}" (click)="fold('foledata')"></i>
+          </div> -->
+          <i [ngClass]="{'anticon' : true,'anticon-minus':!foledata,'anticon-plus':foledata}" (click)="fold('foledata')"></i>
+        </div>
+        <div class='portlet-content' [ngClass]="{'foledata' : foledata}" id="c1">
         </div>
       </div>
-      <div class='dragula-container'>
-        <div>
-          <div class='title'>
-            <strong>地图:</strong>
-            <i [ngClass]="{'anticon' : true,'anticon-minus':!foldmap,'anticon-plus':foldmap}" (click)="fold('foldmap')"></i>
-          </div>
-          <div [ngClass]="{'foldmap' : foldmap}" id="c4">
-          </div>
+      <div class='portlet dragula-container'>
+        <div class='portlet-header title'>
+          <strong>地图:</strong>
+          <i [ngClass]="{'anticon' : true,'anticon-minus':!foldmap,'anticon-plus':foldmap}" (click)="fold('foldmap')"></i>
+        </div>
+        <div class='portlet-content' [ngClass]="{'foldmap' : foldmap}" id="c4">
+        </div>
+      </div>
+      <div class='portlet dragula-container'>
+        <div class='portlet-header title'>
+          <strong>数据统计2:</strong>
+          <i [ngClass]="{'anticon' : true,'anticon-minus':!foledata2,'anticon-plus':foledata2}" (click)="fold('foledata2')"></i>
+        </div>
+        <div class='portlet-content' [ngClass]="{'foledata2' : foledata2}" id="c3">
         </div>
       </div>
     </div>
-    <div class='content-container-dragula' dragula="VAMPIRES">
-      <div class='dragula-container'>
-        <div>
-          <div class='title'>
-            <strong>日历:</strong>
-            <i [ngClass]="{'anticon' : true,'anticon-minus':!foldcalendar,'anticon-plus':foldcalendar}" (click)="fold('foldcalendar')"></i>
-          </div>
-          <nz-calendar [ngClass]="{'foldcalendar' : foldcalendar}" nzCard (nzValueChange)="onValueChange($event)" (nzModeChange)="onModeChange($event)"></nz-calendar>
+    <!-- <div class='content-container-dragula' dragula="VAMPIRES"> -->
+    <div class='column content-container-dragula'>
+      <div class='portlet dragula-container'>
+        <div class='portlet-header title'>
+          <strong>日历:</strong>
+          <i [ngClass]="{'anticon' : true,'anticon-minus':!foldcalendar,'anticon-plus':foldcalendar}" (click)="fold('foldcalendar')"></i>
         </div>
+        <nz-calendar class='portlet-content' [ngClass]="{'foldcalendar' : foldcalendar}" nzCard (nzValueChange)="onValueChange($event)"
+          (nzModeChange)="onModeChange($event)"></nz-calendar>
       </div>
-      <div class='dragula-container'>
-        <div>
-          <div class='title'>
-            <strong>日志统计:</strong>
-            <i [ngClass]="{'anticon' : true,'anticon-minus':!folelog,'anticon-plus':folelog}" (click)="fold('folelog')"></i>
-          </div>
-          <div [ngClass]="{'folelog' : folelog}" id="c2">
-          </div>
+      <div class='portlet dragula-container'>
+        <div class='portlet-header title'>
+          <strong>日志统计:</strong>
+          <i [ngClass]="{'anticon' : true,'anticon-minus':!folelog,'anticon-plus':folelog}" (click)="fold('folelog')"></i>
+        </div>
+        <div class='portlet-content' [ngClass]="{'folelog' : folelog}" id="c2">
         </div>
       </div>
     </div>

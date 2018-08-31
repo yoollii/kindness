@@ -14,6 +14,7 @@ export class HomePageComponent implements OnInit {
   dataView = false;
   dataNotView = true;
   foledata = false;
+  foledata2 = false;
   foldmap = false;
   foldcalendar = false;
   folelog = false;
@@ -499,6 +500,8 @@ export class HomePageComponent implements OnInit {
       this.foldcalendar = !this.foldcalendar;
     } else if (type === 'folelog') {
       this.folelog = !this.folelog;
+    } else if (type === 'foledata2') {
+      this.foledata2 = !this.foledata2;
     }
   }
 }
