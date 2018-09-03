@@ -233,7 +233,6 @@ export class ApplicationComponent implements OnInit {
     if (this.validateForm.invalid) { return; }
     this.http.httpmenderput('/applicationsystem/updateAppli', value).subscribe(data => {
       if (data.result === '0000') {
-        this.initData();
         this.message.create('success', '编辑成功');
       } else {
         this.message.create('error', '编辑失败');
