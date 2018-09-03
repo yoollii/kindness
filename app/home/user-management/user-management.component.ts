@@ -77,8 +77,8 @@ export class UserManagementComponent implements OnInit {
     this.validateForm = this.fb.group({
       name: [null, [Validators.required] ],
       rid: [null, [Validators.required]],
-      group: [null, [Validators.required]],
-      groupName: [null, [Validators.required]],
+      group: [null],
+      groupName: [null],
       state: [null, [Validators.required]],
       listOforgan: [null],
     });

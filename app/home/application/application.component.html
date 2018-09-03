@@ -13,7 +13,7 @@
       <nz-select [ngModel]="'应用系统名字'" #searchSelect style="width:32%;">
         <nz-option [nzLabel]="'应用系统名字'" [nzValue]="'应用系统名字'"></nz-option>
         <nz-option [nzLabel]="'流程模板'" [nzValue]="'流程模板'"></nz-option>
-        <!-- <nz-option [nzLabel]="'应用系统描述'" [nzValue]="'应用系统描述'"></nz-option> -->
+        <nz-option [nzLabel]="'应用系统标识'" [nzValue]="'应用系统标识'"></nz-option>
       </nz-select>
       <!-- <input type="text" nz-input [ngModel]="'Xihu District, Hangzhou'" style="width:50%;"> -->
       <input type="text" style="padding: 0" #searchData nz-input style="width:50%;" placeholder="输入搜索内容">
@@ -36,8 +36,8 @@
       </nz-form-control>
       <nz-form-label nzRequired nzFor="no">应用标识</nz-form-label>
       <nz-form-control>
-        <input nz-input formControlName="userFlag" name="userFlag" placeholder="请输入" id="no3">
-        <nz-form-explain *ngIf="validateForm.get('userFlag').dirty && validateForm.get('userFlag').errors">请输入应用标识!</nz-form-explain>
+        <input nz-input formControlName="useFlag" name="useFlag" placeholder="请输入" id="no3">
+        <nz-form-explain *ngIf="validateForm.get('useFlag').dirty && validateForm.get('useFlag').errors">请输入应用标识!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzRequired nzFor="no">应用系统描述</nz-form-label>
       <nz-form-control>
@@ -73,8 +73,8 @@
       </nz-form-control>
       <nz-form-label nzRequired nzFor="no">应用标识</nz-form-label>
       <nz-form-control>
-        <input nz-input formControlName="userFlag" [(ngModel)]="userFlag" name="userFlag" placeholder="请输入" id="no3">
-        <nz-form-explain *ngIf="validateForm.get('userFlag').dirty && validateForm.get('userFlag').errors">请输入应用标识!</nz-form-explain>
+        <input nz-input formControlName="useFlag" [(ngModel)]="useFlag" name="useFlag" placeholder="请输入" id="no3">
+        <nz-form-explain *ngIf="validateForm.get('useFlag').dirty && validateForm.get('useFlag').errors">请输入应用标识!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzRequired nzFor="no">应用系统描述</nz-form-label>
       <nz-form-control>
@@ -109,6 +109,7 @@
       <th nzShowSort nzSortKey="num">序号</th>
       <th nzShowSort nzSortKey="name">应用系统名字</th>
       <th nzShowSort nzSortKey="modelId">流程模板</th>
+      <th nzShowSort nzSortKey="userFlag">应用标识</th>
       <th nzShowSort nzSortKey="des">应用系统描述</th>
       <th nzShowSort>操作</th>
     </tr>
@@ -127,7 +128,10 @@
         {{data.name}}
       </td>
       <td>
-        {{data.modelId}}
+        {{data.modelName}}
+      </td>
+      <td>
+        {{data.useFlag}}
       </td>
       <td>
         {{data.des}}

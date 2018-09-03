@@ -7,33 +7,8 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"> -->
-<script src="assets/js/jquery.js"></script>
-<script src="assets/js/jquery-ui.min.js"></script>
-<!-- <link rel="stylesheet" href="assets/css/jquery-ui.theme.min.css"> -->
-  <!-- <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.8.9/dist/data-set.min.js"></script> -->
-<script>
-  $(function () {
-    $(".column").sortable({
-      connectWith: ".column",
-      handle: ".portlet-header",
-      cancel: ".portlet-toggle",
-      placeholder: "portlet-placeholder ui-corner-all"
-    });
-
-    $(".portlet")
-      .addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
-      .find(".portlet-header")
-      .addClass("ui-widget-header ui-corner-all")
-      .prepend("<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
-
-    $(".portlet-toggle").click(function () {
-      var icon = $(this);
-      icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
-      icon.closest(".portlet").find(".portlet-content").toggle();
-    });
-  });
-</script>
+  <script src="assets/js/jquery.js"></script>
+  <script src="assets/js/jquery-ui.min.js"></script>
 </head>
 
 <body>

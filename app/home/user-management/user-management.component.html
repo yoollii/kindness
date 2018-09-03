@@ -70,7 +70,7 @@
           <nz-option *ngFor="let option of listOfOption" [nzLabel]="option" [nzValue]="option">
           </nz-option>
         </nz-select>
-        <nz-form-explain *ngIf="validateForm.get('groupName').dirty && validateForm.get('groupName').errors">请选择用户分组!</nz-form-explain>
+        <nz-form-explain *ngIf="validateForm.get('group').dirty && validateForm.get('group').errors">请选择用户分组!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">用户状态</nz-form-label>
       <nz-form-control>
