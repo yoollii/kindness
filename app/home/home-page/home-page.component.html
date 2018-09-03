@@ -144,6 +144,14 @@
         <div class='portlet-content' [ngClass]="{'folelog' : folelog}" id="c2">
         </div>
       </div>
+      <div class='portlet dragula-container'>
+        <div class='portlet-header title'>
+          <strong>天气预报:</strong>
+          <i [ngClass]="{'anticon' : true,'anticon-minus':!foleweather,'anticon-plus':foleweather}" (click)="fold('foleweather')"></i>
+        </div>
+        <div class='portlet-content' [ngClass]="{'foleweather' : foleweather}">
+        </div>
+      </div>
     </div>
   </div>
 </div>

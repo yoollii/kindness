@@ -21,7 +21,7 @@ export class ButtonsComponent implements OnInit {
     //   console. log(data);
     // });
     $.ajax({
-      url: 'https://free-api.heweather.com/s6/weather/now?location=成都&key=35e0273f7d3d4f8fb4ce6011b603ba69',
+      url: 'https://free-api.heweather.com/s6/weather/forecast?location=成都&key=35e0273f7d3d4f8fb4ce6011b603ba69',
       type: 'get',
       success: function (data) {
         console.log(data);
