@@ -150,6 +150,24 @@
           <i [ngClass]="{'anticon' : true,'anticon-minus':!foleweather,'anticon-plus':foleweather}" (click)="fold('foleweather')"></i>
         </div>
         <div class='portlet-content' [ngClass]="{'foleweather' : foleweather}">
+          <div style='padding: 10px 0'>{{currentDate}}</div>
+          <div class='weather-container'>
+            <div class='current-weather'>
+              <img src="assets/img/weatherIcon/{{weatherCurrent.now.cond_code}}.png" alt="天气">
+              <p>{{weatherCurrent.now.tmp}}℃(实时)</p>
+              <p>体感温度{{weatherCurrent.now.fl}}℃</p>
+              <p>{{weatherCurrent.now.cond_txt}}</p>
+              <p>{{weatherCurrent.now.wind_dir}}</p>
+            </div>
+            <div *ngFor="let item of weatherforecast.daily_forecast"  class='forecast-weather'>
+              <p>{{item.date}}</p>
+              <img src="assets/img/weatherIcon/{{item.cond_code_d}}.png" alt="天气">
+              <p>{{item.tmp_min}} ~ {{item.tmp_max}}℃</p>
+              <p *ngIf="item.cond_txt_d != item.cond_txt_n; else elseBlock">{{item.cond_txt_d}}转{{item.cond_txt_n}}</p>
+              <ng-template #elseBlock><p>{{item.cond_txt_d}}</p></ng-template>
+              <p>{{weatherCurrent.now.wind_dir}}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

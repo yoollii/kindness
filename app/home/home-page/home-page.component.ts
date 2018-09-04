@@ -10,16 +10,20 @@ import { DragulaService } from 'ng2-dragula';
   styleUrls: ['./home-page.component.less']
 })
 export class HomePageComponent implements OnInit {
-  weatherArr = {};
+  weatherCurrent: string; // 实时天气
+  weatherforecast = {};  // 后三天天气
+  currentDate: any; // 当前时间
   isVisibleMiddle = false;
   dataView = false;
   dataNotView = true;
+  // 折叠控制开始
   foledata = false;
   foledata2 = false;
   foldmap = false;
   foldcalendar = false;
   folelog = false;
   foleweather = false;
+  // 结束
   chart;
   chart1;
   chart2;
@@ -70,7 +74,6 @@ export class HomePageComponent implements OnInit {
     //   console.log(args);
     // });
   }
-
   ngOnInit() {
     // this.init();
     this.chartData();
@@ -80,7 +83,8 @@ export class HomePageComponent implements OnInit {
       cancel: '.portlet-toggle',
       placeholder: 'portlet-placeholder ui-corner-all'
     });
-
+    const myDate = new Date(); // 获取系统当前时间
+    this.currentDate = myDate.getFullYear() + '年' + (myDate.getMonth() + 1) + '月' + myDate.getDate() + '日 星期' + myDate.getDay() + ' 北京';
     $('.portlet')
       .addClass('ui-widget ui-widget-content ui-helper-clearfix ui-corner-all')
       .find('.portlet-header')
@@ -92,13 +96,28 @@ export class HomePageComponent implements OnInit {
       icon.toggleClass('ui-icon-minusthick ui-icon-plusthick');
       icon.closest('.portlet').find('.portlet-content').toggle();
     });
+    const self = this;
+    $.ajax({
+      url: 'https://free-api.heweather.com/s6/weather/now?location=北京&key=35e0273f7d3d4f8fb4ce6011b603ba69',
+      type: 'get',
+      async: false,
+      success: function (data) {
+        if (data.HeWeather6[0].status === 'ok') {
+          self.weatherCurrent = data.HeWeather6[0];
+          console.log(self.weatherCurrent);
+        }
+      }
+    });
 
     $.ajax({
-      url: 'https://free-api.heweather.com/s6/weather/now?location=成都&key=35e0273f7d3d4f8fb4ce6011b603ba69',
+      url: 'https://free-api.heweather.com/s6/weather/forecast?location=北京&key=35e0273f7d3d4f8fb4ce6011b603ba69',
       type: 'get',
+      async: false,
       success: function (data) {
-        this.weatherArr = data.HeWeather6[0];
-        console.log(data);
+        if (data.HeWeather6[0].status === 'ok') {
+          self.weatherforecast = data.HeWeather6[0];
+          console.log(self.weatherforecast);
+        }
       }
     });
   }
