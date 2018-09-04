@@ -245,7 +245,7 @@ export class HomePageComponent implements OnInit {
     }];
     this.chart = new G2.Chart({
       container: 'c1', // 指定图表容器 ID
-      width: 550, // 指定图表宽度
+      width: 500, // 指定图表宽度
       height: 314 // 指定图表高度
     });
     this.chart.source(this.data, {
@@ -302,7 +302,7 @@ export class HomePageComponent implements OnInit {
     }];
     this.chart1 = new G2.Chart({
       container: 'c2',
-      width: 550, // 指定图表宽度
+      width: 500, // 指定图表宽度
       height: 314 // 指定图表高度
     });
     this.chart1.source(this.data1);
@@ -346,7 +346,7 @@ export class HomePageComponent implements OnInit {
     }];
     this.chart2 = new G2.Chart({
       container: 'c3',
-      width: 550, // 指定图表宽度
+      width: 500, // 指定图表宽度
       height: 314, // 指定图表高度
       animate: false
     });
@@ -392,7 +392,7 @@ export class HomePageComponent implements OnInit {
     $.getJSON('/assets/world.geo.json', function (mapData) {
       this.chart3 = new G2.Chart({
         container: 'c4',
-        width: 550, // 指定图表宽度
+        width: 500, // 指定图表宽度
         height: 314, // 指定图表高度
         padding: [55, 20]
       });
