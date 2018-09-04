@@ -133,8 +133,9 @@
           <strong>日历:</strong>
           <i [ngClass]="{'anticon' : true,'anticon-minus':!foldcalendar,'anticon-plus':foldcalendar}" (click)="fold('foldcalendar')"></i>
         </div>
-        <nz-calendar class='portlet-content' [ngClass]="{'foldcalendar' : foldcalendar}" nzCard (nzValueChange)="onValueChange($event)"
-          (nzModeChange)="onModeChange($event)"></nz-calendar>
+        <nz-calendar class='portlet-content ' [ngClass]="{'foldcalendar' : foldcalendar}" nzCard (nzValueChange)="onValueChange($event)"
+          (nzModeChange)="onModeChange($event)">
+        </nz-calendar>
       </div>
       <div class='portlet dragula-container'>
         <div class='portlet-header title'>
@@ -150,7 +151,7 @@
           <i [ngClass]="{'anticon' : true,'anticon-minus':!foleweather,'anticon-plus':foleweather}" (click)="fold('foleweather')"></i>
         </div>
         <div class='portlet-content' [ngClass]="{'foleweather' : foleweather}">
-          <div style='padding: 10px 0'>{{currentDate}}</div>
+          <div style='padding: 15px 10px'>{{currentDate}}</div>
           <div class='weather-container'>
             <div class='current-weather'>
               <img src="assets/img/weatherIcon/{{weatherCurrent.now.cond_code}}.png" alt="天气">
@@ -158,6 +159,7 @@
               <p>体感温度{{weatherCurrent.now.fl}}℃</p>
               <p>{{weatherCurrent.now.cond_txt}}</p>
               <p>{{weatherCurrent.now.wind_dir}}</p>
+              <p>降水量：{{weatherCurrent.now.pcpn}}ml</p>
             </div>
             <div *ngFor="let item of weatherforecast.daily_forecast"  class='forecast-weather'>
               <p>{{item.date}}</p>
@@ -165,7 +167,8 @@
               <p>{{item.tmp_min}} ~ {{item.tmp_max}}℃</p>
               <p *ngIf="item.cond_txt_d != item.cond_txt_n; else elseBlock">{{item.cond_txt_d}}转{{item.cond_txt_n}}</p>
               <ng-template #elseBlock><p>{{item.cond_txt_d}}</p></ng-template>
-              <p>{{weatherCurrent.now.wind_dir}}</p>
+              <p>{{item.wind_dir}}{{item.wind_sc}}级</p>
+              <p>降水量：{{item.pcpn}}ml</p>
             </div>
           </div>
         </div>
