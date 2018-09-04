@@ -184,27 +184,23 @@
 <nz-card nzType="inner" nzTitle="查看选项">
   <div nz-col nzSpan="12" class="find-select">
     <label for="">应用名称</label>
-    <input nz-input placeholder="应用名称" [(ngModel)]="value">
+    <input nz-input placeholder="应用名称" [(ngModel)]="formdata?.data.data.name" disabled>
   </div>
   <div nz-col nzSpan="12" class="find-select">
     <label for="">应用标识</label>
-    <input nz-input placeholder="应用标识" [(ngModel)]="value">
+    <input nz-input placeholder="应用标识" [(ngModel)]="formdata?.data.data.useFlag" disabled>
   </div>
   <div nz-col nzSpan="12" class="find-select">
     <label for="">基础地址</label>
-    <input nz-input placeholder="基础地址" [(ngModel)]="value">
+    <input nz-input placeholder="基础地址" [(ngModel)]="formdata?.data.data.baseUrl" disabled>
   </div>
   <div nz-col nzSpan="12" class="find-select">
     <label for="">流程模板</label>
-    <nz-select style="width: 100%;" [(ngModel)]="selectedValue" nzAllowClear nzPlaceHolder="流程模板">
-      <nz-option nzValue="1" nzLabel="模版一"></nz-option>
-      <nz-option nzValue="2" nzLabel="模版二"></nz-option>
-      <nz-option nzValue="3" nzLabel="模版三(停用)" nzDisabled></nz-option>
-    </nz-select>
+    <input nz-input style="width: 100%;" [(ngModel)]="formdata?.data.data.modelId" nzPlaceHolder="流程模板" disabled>
   </div>
   <div nz-col nzSpan="24" class="find-select">
-    <label for="">描述</label>
-    <textarea row="4" nz-input [(ngModel)]="inputValue"></textarea>
+    <label for="">描&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;述</label>
+    <textarea row="4" nz-input [(ngModel)]="formdata?.data.data.des" style="width: 1155px;" disabled></textarea>
   </div>
 </nz-card>
 
