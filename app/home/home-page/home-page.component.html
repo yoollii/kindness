@@ -133,8 +133,9 @@
           <strong>日历:</strong>
           <i [ngClass]="{'anticon' : true,'anticon-minus':!foldcalendar,'anticon-plus':foldcalendar}" (click)="fold('foldcalendar')"></i>
         </div>
-        <nz-calendar class='portlet-content' [ngClass]="{'foldcalendar' : foldcalendar}" nzCard (nzValueChange)="onValueChange($event)"
-          (nzModeChange)="onModeChange($event)"></nz-calendar>
+        <nz-calendar class='portlet-content ' [ngClass]="{'foldcalendar' : foldcalendar}" nzCard (nzValueChange)="onValueChange($event)"
+          (nzModeChange)="onModeChange($event)">
+        </nz-calendar>
       </div>
       <div class='portlet dragula-container'>
         <div class='portlet-header title'>
@@ -150,26 +151,25 @@
           <i [ngClass]="{'anticon' : true,'anticon-minus':!foleweather,'anticon-plus':foleweather}" (click)="fold('foleweather')"></i>
         </div>
         <div class='portlet-content' [ngClass]="{'foleweather' : foleweather}">
-          <div class="weather">
-            <p class="date">{{ date }}  {{ weatherBasic.location }}</p>
-            <div class="realtimeWeather">
-              <img src="../../../assets/img/weatherIcon/104.png" alt="">
-              <h2>{{ weatherNow.tmp }}℃</h2>
-              <p>{{ weatherNow.cond_txt }}</p>
-              <p>{{ weatherNow.wind_dir }}{{ weatherNow.wind_sc }}-{{ weatherNow.wind_spd }}级</p>
-              <p>实质空气湿度：{{ weatherNow.hum }}</p>
+          <div style='padding: 15px 10px'>{{currentDate}}</div>
+          <div class='weather-container'>
+            <div class='current-weather'>
+              <img src="assets/img/weatherIcon/{{weatherCurrent.now.cond_code}}.png" alt="天气">
+              <p>{{weatherCurrent.now.tmp}}℃(实时)</p>
+              <p>体感温度{{weatherCurrent.now.fl}}℃</p>
+              <p>{{weatherCurrent.now.cond_txt}}</p>
+              <p>{{weatherCurrent.now.wind_dir}}</p>
+              <p>降水量：{{weatherCurrent.now.pcpn}}ml</p>
             </div>
-            <div class="weatherBox">
-              <div class="weatherDaily">
-                <section class="weatherItem" *ngFor='let weather of weatherDaily'>
-                  <p>{{ weather.date }}</p>
-                  <img src="../../../assets/img/weatherIcon/104.png" alt="">
-                  <p>{{ weather.tmp_min }}℃ ~ {{ weather.tmp_max }}℃</p>
-                  <p>{{ weather.cond_txt_d }}</p>
-                  <p>{{ weather.wind_dir }}{{ weather.wind_sc }}级</p>
-                </section>
-              </div>
-            </div>      
+            <div *ngFor="let item of weatherforecast.daily_forecast"  class='forecast-weather'>
+              <p>{{item.date}}</p>
+              <img src="assets/img/weatherIcon/{{item.cond_code_d}}.png" alt="天气">
+              <p>{{item.tmp_min}} ~ {{item.tmp_max}}℃</p>
+              <p *ngIf="item.cond_txt_d != item.cond_txt_n; else elseBlock">{{item.cond_txt_d}}转{{item.cond_txt_n}}</p>
+              <ng-template #elseBlock><p>{{item.cond_txt_d}}</p></ng-template>
+              <p>{{item.wind_dir}}{{item.wind_sc}}级</p>
+              <p>降水量：{{item.pcpn}}ml</p>
+            </div>
           </div>
         </div>
       </div>
