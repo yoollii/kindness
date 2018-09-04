@@ -27,13 +27,20 @@ export class HttpService {
   }
   
   // get请求
-  httpmenderget(funName: string, authorization: string) {
+  httpmenderget(funName: string) {
     const headers2 = new Headers();
-    headers2.append('Content-Type', 'text/plain;charset=UTF-8');
+    headers2.append('Content-Type', 'application/json;charset=UTF-8');
+    headers2.append('Access-Control-Allow-Origin', '*');
     const options2 = new RequestOptions({ headers: headers2 });
-    return this.http.get(this.url + funName, options2).pipe(map(res => res.json()));
+    return this.http.get(funName, options2).pipe(map(res => res.json()));
   }
-
+  // get请求
+  httpweatherget(funName: string) {
+    const headers2 = new Headers();
+    headers2.append('Content-Type', 'application/json;charset=UTF-8');
+    const options2 = new RequestOptions({ headers: headers2 });
+    return this.http.get(funName, options2).pipe(map(res => res.json()));
+  }
    // put请求
   httpmenderput(funName: string, data: any) {
     const headers2 = new Headers();
@@ -53,4 +60,5 @@ export class HttpService {
 }
 
 export const uploadurl = 'http://192.168.1.250:8080/';
+export const weartherurl = 'http://tj.nineton.cn/Heart/index/all?city=';
 export const imgUrl = 'http://192.168.1.250:8080/attachment/download/';

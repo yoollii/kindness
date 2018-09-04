@@ -144,6 +144,24 @@
         <div class='portlet-content' [ngClass]="{'folelog' : folelog}" id="c2">
         </div>
       </div>
+      <div class='portlet dragula-container'>
+        <div class='portlet-header title'>
+          <strong>天气预报:</strong>
+          <i [ngClass]="{'anticon' : true,'anticon-minus':!foleweather,'anticon-plus':foleweather}" (click)="fold('foleweather')"></i>
+        </div>
+        <div class='portlet-content' [ngClass]="{'foleweather' : foleweather}">
+          <div class="weather">
+            <p>{{ date }}{{ weatherBasic.location }}</p>
+            <div class="realtimeWeather">
+              <img src="../../../assets/img/104.png" alt="">
+              <h2>{{ weatherNow.tmp }}℃</h2>
+              <p>{{ weatherNow.cond_txt }}</p>
+              <p>{{ weatherNow.wind_dir }}{{ weatherNow.wind_sc }}-{{ weatherNow.wind_spd }}级</p>
+              <p>实质空气湿度：{{ weatherNow.hum }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

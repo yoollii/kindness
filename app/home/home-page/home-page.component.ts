@@ -10,6 +10,10 @@ import { DragulaService } from 'ng2-dragula';
   styleUrls: ['./home-page.component.less']
 })
 export class HomePageComponent implements OnInit {
+  date = (new Date()).toLocaleDateString();
+  weatherBasic = {};
+  weatherUpdate = {};
+  weatherNow = {};
   isVisibleMiddle = false;
   dataView = false;
   dataNotView = true;
@@ -18,6 +22,7 @@ export class HomePageComponent implements OnInit {
   foldmap = false;
   foldcalendar = false;
   folelog = false;
+  foleweather = false;
   chart;
   chart1;
   chart2;
@@ -89,6 +94,18 @@ export class HomePageComponent implements OnInit {
       const icon = $(this);
       icon.toggleClass('ui-icon-minusthick ui-icon-plusthick');
       icon.closest('.portlet').find('.portlet-content').toggle();
+    });
+    const _this = this;
+    $.ajax({
+      url: 'https://free-api.heweather.com/s6/weather/now?location=成都&key=35e0273f7d3d4f8fb4ce6011b603ba69',
+      type: 'get',
+      success: function (data) {
+        _this.weatherBasic = data.HeWeather6[0].basic;
+        _this.weatherUpdate = data.HeWeather6[0].update;
+        _this.weatherNow = data.HeWeather6[0].now;
+        console.log(data);
+        console.log(_this.weatherNow);
+      }
     });
   }
   changeView() {
@@ -521,6 +538,8 @@ export class HomePageComponent implements OnInit {
       this.folelog = !this.folelog;
     } else if (type === 'foledata2') {
       this.foledata2 = !this.foledata2;
+    } else if (type === 'foleweather') {
+      this.foleweather = !this.foleweather;
     }
   }
 }

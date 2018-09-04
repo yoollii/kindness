@@ -147,6 +147,9 @@ export class ProcessManagementComponent implements OnInit {
   handleOkMiddle(data): void {
     this.submitForm(data);
   }
+  handleOkMiddle1(): void {
+    this.isVisibleMiddle1 = false;
+  }
   handleCancelMiddle(): void {
 
     console.log('click Cancel');
