@@ -32,7 +32,7 @@ export class HttpService {
     headers2.append('Content-Type', 'application/json;charset=UTF-8');
     headers2.append('Access-Control-Allow-Origin', '*');
     const options2 = new RequestOptions({ headers: headers2 });
-    return this.http.get(funName, options2).pipe(map(res => res.json()));
+    return this.http.get(this.url + funName, options2).pipe(map(res => res.json()));
   }
   // get请求
   httpweatherget(funName: string) {

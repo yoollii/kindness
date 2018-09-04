@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import * as jsp from 'jsplumb';
 import * as $ from 'jquery';
+import { HttpService } from '../../../http/http.service';
 
 export interface TreeNodeInterface {
   key: number;
@@ -19,6 +20,7 @@ export interface TreeNodeInterface {
   styleUrls: ['./application-management.component.less']
 })
 export class ApplicationManagementComponent implements OnInit {
+  formdata: any;  // 显示数据
   selectedValue;
   value: string;
   dataSet = [];
@@ -178,11 +180,10 @@ export class ApplicationManagementComponent implements OnInit {
       array.push(node);
     }
   }
-  constructor(public router: Router, public activatedRoute: ActivatedRoute , private nzMessageService: NzMessageService) {
+  constructor(public router: Router, public activatedRoute: ActivatedRoute , private nzMessageService: NzMessageService, private http: HttpService) {
     this.activatedRoute.queryParams.subscribe(Params => {
       // this.parmlen = Object.keys(Params).length;
       this.id = Params['id'];
-      console.log(this.id);
     });
   }
   cancel() {
@@ -269,6 +270,12 @@ export class ApplicationManagementComponent implements OnInit {
         template: '启用',
       });
     }
+    this.http.httpmenderget('/applicationsystem/findById?id=' + this.id).subscribe(data => {
+      if ( data.result === '0000') {
+        this.formdata = data.data.data;
+        debugger;
+      }
+    });
   }
   gorouter(item: any) {
     // 	if(this.tabs.indexOf(item.split('/')[1])==-1){
