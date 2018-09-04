@@ -11,43 +11,6 @@
 </div>
 
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="用户新增" (nzOnCancel)="handleCancelMiddle()"
-<<<<<<< HEAD
-  (nzOnOk)="handleOkMiddle()">
-  <nz-form-item>
-    <nz-form-label nzFor="no">用户名称</nz-form-label>
-    <nz-form-control>
-      <input nz-input [(ngModel)]="userName" name="name" placeholder="请输入" id="no2">
-    </nz-form-control>
-    <nz-form-label nzFor="no">用户角色</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="listOfRole" nzPlaceHolder="请选择用户角色">
-        <nz-option *ngFor="let option of listOfRoleList" [nzLabel]="option" [nzValue]="option">
-        </nz-option>
-      </nz-select>
-    </nz-form-control>
-    <nz-form-label nzFor="no">用户分组</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="listOfTagOptions" nzPlaceHolder="请选择用户分组">
-        <nz-option *ngFor="let option of listOfOption" [nzLabel]="option" [nzValue]="option">
-        </nz-option>
-      </nz-select>
-    </nz-form-control>
-    <nz-form-label nzFor="no">用户状态</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="listOfType" nzPlaceHolder="请选择用户状态">
-        <nz-option *ngFor="let option of listOfTypelist" [nzLabel]="option" [nzValue]="option" >
-        </nz-option>
-      </nz-select>
-    </nz-form-control>
-    <nz-form-label nzFor="no">所属机构</nz-form-label>
-    <nz-form-control>
-      <nz-select style="width: 100%;" [(ngModel)]="listOforgan" nzPlaceHolder="请选择所属机构">
-        <nz-option *ngFor="let option of listOforganList" [nzLabel]="option" [nzValue]="option">
-        </nz-option>
-      </nz-select>
-    </nz-form-control>
-  </nz-form-item>
-=======
   (nzOnOk)="handleOkMiddle(validateForm.value)">
   <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
     <nz-form-item>
@@ -89,7 +52,6 @@
       </nz-form-control>
     </nz-form-item>
   </form>
->>>>>>> 4de80fade136deecc6f7fde92fc3f02a1a41b1f3
 </nz-modal>
 
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isupdate" nzTitle="用户编辑" (nzOnCancel)="handleCancelEditMiddle()"
