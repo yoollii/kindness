@@ -151,14 +151,25 @@
         </div>
         <div class='portlet-content' [ngClass]="{'foleweather' : foleweather}">
           <div class="weather">
-            <p>{{ date }}{{ weatherBasic.location }}</p>
+            <p class="date">{{ date }}  {{ weatherBasic.location }}</p>
             <div class="realtimeWeather">
-              <img src="../../../assets/img/104.png" alt="">
+              <img src="../../../assets/img/weatherIcon/104.png" alt="">
               <h2>{{ weatherNow.tmp }}℃</h2>
               <p>{{ weatherNow.cond_txt }}</p>
               <p>{{ weatherNow.wind_dir }}{{ weatherNow.wind_sc }}-{{ weatherNow.wind_spd }}级</p>
               <p>实质空气湿度：{{ weatherNow.hum }}</p>
             </div>
+            <div class="weatherBox">
+              <div class="weatherDaily">
+                <section class="weatherItem" *ngFor='let weather of weatherDaily'>
+                  <p>{{ weather.date }}</p>
+                  <img src="../../../assets/img/weatherIcon/104.png" alt="">
+                  <p>{{ weather.tmp_min }}℃ ~ {{ weather.tmp_max }}℃</p>
+                  <p>{{ weather.cond_txt_d }}</p>
+                  <p>{{ weather.wind_dir }}{{ weather.wind_sc }}级</p>
+                </section>
+              </div>
+            </div>      
           </div>
         </div>
       </div>

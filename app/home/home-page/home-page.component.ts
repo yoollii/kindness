@@ -14,6 +14,7 @@ export class HomePageComponent implements OnInit {
   weatherBasic = {};
   weatherUpdate = {};
   weatherNow = {};
+  weatherDaily = [];
   isVisibleMiddle = false;
   dataView = false;
   dataNotView = true;
@@ -105,6 +106,14 @@ export class HomePageComponent implements OnInit {
         _this.weatherNow = data.HeWeather6[0].now;
         console.log(data);
         console.log(_this.weatherNow);
+      }
+    });
+    $.ajax({
+      url: 'https://free-api.heweather.com/s6/weather/forecast?location=成都&key=35e0273f7d3d4f8fb4ce6011b603ba69',
+      type: 'get',
+      success: function (data) {
+        _this.weatherDaily = data.HeWeather6[0].daily_forecast;
+        console.log(data);
       }
     });
   }

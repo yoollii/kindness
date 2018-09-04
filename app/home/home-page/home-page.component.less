@@ -115,3 +115,41 @@
 .ant-card p{
     color: #000;
 }
+.weather{
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    .date{
+        text-align: left;
+        font-size: 14px;
+        margin-left: 20px;
+        padding: 10px 0;
+        letter-spacing: 2px;
+    }
+    .realtimeWeather{
+        width: 30%;
+        display: inline-block;
+        img{width: 65px;margin: 5px 0;}
+        p{font-size: 12px;}
+        h2{color: #fff;}
+    }
+    .weatherBox{
+        width: 70%;
+        display: inline-block;
+        vertical-align: top;
+        .weatherDaily{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .weatherItem{
+                padding: 5px 0;
+                width: 33.33%;
+                display: inline-block;
+                border-left: 1px solid #fff;
+                img{width: 60px;margin: 10px 0;}
+                p{font-size: 12px;}
+            }
+        }
+    }  
+}
