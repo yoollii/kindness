@@ -1,7 +1,7 @@
 <nz-breadcrumb class='breadcrumbstyle'>
   <nz-breadcrumb-item>
     <span>当前位置：</span>
-<a (click)="gorouter('home/application')">应用孵化器</a>
+    <a (click)="gorouter('home/application')">应用孵化器</a>
   </nz-breadcrumb-item>
   <nz-breadcrumb-item> 应用系统编配</nz-breadcrumb-item>
 </nz-breadcrumb>
@@ -184,19 +184,19 @@
 <nz-card nzType="inner" nzTitle="查看选项">
   <div nz-col nzSpan="12" class="find-select">
     <label for="">应用名称</label>
-    <input nz-input placeholder="应用名称" [(ngModel)]="value">
+    <input class='show-content' nz-input placeholder="应用名称" [(ngModel)]="value">
   </div>
   <div nz-col nzSpan="12" class="find-select">
     <label for="">应用标识</label>
-    <input nz-input placeholder="应用标识" [(ngModel)]="value">
+    <input class='show-content' nz-input placeholder="应用标识" [(ngModel)]="value">
   </div>
   <div nz-col nzSpan="12" class="find-select">
     <label for="">基础地址</label>
-    <input nz-input placeholder="基础地址" [(ngModel)]="value">
+    <input class='show-content' nz-input placeholder="基础地址" [(ngModel)]="value">
   </div>
   <div nz-col nzSpan="12" class="find-select">
     <label for="">流程模板</label>
-    <nz-select style="width: 100%;" [(ngModel)]="selectedValue" nzAllowClear nzPlaceHolder="流程模板">
+    <nz-select class='show-content' [(ngModel)]="selectedValue" nzAllowClear nzPlaceHolder="流程模板">
       <nz-option nzValue="1" nzLabel="模版一"></nz-option>
       <nz-option nzValue="2" nzLabel="模版二"></nz-option>
       <nz-option nzValue="3" nzLabel="模版三(停用)" nzDisabled></nz-option>
@@ -204,7 +204,7 @@
   </div>
   <div nz-col nzSpan="24" class="find-select">
     <label for="">描述</label>
-    <textarea row="4" nz-input [(ngModel)]="inputValue"></textarea>
+    <textarea class='show-content' row="4" nz-input [(ngModel)]="inputValue"></textarea>
   </div>
 </nz-card>
 
