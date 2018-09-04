@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import * as jsp from 'jsplumb';
 import * as $ from 'jquery';
@@ -22,6 +22,7 @@ export class ApplicationManagementComponent implements OnInit {
   selectedValue;
   value: string;
   dataSet = [];
+  id: string;
   name = '';
   num: number;
   template: string;
@@ -177,7 +178,12 @@ export class ApplicationManagementComponent implements OnInit {
       array.push(node);
     }
   }
-  constructor(public router: Router, private nzMessageService: NzMessageService) {
+  constructor(public router: Router, public activatedRoute: ActivatedRoute , private nzMessageService: NzMessageService) {
+    this.activatedRoute.queryParams.subscribe(Params => {
+      // this.parmlen = Object.keys(Params).length;
+      this.id = Params['id'];
+      console.log(this.id);
+    });
   }
   cancel() {
     this.nzMessageService.info('取消保存!');

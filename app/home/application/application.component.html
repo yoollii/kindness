@@ -140,6 +140,9 @@
         <div class="editable-row-operations" style="display: inline-block;">
           <button [nzSize]="size" nz-button (click)="startEdit(data)" nzType="default">编辑</button>
           <ng-container>
+            <ng-container>
+              <button [nzSize]="size" nz-button (click)="gorouterWithParam(data.id)" routerLinkActive="active" nzType="default">配置</button>
+            </ng-container>
             <button [nzSize]="size" nz-button nzType="default">启用</button>
           </ng-container>
           <ng-container>

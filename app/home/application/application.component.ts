@@ -84,6 +84,9 @@ export class ApplicationComponent implements OnInit {
     // 		this.router.navigateByUrl(item);
     // 	}
   }
+  gorouterWithParam(item) {
+    this.router.navigate(['home/applicationManagement'], { queryParams: { 'id': item }});
+  }
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       name: [null, [Validators.required] ],
@@ -217,7 +220,7 @@ export class ApplicationComponent implements OnInit {
       }
     });
     this.isVisibleMiddle = false;
-    this.gorouter('home/applicationManagement');
+    // this.gorouter('home/applicationManagement');
   }
   // 编辑
   editForm = (value) => {
