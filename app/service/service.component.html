@@ -138,19 +138,7 @@
         {{data.url}}
       </td>
       <td>
-        <div class="editable-row-operations" style="display: inline-block;">
           <button [nzSize]="size" nz-button (click)="startEdit(data)" nzType="default">编辑</button>
-          <ng-container>
-            <button [nzSize]="size" nz-button nzType="default">启用</button>
-          </ng-container>
-          <ng-container>
-            <button [nzSize]="size" nz-button nzType="default">停用</button>
-          </ng-container>
-          <ng-container>
-            <button [nzSize]="size" nz-button nzType="default">另存</button>
-          </ng-container>
-
-        </div>
         <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteRow(data.id)">
           <button [nzSize]="size" nz-button nz-popconfirm nzType="danger">删除</button>
         </nz-popconfirm>

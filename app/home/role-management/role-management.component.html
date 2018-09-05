@@ -24,14 +24,14 @@
         <input nz-input formControlName="des" name="des" placeholder="请输入" id="no3">
         <nz-form-explain *ngIf="validateForm.get('des').dirty && validateForm.get('des').errors">请输入角色描述!</nz-form-explain>
       </nz-form-control>
-      <nz-form-label nzFor="no">角色权限</nz-form-label>
+      <!-- <nz-form-label nzFor="no">角色权限</nz-form-label>
       <nz-form-control>
         <nz-tree #nzTree formControlName="organnodes" [(ngModel)]="organnodes" [nzCheckable]="true" [nzMultiple]="true"
           [nzCheckStrictly]="true" [nzDefaultExpandedKeys]="organexpandKeys" [nzDefaultCheckedKeys]="organcheckedKeys"
           [nzDefaultSelectedKeys]="organselectedKeys" [nzDefaultExpandAll]="organexpandDefault" (nzClick)="organmouseAction('click',$event)"
           (nzCheckBoxChange)="organmouseAction('check',$event)" (nzDblClick)="organmouseAction('dblclick', $event)">
         </nz-tree>
-      </nz-form-control>
+      </nz-form-control> -->
     </nz-form-item>
   </form>
 </nz-modal>
@@ -49,14 +49,14 @@
         <input nz-input [(ngModel)]="des" formControlName="des" name="des" placeholder="请输入" id="no3">
         <nz-form-explain *ngIf="validateForm.get('des').dirty && validateForm.get('des').errors">请输入角色描述!</nz-form-explain>
       </nz-form-control>
-      <nz-form-label nzFor="no">角色权限</nz-form-label>
+      <!-- <nz-form-label nzFor="no">角色权限</nz-form-label>
       <nz-form-control>
         <nz-tree #nzTree formControlName="organnodes" [(ngModel)]="organnodes" [nzCheckable]="true" [nzMultiple]="true"
           [nzCheckStrictly]="true" [nzDefaultExpandedKeys]="organexpandKeys" [nzDefaultCheckedKeys]="organcheckedKeys"
           [nzDefaultSelectedKeys]="organselectedKeys" [nzDefaultExpandAll]="organexpandDefault" (nzClick)="organmouseAction('click',$event)"
           (nzCheckBoxChange)="organmouseAction('check',$event)" (nzDblClick)="organmouseAction('dblclick', $event)">
         </nz-tree>
-      </nz-form-control>
+      </nz-form-control> -->
     </nz-form-item>
   </form>
 </nz-modal>
@@ -117,7 +117,7 @@
       <td>
         <div class="editable-row-operations" style="display: inline-block;">
           <ng-container>
-            <button [nzSize]="size" (click)="showModalMsgMiddle(data)" nz-button nzType="default">查看</button>
+            <button [nzSize]="size" (click)="showModalMsgMiddle(data)" nz-button nzType="default">权限设置</button>
           </ng-container>
           <button [nzSize]="size" nz-button (click)="startEdit(data)" nzType="default">编辑</button>
 
