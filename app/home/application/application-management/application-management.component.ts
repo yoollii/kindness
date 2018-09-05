@@ -273,7 +273,6 @@ export class ApplicationManagementComponent implements OnInit {
     this.http.httpmenderget('/applicationsystem/findById?id=' + this.id).subscribe(data => {
       if ( data.result === '0000') {
         this.formdata = data.data.data;
-        debugger;
       }
     });
   }

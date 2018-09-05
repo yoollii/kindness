@@ -184,23 +184,23 @@
 <nz-card nzType="inner" nzTitle="查看选项">
   <div nz-col nzSpan="12" class="find-select">
     <label for="">应用名称</label>
-    <input nz-input placeholder="应用名称"  disabled>
+    <input nz-input placeholder="应用名称" [(ngModel)]="formdata.name" disabled>
   </div>
   <div nz-col nzSpan="12" class="find-select">
     <label for="">应用标识</label>
-    <input nz-input placeholder="应用标识"  disabled>
+    <input nz-input placeholder="应用标识" [(ngModel)]="formdata.useFlag" disabled>
   </div>
   <div nz-col nzSpan="12" class="find-select">
     <label for="">基础地址</label>
-    <input nz-input placeholder="基础地址"  disabled>
+    <input nz-input placeholder="基础地址" [(ngModel)]="formdata.baseUrl" disabled>
   </div>
   <div nz-col nzSpan="12" class="find-select">
     <label for="">流程模板</label>
-    <input nz-input style="width: 100%;"  nzPlaceHolder="流程模板" disabled>
+    <input nz-input style="width: 100%;" [(ngModel)]="formdata.modelId" nzPlaceHolder="流程模板" disabled>
   </div>
   <div nz-col nzSpan="24" class="find-select">
     <label for="">描述</label>
-    <textarea row="4" nz-input  disabled></textarea>
+    <textarea row="4" nz-input [(ngModel)]="formdata.des" disabled></textarea>
   </div>
 </nz-card>
 
