@@ -11,6 +11,13 @@ import { DragulaService } from 'ng2-dragula';
 })
 export class HomePageComponent implements OnInit {
   weatherCurrent: string; // 实时天气
+  weatherCurrent_now_cond_code: string;
+  weatherCurrent_now_tmp: string;
+  weatherCurrent_now_fl: string;
+  weatherCurrent_now_cond_txt: string;
+  weatherCurrent_now_wind_dir: string;
+  weatherCurrent_now_pcpn: string;
+  weatherforecast_daily_forecast: any;
   weatherforecast = {};  // 后三天天气
   currentDate: any; // 当前时间
   isVisibleMiddle = false;
@@ -104,6 +111,12 @@ export class HomePageComponent implements OnInit {
       success: function (data) {
         if (data.HeWeather6[0].status === 'ok') {
           self.weatherCurrent = data.HeWeather6[0];
+          self.weatherCurrent_now_cond_code = data.HeWeather6[0].now.cond_code;
+          self.weatherCurrent_now_tmp = data.HeWeather6[0].now.tmp;
+          self.weatherCurrent_now_fl = data.HeWeather6[0].now.fl;
+          self.weatherCurrent_now_cond_txt = data.HeWeather6[0].now.cond_txt;
+          self.weatherCurrent_now_wind_dir = data.HeWeather6[0].now.wind_dir;
+          self.weatherCurrent_now_pcpn = data.HeWeather6[0].now.pcpn;
           console.log(self.weatherCurrent);
         }
       }
@@ -116,6 +129,7 @@ export class HomePageComponent implements OnInit {
       success: function (data) {
         if (data.HeWeather6[0].status === 'ok') {
           self.weatherforecast = data.HeWeather6[0];
+          self.weatherforecast_daily_forecast = data.HeWeather6[0].daily_forecast;
           console.log(self.weatherforecast);
         }
       }

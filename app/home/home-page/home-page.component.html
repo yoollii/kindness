@@ -154,19 +154,21 @@
           <div style='padding: 15px 10px'>{{currentDate}}</div>
           <div class='weather-container'>
             <div class='current-weather'>
-              <img src="assets/img/weatherIcon/{{weatherCurrent.now.cond_code}}.png" alt="天气">
-              <p>{{weatherCurrent.now.tmp}}℃(实时)</p>
-              <p>体感温度{{weatherCurrent.now.fl}}℃</p>
-              <p>{{weatherCurrent.now.cond_txt}}</p>
-              <p>{{weatherCurrent.now.wind_dir}}</p>
-              <p>降水量：{{weatherCurrent.now.pcpn}}ml</p>
+              <img src="assets/img/weatherIcon/{{weatherCurrent_now_cond_code}}.png" alt="天气">
+              <p>{{weatherCurrent_now_tmp}}℃(实时)</p>
+              <p>体感温度{{weatherCurrent_now_fl}}℃</p>
+              <p>{{weatherCurrent_now_cond_txt}}</p>
+              <p>{{weatherCurrent_now_wind_dir}}</p>
+              <p>降水量：{{weatherCurrent_now_pcpn}}ml</p>
             </div>
-            <div *ngFor="let item of weatherforecast.daily_forecast"  class='forecast-weather'>
+            <div *ngFor="let item of weatherforecast_daily_forecast" class='forecast-weather'>
               <p>{{item.date}}</p>
               <img src="assets/img/weatherIcon/{{item.cond_code_d}}.png" alt="天气">
               <p>{{item.tmp_min}} ~ {{item.tmp_max}}℃</p>
               <p *ngIf="item.cond_txt_d != item.cond_txt_n; else elseBlock">{{item.cond_txt_d}}转{{item.cond_txt_n}}</p>
-              <ng-template #elseBlock><p>{{item.cond_txt_d}}</p></ng-template>
+              <ng-template #elseBlock>
+                <p>{{item.cond_txt_d}}</p>
+              </ng-template>
               <p>{{item.wind_dir}}{{item.wind_sc}}级</p>
               <p>降水量：{{item.pcpn}}ml</p>
             </div>

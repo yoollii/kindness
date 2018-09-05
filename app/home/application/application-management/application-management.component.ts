@@ -24,6 +24,11 @@ export class ApplicationManagementComponent implements OnInit {
   selectedValue;
   value: string;
   dataSet = [];
+  formdata_name: string;
+  formdata_useFlag: string;
+  formdata_baseUrl: string;
+  formdata_modelId: string;
+  formdata_des: string;
   id: string;
   name = '';
   num: number;
@@ -273,6 +278,11 @@ export class ApplicationManagementComponent implements OnInit {
     this.http.httpmenderget('/applicationsystem/findById?id=' + this.id).subscribe(data => {
       if ( data.result === '0000') {
         this.formdata = data.data.data;
+        this.formdata_name = this.formdata.name;
+        this.formdata_useFlag = this.formdata.useFlag;
+        this.formdata_baseUrl = this.formdata.baseUrl;
+        this.formdata_modelId = this.formdata.modelId;
+        this.formdata_des = this.formdata.des;
       }
     });
   }
