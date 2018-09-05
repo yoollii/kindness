@@ -42,6 +42,7 @@ import { ApplicationManagementComponent } from './home/application/application-m
 import { OrganmanagementComponent } from './home/organmanagement/organmanagement.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import { ApplicationReadyonlyComponent } from './home/application-readyonly/application-readyonly.component';
+import { ServiceComponent } from './service/service.component';
 registerLocaleData(zh);
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ registerLocaleData(zh);
     ApplicationManagementComponent,
     OrganmanagementComponent,
     ApplicationReadyonlyComponent,
+    ServiceComponent,
   ],
   imports: [
     BrowserModule,
