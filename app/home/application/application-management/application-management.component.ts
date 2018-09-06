@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NzMessageService } from 'ng-zorro-antd';
 import * as jsp from 'jsplumb';
 import * as $ from 'jquery';
@@ -21,6 +22,7 @@ export interface TreeNodeInterface {
 })
 export class ApplicationManagementComponent implements OnInit {
   formdata: any;  // 显示数据
+  iframe: SafeResourceUrl;
   selectedValue;
   value: string;
   dataSet = [];
@@ -35,6 +37,11 @@ export class ApplicationManagementComponent implements OnInit {
   template: string;
   loading: boolean;
   listOfSelection: any;
+  key: string;
+  url: string;
+  type: string;
+  modelId: string;
+  src: string;
   sort: any;
   mk2 = false;
   mk1 = false;
@@ -82,68 +89,68 @@ export class ApplicationManagementComponent implements OnInit {
   //     descripe: '服务描述5',
   //   }
   // ];
-  data = [
-    {
-      key     : 1,
-      name    : '服务一',
-      age     : '启用',
-      address : '厚德系统服务一',
-      children: [
-        {
-          key    : 11,
-          name   : '服务二',
-          age    : '启用',
-          address: '厚德系统服务二'
-        },
-        {
-          key     : 12,
-          name    : '服务三',
-          age     : '启用',
-          address : '厚德系统服务三',
-          children: [ {
-            key    : 121,
-            name   : '服务四',
-            age    : '启用',
-            address: '厚德系统服务四'
-          } ]
-        },
-        {
-          key     : 13,
-          name    : '服务五',
-          age     : '启用',
-          address : '厚德系统服务四',
-          children: [
-            {
-              key     : 131,
-              name    : '服务五',
-              age     : '启用',
-              address : '厚德系统服务四',
-              children: [
-                {
-                  key    : 1311,
-                  name   : '服务六',
-                  age    : '启用',
-                  address: '厚德系统服务五'
-                },
-                {
-                  key    : 1312,
-                  name   : '服务七',
-                  age    : '启用',
-                  address: '厚德系统服务六'
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      key    : 2,
-      name   : '服务八',
-      age    : '启用',
-      address: '厚德系统服务七'
-    }
-  ];
+  // data = [
+  //   {
+  //     key     : 1,
+  //     name    : '服务一',
+  //     age     : '启用',
+  //     address : '厚德系统服务一',
+  //     children: [
+  //       {
+  //         key    : 11,
+  //         name   : '服务二',
+  //         age    : '启用',
+  //         address: '厚德系统服务二'
+  //       },
+  //       {
+  //         key     : 12,
+  //         name    : '服务三',
+  //         age     : '启用',
+  //         address : '厚德系统服务三',
+  //         children: [ {
+  //           key    : 121,
+  //           name   : '服务四',
+  //           age    : '启用',
+  //           address: '厚德系统服务四'
+  //         } ]
+  //       },
+  //       {
+  //         key     : 13,
+  //         name    : '服务五',
+  //         age     : '启用',
+  //         address : '厚德系统服务四',
+  //         children: [
+  //           {
+  //             key     : 131,
+  //             name    : '服务五',
+  //             age     : '启用',
+  //             address : '厚德系统服务四',
+  //             children: [
+  //               {
+  //                 key    : 1311,
+  //                 name   : '服务六',
+  //                 age    : '启用',
+  //                 address: '厚德系统服务五'
+  //               },
+  //               {
+  //                 key    : 1312,
+  //                 name   : '服务七',
+  //                 age    : '启用',
+  //                 address: '厚德系统服务六'
+  //               }
+  //             ]
+  //           }
+  //         ]
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     key    : 2,
+  //     name   : '服务八',
+  //     age    : '启用',
+  //     address: '厚德系统服务七'
+  //   }
+  // ];
   expandDataCache = {};
 
   collapse(array: TreeNodeInterface[], data: TreeNodeInterface, $event: boolean): void {
@@ -185,10 +192,24 @@ export class ApplicationManagementComponent implements OnInit {
       array.push(node);
     }
   }
-  constructor(public router: Router, public activatedRoute: ActivatedRoute , private nzMessageService: NzMessageService, private http: HttpService) {
+  constructor(public router: Router, private sanitizer: DomSanitizer,
+    public activatedRoute: ActivatedRoute , private nzMessageService: NzMessageService, private http: HttpService) {
     this.activatedRoute.queryParams.subscribe(Params => {
       // this.parmlen = Object.keys(Params).length;
       this.id = Params['id'];
+      this.key = Params['key'];
+      this.url = Params['url'];
+      this.type = Params['type'];
+      this.modelId = Params['modelId'];
+      // this.src = 'http://192.168.1.252:8099/model/create?name=' + this.name + '&key=' + this.key + '&description=' + this.description;
+      // tslint:disable-next-line:max-line-length
+      if (this.type === 'add') {
+        // tslint:disable-next-line:max-line-length
+        this.src = 'http://hjj.ngrok.michaelch.xyz/' + this.url;
+      } else if (this.type === 'edit') {
+        this.src = 'http://hjj.ngrok.michaelch.xyz/modeler.html?modelId=' + this.modelId + '&key=' + this.key;
+      }
+      this.iframe = this.sanitizer.bypassSecurityTrustResourceUrl(this.src);
     });
   }
   cancel() {
@@ -263,18 +284,6 @@ export class ApplicationManagementComponent implements OnInit {
     this.refreshStatus();
   }
   ngOnInit() {
-    this.data.forEach(item => {
-      this.expandDataCache[ item.key ] = this.convertTreeToList(item);
-    });
-    for (let i = 0; i < 30; i++) {
-      this.dataSet.push({
-        key: i.toString(),
-        num: i,
-        name: `厚德平台${i}`,
-        describe: `操作系统 no. ${i}`,
-        template: '启用',
-      });
-    }
     this.http.httpmenderget('/applicationsystem/findById?id=' + this.id).subscribe(data => {
       if ( data.result === '0000') {
         this.formdata = data.data.data;

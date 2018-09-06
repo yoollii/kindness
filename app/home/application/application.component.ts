@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../http/http.service';
 import { NzMessageService } from 'ng-zorro-antd';
 @Component({
@@ -85,16 +85,23 @@ export class ApplicationComponent implements OnInit {
     // 		this.router.navigateByUrl(item);
     // 	}
   }
-  gorouterWithParam(item) {
-    this.router.navigate(['home/applicationManagement'], { queryParams: { 'id': item }});
+  // 配置
+  gorouterWithParam(modelId, id) {
+    let key;
+    for (let i = 0; i < this.dataList.length; i++) {
+      if (this.dataList[i].id === modelId) {
+        key = this.dataList[i].key;
+      }
+    }
+    this.router.navigate(['home/applicationManagement'], { queryParams: { 'modelId': modelId, 'id': id, 'key': key, 'type': 'edit' } });
   }
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      name: [null, [Validators.required] ],
+      name: [null, [Validators.required]],
       useFlag: [null, [Validators.required]],
-      des: [null, [Validators.required] ],
-      baseUrl: [null, [Validators.required] ],
-      modelId: [null, [Validators.required] ]
+      des: [null, [Validators.required]],
+      baseUrl: [null, [Validators.required]],
+      modelId: [null, [Validators.required]]
     });
     this.initData();
     this.loading = false;
@@ -140,14 +147,18 @@ export class ApplicationComponent implements OnInit {
         //     this.dataSet[i].modelName = '模板三';
         //   }
         // }
-     }
+      }
     });
     this.http.httpmender('/activiti/modelList', {}).subscribe(data => {
       if (data.result === '0000') {
         this.dataList = data.data.data;
         for (let i = 0; i < this.dataList.length; i++) {
-          this.dataList[i].checked = false;
           this.dataList[i].description = JSON.parse(this.dataList[i].metaInfo).description;
+          for (let j = 0; j < this.dataSet.length; j++) {
+            if (this.dataSet[j].modelId === this.dataList[i].id) {
+              this.dataSet[j].modelName = this.dataList[i].name;
+            }
+          }
         }
       }
     });
@@ -155,7 +166,7 @@ export class ApplicationComponent implements OnInit {
   search(): void {
     if (this.sortName) {
       this.dataSet = this.dataSet.sort((a, b) =>
-      (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
+        (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
     } else {
       this.dataSet = this.dataSet;
     }
@@ -192,7 +203,7 @@ export class ApplicationComponent implements OnInit {
   }
   // 删除
   deleteRow(i: any): void {
-    this.http.httpmenderdel('/applicationsystem/delAppliById?id=' + i ).subscribe(data => {
+    this.http.httpmenderdel('/applicationsystem/delAppliById?id=' + i).subscribe(data => {
       if (data.result === '0000') {
         this.initData();
         this.message.create('success', '删除成功');
@@ -209,7 +220,7 @@ export class ApplicationComponent implements OnInit {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
-    value.state = 0;
+    // value.state = 0;
     // value.id = 'string';
     value = JSON.stringify(value);
     if (this.validateForm.invalid) { return; }

@@ -13,7 +13,7 @@
     <button nz-button nzType="primary" nzSize="default" nzSearch>搜索</button>
   </ng-template>
 </div>
-<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()"
+<!-- <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()"
   (nzOnOk)="handleOkMiddle()">
   <nz-table #rowSelectionTable [nzBordered]="true" [nzData]="data" (nzCurrentPageDataChange)="currentPageDataChange($event)"
     (nzPageIndexChange)="refreshStatus()" (nzPageSizeChange)="refreshStatus()">
@@ -180,7 +180,7 @@
       </ng-template>
     </tbody>
   </nz-table>
-</nz-modal>
+</nz-modal> -->
 <nz-card nzType="inner" nzTitle="查看选项">
   <div nz-col nzSpan="12" class="find-select">
     <label for="">应用名称</label>
@@ -203,8 +203,8 @@
     <textarea class='formdata' row="4" nz-input [(ngModel)]="formdata_des" disabled></textarea>
   </div>
 </nz-card>
-
-<nz-card style='margin-top: 16px;' nzType="inner" nzTitle="应用服务编配" [nzExtra]="trigger">
+<iframe id="iframe1" [src]='iframe' width="100%" height="900px"></iframe>
+<!-- <nz-card style='margin-top: 16px;' nzType="inner" nzTitle="应用服务编配" [nzExtra]="trigger">
   <div class="jtk-demo-canvas canvas-wide flowchart-demo jtk-surface jtk-surface-nopan" id="canvas" [ngStyle]="{'display':jsplmdIs? 'block' : 'none' }">
     <div class="window jtk-node" id="flowchartWindow1"><strong>开始</strong><br /><br /></div>
     <div class="window jtk-node" id="flowchartWindow2" (click)="tjsq(1)"><strong>提交申请</strong><br /><br /></div>
@@ -216,4 +216,4 @@
 </nz-card>
 <ng-template #trigger>
   <a nz-popconfirm nzTitle="确认保存?" (nzOnConfirm)="confirm()" (nzOnCancel)="cancel()">保存</a>
-</ng-template>
+</ng-template> -->
