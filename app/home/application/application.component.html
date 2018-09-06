@@ -51,10 +51,9 @@
       </nz-form-control>
       <nz-form-label nzRequired nzFor="no">流程模板</nz-form-label>
       <nz-form-control>
-        <nz-select style="width: 100%;" formControlName="modelId" name="modelId" nzAllowClear nzPlaceHolder="流程模板" id="no6">
-          <nz-option nzValue="model1" nzLabel="模板一"></nz-option>
-          <nz-option nzValue="model2" nzLabel="模板二"></nz-option>
-          <nz-option nzValue="model3" nzLabel="模版三"></nz-option>
+        <nz-select style="width: 100%;" formControlName="modelId" [(ngModel)]="modelId" name="modelId" nzPlaceHolder="流程模板">
+          <nz-option *ngFor="let option of dataList" [nzLabel]="option.name" [nzValue]="option.id">
+          </nz-option>
         </nz-select>
         <nz-form-explain *ngIf="validateForm.get('modelId').dirty && validateForm.get('modelId').errors">请选择流程模板!</nz-form-explain>
       </nz-form-control>
@@ -88,11 +87,9 @@
       </nz-form-control>
       <nz-form-label nzRequired nzFor="no">流程模板</nz-form-label>
       <nz-form-control>
-        <nz-select style="width: 100%;" formControlName="modelId" [(ngModel)]="modelId" name="modelId" nzAllowClear
-          nzPlaceHolder="流程模板" id="no6">
-          <nz-option nzValue="model1" nzLabel="模板一"></nz-option>
-          <nz-option nzValue="model2" nzLabel="模板二"></nz-option>
-          <nz-option nzValue="model3" nzLabel="模版三"></nz-option>
+        <nz-select style="width: 100%;" formControlName="modelId" [(ngModel)]="modelId" name="modelId" nzPlaceHolder="流程模板">
+          <nz-option *ngFor="let option of dataList" [nzLabel]="option.name" [nzValue]="option.id">
+          </nz-option>
         </nz-select>
         <nz-form-explain *ngIf="validateForm.get('modelId').dirty && validateForm.get('modelId').errors">请选择流程模板!</nz-form-explain>
       </nz-form-control>
@@ -128,7 +125,7 @@
         {{data.name}}
       </td>
       <td>
-        {{data.modelName}}
+        {{data.modelId}}
       </td>
       <td>
         {{data.useFlag}}

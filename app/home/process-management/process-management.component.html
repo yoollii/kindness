@@ -40,24 +40,29 @@
         <input nz-input formControlName='name' name="name" placeholder="请输入" id="no2">
         <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">请输入流程模板名称!</nz-form-explain>
       </nz-form-control>
-      <nz-form-label nzFor="no">部署状态</nz-form-label>
+      <nz-form-label nzFor="no">关键字</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName='key' name="key" placeholder="请输入" id="no2">
+        <nz-form-explain *ngIf="validateForm.get('key').dirty && validateForm.get('key').errors">请输入关键字!</nz-form-explain>
+      </nz-form-control>
+      <!-- <nz-form-label nzFor="no">部署状态</nz-form-label>
       <nz-form-control>
         <nz-select style="width: 100%;" formControlName="state" name="state" [(ngModel)]="listOfType" nzPlaceHolder="请选择部署状态">
           <nz-option *ngFor="let option of listOfTypelist" [nzLabel]="option" [nzValue]="option">
           </nz-option>
         </nz-select>
-        <!-- <nz-form-explain *ngIf="validateForm.hasError('positiveNumber','state')">Please input 0 or 1!</nz-form-explain> -->
+        <nz-form-explain *ngIf="validateForm.hasError('positiveNumber','state')">Please input 0 or 1!</nz-form-explain>
         <nz-form-explain *ngIf="validateForm.get('state').dirty && validateForm.get('state').errors">请选择部署状态!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">创建人</nz-form-label>
       <nz-form-control>
         <input nz-input formControlName='cruser' name="cruser" placeholder="请输入" id="no4">
         <nz-form-explain *ngIf="validateForm.get('cruser').dirty && validateForm.get('cruser').errors">请输入创建人!</nz-form-explain>
-      </nz-form-control>
+      </nz-form-control> -->
       <nz-form-label nzFor="no">流程模板描述</nz-form-label>
       <nz-form-control>
-        <input nz-input formControlName='des' name="des" placeholder="请输入" id="no5">
-        <nz-form-explain *ngIf="validateForm.get('des').dirty && validateForm.get('des').errors">请输入流程模板描述!</nz-form-explain>
+        <input nz-input formControlName='description' name="description" placeholder="请输入" id="no5">
+        <nz-form-explain *ngIf="validateForm.get('description').dirty && validateForm.get('description').errors">请输入流程模板描述!</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
   </form>
@@ -72,44 +77,38 @@
         <input nz-input formControlName='name' [(ngModel)]='name' name="name" placeholder="请输入" id="no2">
         <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">请输入流程模板名称!</nz-form-explain>
       </nz-form-control>
-      <nz-form-label nzFor="no">部署状态</nz-form-label>
+      <nz-form-label nzFor="no">关键字</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName='key' [(ngModel)]='key' name="key" placeholder="请输入" id="no2">
+        <nz-form-explain *ngIf="validateForm.get('key').dirty && validateForm.get('key').errors">请输入关键字!</nz-form-explain>
+      </nz-form-control>
+      <!-- <nz-form-label nzFor="no">部署状态</nz-form-label>
       <nz-form-control>
         <nz-select style="width: 100%;" formControlName="state" name="state" [(ngModel)]="listOfType" nzPlaceHolder="请选择部署状态">
           <nz-option *ngFor="let option of listOfTypelist" [nzLabel]="option" [nzValue]="option">
           </nz-option>
         </nz-select>
-        <!-- <nz-form-explain *ngIf="validateForm.hasError('positiveNumber','state')">Please input 0 or 1!</nz-form-explain> -->
+        <nz-form-explain *ngIf="validateForm.hasError('positiveNumber','state')">Please input 0 or 1!</nz-form-explain>
         <nz-form-explain *ngIf="validateForm.get('state').dirty && validateForm.get('state').errors">请选择部署状态!</nz-form-explain>
       </nz-form-control>
       <nz-form-label nzFor="no">创建人</nz-form-label>
       <nz-form-control>
         <input nz-input formControlName='cruser' [(ngModel)]="cruser" name="cruser" placeholder="请输入" id="no4">
         <nz-form-explain *ngIf="validateForm.get('cruser').dirty && validateForm.get('cruser').errors">请输入创建人!</nz-form-explain>
-      </nz-form-control>
+      </nz-form-control> -->
       <nz-form-label nzFor="no">流程模板描述</nz-form-label>
       <nz-form-control>
-        <input nz-input formControlName='des' [(ngModel)]="des" name="des" placeholder="请输入" id="no5">
-        <nz-form-explain *ngIf="validateForm.get('des').dirty && validateForm.get('des').errors">请输入流程模板描述!</nz-form-explain>
+        <input nz-input formControlName='description' [(ngModel)]="description" name="description" placeholder="请输入" id="no5">
+        <nz-form-explain *ngIf="validateForm.get('description').dirty && validateForm.get('description').errors">请输入流程模板描述!</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
   </form>
 </nz-modal>
 
-<nz-modal nzWrapClassName="vertical-center-modal1" [(nzVisible)]="isVisibleMiddle1" nzTitle="流程图预览" (nzOnCancel)="handleCancelMiddle()"
-  (nzOnOk)="handleOkMiddle1()">
-  <nz-form-item>
-    <nz-timeline>
-      <nz-timeline-item>开始</nz-timeline-item>
-      <nz-timeline-item>流程一</nz-timeline-item>
-      <nz-timeline-item>流程二</nz-timeline-item>
-      <nz-timeline-item>流程三</nz-timeline-item>
-      <nz-timeline-item>流程四</nz-timeline-item>
-      <nz-timeline-item>流程五</nz-timeline-item>
-      <nz-timeline-item>流程六</nz-timeline-item>
-      <nz-timeline-item>结束</nz-timeline-item>
-    </nz-timeline>
-    <div style="clear: both"></div>
-  </nz-form-item>
+<nz-modal nzWidth='900' nzWrapClassName="vertical-center-modal1" [(nzVisible)]="isVisibleViewMiddle" nzTitle="流程图预览"
+  (nzOnCancel)="handleCancelViewMiddle()"
+  (nzOnOk)="handleOkViewMiddle()">
+  <img style='max-width: 800px;' [src]="imgSrc" alt="流程预览图">
 </nz-modal>
 <nz-table #editRowTables nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus($event)" (nzPageSizeChange)="refreshStatus($event)"
   [nzLoading]="loading" [nzData]="dataSet" style="background-color:white;">
@@ -119,9 +118,10 @@
         [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
       <th nzShowSort nzSortKey="num">序号</th>
       <th nzShowSort nzSortKey="name">流程模板名称</th>
-      <th nzShowSort nzSortKey="state">部署状态</th>
-      <th nzShowSort nzSortKey="cruser">创建人</th>
-      <th nzShowSort nzSortKey="des">流程模板描述</th>
+      <th nzShowSort nzSortKey="key">关键字</th>
+      <!-- <th nzShowSort nzSortKey="state">部署状态</th>
+      <th nzShowSort nzSortKey="cruser">创建人</th> -->
+      <th nzShowSort nzSortKey="description">流程模板描述</th>
       <th nzShowSort>操作</th>
     </tr>
   </thead>
@@ -139,18 +139,18 @@
         {{data.name}}
       </td>
       <td>
-        {{data.state}}
+        {{data.key}}
       </td>
-      <td>
+      <!-- <td>
         {{data.cruser}}
-      </td>
+      </td> -->
       <td>
-        {{data.des}}
+        {{data.description}}
       </td>
       <td>
         <div class="editable-row-operations" style="display: inline-block;">
           <ng-container>
-            <button [nzSize]="size" nz-button (click)="abdeRow()" nzType="default">预览</button>
+            <button [nzSize]="size" nz-button (click)="abdeRow(data.id)" nzType="default">预览</button>
           </ng-container>
           <ng-container>
             <button [nzSize]="size" (click)="startEdit(data)" nz-button nzType="default">编辑</button>

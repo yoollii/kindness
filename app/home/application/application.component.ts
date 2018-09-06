@@ -11,6 +11,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 export class ApplicationComponent implements OnInit {
   dataSet = [];   // 初始化列表
   dataId: string; // 流程ID
+  dataList: any; // 流程模板
   loading = true;
   isVisibleMiddle = false;  // 控制弹框显示
   isVisibleEditMiddle = false;  // 控制弹框显示
@@ -68,7 +69,7 @@ export class ApplicationComponent implements OnInit {
   startEdit(key: any): void {
     // this.editCache[key].edit = true;
     this.name = key.name;
-    this.modelId = key.modelId;
+    // this.modelId = key.modelId;
     this.des = key.des;
     this.useFlag = key.useFlag;
     this.baseUrl = key.baseUrl;
@@ -113,19 +114,11 @@ export class ApplicationComponent implements OnInit {
         'useFlag': inputValue,
       };
     }
-    // } else if (selecValue === '应用系统描述') {
-    //   dataSearch = {
-    //     'des': inputValue,
-    //   };
-    // }
     this.http.httpmender('/applicationsystem/findList', JSON.stringify(dataSearch)).subscribe(data => {
       if (data.result === '0000') {
         this.dataSet = data.data.data;
       }
     });
-      for (let i = 0; i < this.dataSet.length; i++) {
-      this.dataSet[i].checked = false;
-    }
   }
   // 排序
   sort(sort: { key: string, value: string }): void {
@@ -138,16 +131,25 @@ export class ApplicationComponent implements OnInit {
     this.http.httpmender('/applicationsystem/findList', {}).subscribe(data => {
       if (data.result === '0000') {
         this.dataSet = data.data.data;
-        for (const i in this.dataSet) {
-          if (this.dataSet[i].modelId === 'model1') {
-            this.dataSet[i].modelName = '模板一';
-          } else if (this.dataSet[i].modelId === 'model2') {
-            this.dataSet[i].modelName = '模板二';
-          } else if (this.dataSet[i].modelId === 'model3') {
-            this.dataSet[i].modelName = '模板三';
-          }
-        }
+        // for (const i in this.dataSet) {
+        //   if (this.dataSet[i].modelId === 'model1') {
+        //     this.dataSet[i].modelName = '模板一';
+        //   } else if (this.dataSet[i].modelId === 'model2') {
+        //     this.dataSet[i].modelName = '模板二';
+        //   } else if (this.dataSet[i].modelId === 'model3') {
+        //     this.dataSet[i].modelName = '模板三';
+        //   }
+        // }
      }
+    });
+    this.http.httpmender('/activiti/modelList', {}).subscribe(data => {
+      if (data.result === '0000') {
+        this.dataList = data.data.data;
+        for (let i = 0; i < this.dataList.length; i++) {
+          this.dataList[i].checked = false;
+          this.dataList[i].description = JSON.parse(this.dataList[i].metaInfo).description;
+        }
+      }
     });
   }
   search(): void {
@@ -237,6 +239,7 @@ export class ApplicationComponent implements OnInit {
     this.http.httpmenderput('/applicationsystem/updateAppli', value).subscribe(data => {
       if (data.result === '0000') {
         this.message.create('success', '编辑成功');
+        this.initData();
       } else {
         this.message.create('error', '编辑失败');
       }

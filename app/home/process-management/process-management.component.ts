@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../http/http.service';
 import { ValidatorService } from '../../validator.service';
 import { NzMessageService } from 'ng-zorro-antd';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-process-management',
   templateUrl: './process-management.component.html',
@@ -15,8 +16,11 @@ export class ProcessManagementComponent implements OnInit {
   dataId: string; // 流程ID
   dataSet = []; // 初始化列表
   jsplmdIs = false;
+  imgSrc: SafeResourceUrl;
+  key: string;  // 关键字
   loading = true;
   isVisibleMiddle = false;
+  isVisibleViewMiddle = false;
   isVisibleMiddle1 = false;
   isVisibleEditMiddle = false;
   sortName = null;
@@ -28,7 +32,7 @@ export class ProcessManagementComponent implements OnInit {
   listOfType: string; // 用户状态
   listOfTypelist = [];
   cruser: string; // 创建人
-  des: string;  // 流程模板描述
+  description: string;  // 流程模板描述
   validateForm: FormGroup; // 新增表单
   editdateForm: FormGroup;  // 编辑表单
   listOfSearchName = [];
@@ -80,6 +84,14 @@ export class ProcessManagementComponent implements OnInit {
     // 		this.router.navigateByUrl(item);
     // 	}
   }
+  gorouterWithParam(item) {
+    // tslint:disable-next-line:max-line-length
+    this.router.navigate(['home/processManagementList'], { queryParams: { 'url': item, 'type': 'add'}});
+  }
+  gorouterEditParam(item) {
+    // tslint:disable-next-line:max-line-length
+    this.router.navigate(['home/processManagementList'], { queryParams: { 'modelId': item.id, 'key': item.key, 'type': 'edit' } });
+  }
   refreshStatus(event): void {
     this.jsplmdIs = event;
     const allChecked = this.dataSet.every(value => value.checked === true);
@@ -94,23 +106,22 @@ export class ProcessManagementComponent implements OnInit {
   }
   // 自定义选项结束
   startEdit(key: any): void {
-   // this.editCache[key].edit = true;
-    this.name = key.name;
-    this.state = key.state;
-    this.cruser = key.cruser;
-    this.des = key.des;
-    this.dataId = key.id;
-    this.showModalEditMiddle();
+    // this.name = key.name;
+    // this.key = key.key;
+    // this.description = key.description;
+    // this.dataId = key.id;
+    // this.showModalEditMiddle();
+    this.gorouterEditParam(key);
   }
   constructor(public router: Router, private fb: FormBuilder, private message: NzMessageService,
-     private http: HttpService, private Validator: ValidatorService) { }
+    private http: HttpService, private Validator: ValidatorService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       name: [null, [Validators.required]],
-      state: [null, [Validators.required, this.Validator.positiveNumberValidator]],
-      des: [null, [Validators.required]],
-      cruser: [null, [Validators.required]],
+      // state: [null, [Validators.required, this.Validator.positiveNumberValidator]],
+      description: [null, [Validators.required]],
+      key: [null, [Validators.required]],
     });
     this.listOfTypelist = [1, 0];
     this.initData();
@@ -151,12 +162,19 @@ export class ProcessManagementComponent implements OnInit {
     this.isVisibleMiddle1 = false;
   }
   handleCancelMiddle(): void {
-
     console.log('click Cancel');
     this.isVisibleMiddle = false;
     this.isVisibleMiddle1 = false;
   }
-
+  showModalViewMiddle(): void {
+    this.isVisibleViewMiddle = true;
+  }
+  handleOkViewMiddle(): void {
+    this.isVisibleViewMiddle = false;
+  }
+  handleCancelViewMiddle(): void {
+    this.isVisibleViewMiddle = false;
+  }
   showModalEditMiddle(): void {
     this.isVisibleEditMiddle = true;
   }
@@ -168,24 +186,20 @@ export class ProcessManagementComponent implements OnInit {
     console.log('click Cancel');
     this.isVisibleEditMiddle = false;
   }
-  // 预览流程图
-  yulan() {
-
-  }
-
   // 添加一行数据
   addRow(): void {
     this.showModalMiddle();
     this.validateForm.reset();
   }
-
-  abdeRow() {
-    console.log(1);
-    this.isVisibleMiddle1 = true;
+  // 预览流程图
+  abdeRow(id) {
+    this.imgSrc = this.sanitizer.bypassSecurityTrustResourceUrl('http://hjj.ngrok.michaelch.xyz/model/resource/readModel?modelId=' + id);
+    // this.isVisibleMiddle1 = true;
+    this.showModalViewMiddle();
   }
   // 删除
   deleteRow(i: string): void {
-    this.http.httpmenderdel('/flowmodel/delFlowModelById?id=' + i).subscribe(data => {
+    this.http.httpmenderdel('/model/delModel/' + i).subscribe(data => {
       if (data.result === '0000') {
         this.initData();
         this.message.create('success', '删除成功');
@@ -196,14 +210,15 @@ export class ProcessManagementComponent implements OnInit {
   }
   // 初始化列表
   initData(): void {
-    this.http.httpmender('/flowmodel/findList', {}).subscribe(data => {
+    this.http.httpmender('/activiti/modelList', {}).subscribe(data => {
       if (data.result === '0000') {
         this.dataSet = data.data.data;
+        for (let i = 0; i < this.dataSet.length; i++) {
+          this.dataSet[i].checked = false;
+          this.dataSet[i].description = JSON.parse(this.dataSet[i].metaInfo).description;
+        }
       }
     });
-    for (let i = 0; i < this.dataSet.length; i++) {
-      this.dataSet[i].checked = false;
-    }
   }
   // 新增
   submitForm = (value) => {
@@ -215,10 +230,12 @@ export class ProcessManagementComponent implements OnInit {
     }
     // value.orders = 0;
     // value.id = 'string';
-    value = JSON.stringify(value);
     if (this.validateForm.invalid) { return; }
-    this.http.httpmender('/flowmodel/addModel', value).subscribe(data => {
+    // tslint:disable-next-line:max-line-length
+    // this.http.httpmenderget('/model/create2?name=' + value.name + '&key=' + value.key + '&description=' + value.description).subscribe(data => {
+     this.http.httpmender('/model/create2', JSON.stringify(value)).subscribe(data => {
       if (data.result === '0000') {
+        this.gorouterWithParam(data.data);
         this.initData();
         this.message.create('success', '新增成功');
       } else {
@@ -227,7 +244,7 @@ export class ProcessManagementComponent implements OnInit {
     });
     this.isVisibleMiddle = false;
     this.isVisibleMiddle1 = false;
-    this.gorouter('home/processManagementList');
+    // this.gorouter('home/processManagementList');
   }
    // 编辑
   editForm = (value) => {
@@ -240,7 +257,7 @@ export class ProcessManagementComponent implements OnInit {
     value.id = this.dataId;
     value = JSON.stringify(value);
     if (this.validateForm.invalid) { return; }
-    this.http.httpmenderput('/flowmodel/updateFlowModel', value).subscribe(data => {
+    this.http.httpmenderput('/model/editModel', value).subscribe(data => {
         if (data.result === '0000') {
           this.initData();
           this.message.create('success', '编辑成功');

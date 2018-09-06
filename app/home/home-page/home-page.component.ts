@@ -557,16 +557,22 @@ export class HomePageComponent implements OnInit {
   fold(type) {
     if (type === 'foledata') {
       this.foledata = !this.foledata;
+      $('.foledata').toggle(500);
     } else if (type === 'foldmap') {
       this.foldmap = !this.foldmap;
+      $('.foldmap').toggle(500);
     } else if (type === 'foldcalendar') {
       this.foldcalendar = !this.foldcalendar;
+      $('.foldcalendar').toggle(500);
     } else if (type === 'folelog') {
       this.folelog = !this.folelog;
+      $('.folelog').toggle(500);
     } else if (type === 'foledata2') {
       this.foledata2 = !this.foledata2;
+      $('.foledata2').toggle(500);
     } else if (type === 'foleweather') {
       this.foleweather = !this.foleweather;
+      $('.foleweather').toggle(500);
     }
   }
 }

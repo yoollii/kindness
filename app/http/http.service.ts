@@ -4,7 +4,8 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 @Injectable()
 export class HttpService {
-  public url = 'http://192.168.1.252:8099';
+  // public url = 'http://192.168.1.252:8099';
+  public url = 'http://hjj.ngrok.michaelch.xyz';
   // public url = 'http://192.168.1.250:8080/pc/';
   constructor(public http: Http) {
   }
@@ -25,7 +26,6 @@ export class HttpService {
     const options1 = new RequestOptions({ headers: headers1 });
     return this.http.post(this.url + funName, data, options1).pipe(map(res => res.json()));
   }
-  
   // get请求
   httpmenderget(funName: string) {
     const headers2 = new Headers();
@@ -33,6 +33,13 @@ export class HttpService {
     headers2.append('Access-Control-Allow-Origin', '*');
     const options2 = new RequestOptions({ headers: headers2 });
     return this.http.get(this.url + funName, options2).pipe(map(res => res.json()));
+  }
+  httphjjget(funName: string) {
+    const headers2 = new Headers();
+    // headers2.append('Content-Type', 'application/json;charset=UTF-8');
+    headers2.append('Access-Control-Allow-Origin', '*');
+    const options2 = new RequestOptions({ headers: headers2 });
+    return this.http.get(this.url + funName, options2).pipe(map(res => res));
   }
   // get请求
   httpweatherget(funName: string) {
