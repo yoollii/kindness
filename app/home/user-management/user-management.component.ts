@@ -33,8 +33,9 @@ export class UserManagementComponent implements OnInit {
   listOfOption = [];
   listOfType: string; // 用户状态
   listOfTypelist = [];
-  listOforgan: string;
-  listOforganList = [];
+  institutionsId: string;  // 机构id
+  listOforganList = [];  // 机构列表
+  listOforganUserList = [];  // 用户机构关机列表
   searchAddress: string;
   selectedValue = this.currentGroup;
   // 自定义选项开始
@@ -62,7 +63,7 @@ export class UserManagementComponent implements OnInit {
     this.rid = data.rid;
     this.name = data.name;
     this.listOfType = data.state;
-    this.listOforgan = data.listOforgan;
+    this.institutionsId = data.organ;
     this.listOfTagOptions = data.groupName;
     this.dataId = data.id;
     this.isupdate = true;
@@ -71,7 +72,6 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.listOfOption = ['1组', '2组', '3组', '4组'];
-    this.listOforganList = ['机构一', '机构二', '机构三', '机构四'];
     this.listOfTypelist = [1, 0];
    // this.findRoleList();
     this.validateForm = this.fb.group({
@@ -80,7 +80,7 @@ export class UserManagementComponent implements OnInit {
       group: [null],
       groupName: [null],
       state: [null, [Validators.required]],
-      listOforgan: [null],
+      institutionsId: [null],
     });
     this.initData();
     this.loading = false;
@@ -179,12 +179,40 @@ export class UserManagementComponent implements OnInit {
       }
     });
   }
+  findOrgn(): void {
+    this.http.httpmender('/userInstitu/findList', {}).subscribe(data => {
+      if (data.result === '0000') {
+        this.listOforganUserList = data.data.data;
+        for (let i = 0; i < this.listOforganUserList.length; i++) {
+          for (let j = 0; j < this.dataSet.length; j++) {
+            if (this.dataSet[j].id === this.listOforganUserList[i].uid) {
+              this.dataSet[j].organ = this.listOforganUserList[i].iid;
+              for (let m = 0; m < this.listOforganList.length; m++) {
+                if (this.dataSet[j].organ === this.listOforganList[m].id) {
+                  this.dataSet[j].organName = this.listOforganList[m].name;
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+  findOrgnList(): void {
+    this.http.httpmender('/institu/findList', {}).subscribe(data => {
+      if (data.result === '0000') {
+        this.listOforganList = data.data.data;
+        this.findOrgn();
+      }
+    });
+  }
   // 初始化列表
   initData(): void {
     this.http.httpmender('/user/findList', {}).subscribe(data => {
       if (data.result === '0000') {
         this.dataSet = data.data.data;
         this.findRoleList();
+        this.findOrgnList();
       }
     });
   }

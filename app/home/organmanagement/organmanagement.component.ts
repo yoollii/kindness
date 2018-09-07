@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpService } from '../../http/http.service';
+import { NzMessageService } from 'ng-zorro-antd';
 @Component({
   selector: 'app-organmanagement',
   templateUrl: './organmanagement.component.html',
@@ -7,22 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrganmanagementComponent implements OnInit {
   dataSet = [];
-  i = 1;
-  editCache = {};
+  dataId: string;
   loading = true;
   isVisibleMiddle = false;
+  isVisibleEditMiddle = false;
   name: string;
-  num: string;
+  code: string;
   tel: string;
+  num: number;
   sortName = null;
   sortValue = null;
   listOfSearchName = [];
+  validateForm: FormGroup;  // 表单
   size = 'small'; // 按钮尺寸
   searchAddress: string;
   // 自定义选项开始
   // dataSet: Array<{ name: string; age: number; address: string; checked: boolean }> = [];
   indeterminate = false;
-  constructor() { }
+  constructor(private fb: FormBuilder, private http: HttpService, private message: NzMessageService) { }
   refreshStatus(): void {
     const allChecked = this.dataSet.every(value => value.checked === true);
     const allUnChecked = this.dataSet.every(value => !value.checked);
@@ -30,32 +34,23 @@ export class OrganmanagementComponent implements OnInit {
   }
 
   // 自定义选项结束
-  startEdit(key: string): void {
+  startEdit(key: any): void {
     // this.editCache[key].edit = true;
-    this.showModalMiddle();
-  }
-  updateEditCache(): void {
-    this.dataSet.forEach(item => {
-      if (!this.editCache[item.key]) {
-        this.editCache[item.key] = {
-          edit: false,
-          data: item
-        };
-      }
-    });
+    this.showModalEditMiddle();
+    this.name = key.name;
+    // this.modelId = key.modelId;
+    this.code = key.code;
+    this.tel = key.tel;
+    this.dataId = key.id;
   }
   ngOnInit(): void {
-    for (let i = 0; i < 5; i++) {
-      this.dataSet.push({
-        key: i.toString(),
-        name: `机构 ${i}`,
-        num: 32,
-        tel: `028-235646${i}`,
-        checked: false
-      });
-    }
+    this.validateForm = this.fb.group({
+      name: [null, [Validators.required]],
+      code: [null, [Validators.required]],
+      tel: [null, [Validators.required]],
+    });
+    this.initData();
     this.loading = false;
-    this.updateEditCache();
   }
   // 排序
   sort(sort: { key: string, value: string }): void {
@@ -79,44 +74,106 @@ export class OrganmanagementComponent implements OnInit {
       this.dataSet = this.dataSet;
       //    this.updateEditCache();
     }
-    console.log(this.dataSet);
   }
 
   // 模态框
   showModalMiddle(): void {
     this.isVisibleMiddle = true;
   }
-  handleOkMiddle(): void {
+  handleOkMiddle(data): void {
     console.log('click ok');
-    this.isVisibleMiddle = false;
+    this.submitForm(data);
   }
 
   handleCancelMiddle(): void {
     console.log('click Cancel');
     this.isVisibleMiddle = false;
   }
+  showModalEditMiddle(): void {
+    this.isVisibleEditMiddle = true;
+  }
+  handleOkEditMiddle(data): void {
+    console.log('click ok');
+    this.editForm(data);
+    this.isVisibleEditMiddle = false;
+  }
 
+  handleCancelEditMiddle(): void {
+    console.log('click Cancel');
+    this.isVisibleEditMiddle = false;
+  }
   // 添加一行数据
   addRow(): void {
     this.showModalMiddle();
-    this.i++;
-    this.dataSet = [...this.dataSet, {
-      key: `${this.i}`,
-      name: `机构${this.i}`,
-      num: '32',
-      tel: `028-236597 ${this.i}`
-    }];
-    console.log(this.dataSet);
-    this.updateEditCache();
+    this.validateForm.reset();
+  }
+  // 初始化列表
+  initData(): void {
+    this.http.httpmender('/institu/findList', {}).subscribe(data => {
+      if (data.result === '0000') {
+        this.dataSet = data.data.data;
+        for (let j = 0; j < this.dataSet.length; j++) {
+          this.dataSet[j].num = j;
+        }
+      }
+    });
   }
   // 删除
   deleteRow(i: string): void {
-    const dataSet = this.dataSet.filter(d => d.key !== i);
-    this.dataSet = dataSet;
+    this.http.httpmenderdel('/institu/delById?id=' + i).subscribe(data => {
+      if (data.result === '0000') {
+        this.initData();
+        this.message.create('success', '删除成功');
+      } else {
+        this.message.create('error', '删除失败');
+      }
+    });
   }
-
-  finishEdit(key: string): void {
-    this.editCache[key].edit = false;
-    this.dataSet.find(item => item.key === key).name = this.editCache[key].name;
+  // 新增
+  submitForm = (value) => {
+    // $event.preventDefault();
+    // tslint:disable-next-line:forin
+    for (const key in this.validateForm.controls) {
+      this.validateForm.controls[key].markAsDirty();
+      this.validateForm.controls[key].updateValueAndValidity();
+    }
+    value.order = 0;
+    value.des = 'test';
+    // value.id = 'string';
+    value = JSON.stringify(value);
+    if (this.validateForm.invalid) { return; }
+    this.http.httpmender('/institu/addInstitution', value).subscribe(data => {
+      if (data.result === '0000') {
+        this.initData();
+        this.message.create('success', '新增成功');
+      } else {
+        this.message.create('error', data.msg);
+      }
+    });
+    this.isVisibleMiddle = false;
+    // this.gorouter('home/applicationManagement');
+  }
+  // 编辑
+  editForm = (value) => {
+    // $event.preventDefault();
+    // tslint:disable-next-line:forin
+    for (const key in this.validateForm.controls) {
+      this.validateForm.controls[key].markAsDirty();
+      this.validateForm.controls[key].updateValueAndValidity();
+    }
+    value.order = 0;
+    value.des = 'test';
+    value.id = this.dataId;
+    value = JSON.stringify(value);
+    if (this.validateForm.invalid) { return; }
+    this.http.httpmenderput('/institu/updateInstitutions', value).subscribe(data => {
+      if (data.result === '0000') {
+        this.message.create('success', '编辑成功');
+        this.initData();
+      } else {
+        this.message.create('error', data.msg);
+      }
+    });
+    this.isVisibleEditMiddle = false;
   }
 }

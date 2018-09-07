@@ -138,15 +138,6 @@ export class ApplicationComponent implements OnInit {
     this.http.httpmender('/applicationsystem/findList', {}).subscribe(data => {
       if (data.result === '0000') {
         this.dataSet = data.data.data;
-        // for (const i in this.dataSet) {
-        //   if (this.dataSet[i].modelId === 'model1') {
-        //     this.dataSet[i].modelName = '模板一';
-        //   } else if (this.dataSet[i].modelId === 'model2') {
-        //     this.dataSet[i].modelName = '模板二';
-        //   } else if (this.dataSet[i].modelId === 'model3') {
-        //     this.dataSet[i].modelName = '模板三';
-        //   }
-        // }
       }
     });
     this.http.httpmender('/activiti/modelList', {}).subscribe(data => {
@@ -220,7 +211,7 @@ export class ApplicationComponent implements OnInit {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
-    // value.state = 0;
+    value.state = 0;
     // value.id = 'string';
     value = JSON.stringify(value);
     if (this.validateForm.invalid) { return; }
@@ -229,7 +220,7 @@ export class ApplicationComponent implements OnInit {
         this.initData();
         this.message.create('success', '新增成功');
       } else {
-        this.message.create('error', '新增失败');
+        this.message.create('error', data.msg);
       }
     });
     this.isVisibleMiddle = false;

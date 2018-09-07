@@ -45,8 +45,8 @@
       </nz-form-control>
       <nz-form-label nzFor="no">所属机构</nz-form-label>
       <nz-form-control>
-        <nz-select style="width: 100%;" formControlName="listOforgan" name="listOforgan" nzPlaceHolder="请选择所属机构">
-          <nz-option *ngFor="let option of listOforganList" [nzLabel]="option" [nzValue]="option">
+        <nz-select style="width: 100%;" formControlName="institutionsId" name="institutionsId" nzPlaceHolder="请选择所属机构">
+          <nz-option *ngFor="let option of listOforganList" [nzLabel]="option.name" [nzValue]="option.id">
           </nz-option>
         </nz-select>
       </nz-form-control>
@@ -90,9 +90,9 @@
       </nz-form-control>
       <nz-form-label nzFor="no">所属机构</nz-form-label>
       <nz-form-control>
-        <nz-select style="width: 100%;" formControlName="listOforgan" name="listOforgan" [(ngModel)]="listOforgan"
+        <nz-select style="width: 100%;" formControlName="institutionsId" name="institutionsId" [(ngModel)]="institutionsId"
           nzPlaceHolder="请选择所属机构">
-          <nz-option *ngFor="let option of listOforganList" [nzLabel]="option" [nzValue]="option">
+          <nz-option *ngFor="let option of listOforganList" [nzLabel]="option.name" [nzValue]="option.id">
           </nz-option>
         </nz-select>
       </nz-form-control>
@@ -173,7 +173,7 @@
         {{data.state}}
       </td>
       <td>
-        {{data.organ}}
+        {{data.organName}}
       </td>
       <td>
         <div class="editable-row-operations" style="display: inline-block;">
