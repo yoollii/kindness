@@ -114,7 +114,9 @@ export class RoleManagementComponent implements OnInit {
   refreshStatus(): void {
     const allChecked = this.dataSet.every(value => value.checked === true);
     const allUnChecked = this.dataSet.every(value => !value.checked);
-    this.allChecked = allChecked;
+    if (this.dataSet.length !== 0) {
+      this.allChecked = allChecked;
+    }
     this.indeterminate = !allChecked && !allUnChecked;
   }
   mouseAction(name: string, event: NzFormatEmitEvent): void {

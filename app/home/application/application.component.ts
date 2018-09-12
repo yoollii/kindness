@@ -57,7 +57,9 @@ export class ApplicationComponent implements OnInit {
   refreshStatus(): void {
     const allChecked = this.dataSet.every(value => value.checked === true);
     const allUnChecked = this.dataSet.every(value => !value.checked);
-    this.allChecked = allChecked;
+    if (this.dataSet.length !== 0) {
+      this.allChecked = allChecked;
+    }
     this.indeterminate = (!allChecked) && (!allUnChecked);
   }
 
@@ -124,6 +126,8 @@ export class ApplicationComponent implements OnInit {
     this.http.httpmender('/applicationsystem/findList', JSON.stringify(dataSearch)).subscribe(data => {
       if (data.result === '0000') {
         this.dataSet = data.data.data;
+      } else {
+        this.message.create('error', data.msg);
       }
     });
   }
@@ -138,6 +142,8 @@ export class ApplicationComponent implements OnInit {
     this.http.httpmender('/applicationsystem/findList', {}).subscribe(data => {
       if (data.result === '0000') {
         this.dataSet = data.data.data;
+      } else {
+        this.message.create('error', data.msg);
       }
     });
     this.http.httpmender('/activiti/modelList', {}).subscribe(data => {
@@ -151,6 +157,8 @@ export class ApplicationComponent implements OnInit {
             }
           }
         }
+      } else {
+        this.message.create('error', data.msg);
       }
     });
   }
@@ -243,7 +251,7 @@ export class ApplicationComponent implements OnInit {
         this.message.create('success', '编辑成功');
         this.initData();
       } else {
-        this.message.create('error', '编辑失败');
+        this.message.create('error', data.msg);
       }
     });
     this.isVisibleEditMiddle = false;

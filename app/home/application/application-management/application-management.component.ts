@@ -193,7 +193,7 @@ export class ApplicationManagementComponent implements OnInit {
     }
   }
   constructor(public router: Router, private sanitizer: DomSanitizer,
-    public activatedRoute: ActivatedRoute , private nzMessageService: NzMessageService, private http: HttpService) {
+    public activatedRoute: ActivatedRoute,  private message: NzMessageService, private http: HttpService) {
     this.activatedRoute.queryParams.subscribe(Params => {
       // this.parmlen = Object.keys(Params).length;
       this.id = Params['id'];
@@ -213,11 +213,11 @@ export class ApplicationManagementComponent implements OnInit {
     });
   }
   cancel() {
-    this.nzMessageService.info('取消保存!');
+    this.message.info('取消保存!');
   }
 
   confirm() {
-    this.nzMessageService.info('保存成功!');
+    this.message.info('保存成功!');
     this.gorouter('home/application');
   }
 
@@ -271,7 +271,9 @@ export class ApplicationManagementComponent implements OnInit {
   refreshStatus() {
     const allChecked = this.displayData.filter(value => !value.disabled).every(value => value.checked === true);
     const allUnChecked = this.displayData.filter(value => !value.disabled).every(value => !value.checked);
-    this.allChecked = allChecked;
+    if (this.dataSet.length !== 0) {
+      this.allChecked = allChecked;
+    }
     this.indeterminate = (!allChecked) && (!allUnChecked);
   }
 
@@ -292,6 +294,8 @@ export class ApplicationManagementComponent implements OnInit {
         this.formdata_baseUrl = this.formdata.baseUrl;
         this.formdata_modelId = this.formdata.modelId;
         this.formdata_des = this.formdata.des;
+      } else {
+        this.message.create('error', data.msg);
       }
     });
   }
