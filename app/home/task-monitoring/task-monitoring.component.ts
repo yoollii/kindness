@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-task-monitoring',
   templateUrl: './task-monitoring.component.html',
@@ -80,7 +80,9 @@ export class TaskMonitoringComponent implements OnInit {
     this.dataSet[index] = this.editCache[key].data;
     this.editCache[key].edit = false;
   }
-
+  taskProcess(): void {
+    this.router.navigate(['home/taskProcessComponent']);
+  }
   updateEditCache(): void {
     this.dataSet.forEach(item => {
       if (!this.editCache[item.key]) {
@@ -91,7 +93,7 @@ export class TaskMonitoringComponent implements OnInit {
       }
     });
   }
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
     for (let i = 0; i < 30; i++) {

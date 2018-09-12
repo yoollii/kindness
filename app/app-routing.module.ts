@@ -30,6 +30,7 @@ import { OrganmanagementComponent } from './home/organmanagement/organmanagement
 import { ApplicationReadyonlyComponent } from './home/application-readyonly/application-readyonly.component';
 import {ProcessMaagementListComponent} from './home/process-maagement-list/process-maagement-list.component';
 import { ServiceComponent } from './service/service.component';
+import { TaskProcessComponent } from "./home/task-process/task-process.component";
 
 const routes: Routes = [
 
@@ -67,6 +68,7 @@ const routes: Routes = [
       { path: 'organmanagement', component: OrganmanagementComponent },
       { path: 'applicationReadyonly', component: ApplicationReadyonlyComponent },
       { path: 'serviceComponent', component: ServiceComponent },
+      { path: 'taskProcessComponent', component: TaskProcessComponent },
     ]
   }
 ];
