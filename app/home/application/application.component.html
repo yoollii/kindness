@@ -51,7 +51,7 @@
       </nz-form-control>
       <nz-form-label nzRequired nzFor="no">流程模板</nz-form-label>
       <nz-form-control>
-        <nz-select style="width: 100%;" formControlName="modelId" [(ngModel)]="modelId" name="modelId" nzPlaceHolder="流程模板">
+        <nz-select style="width: 100%;" formControlName="modelId" name="modelId" nzPlaceHolder="流程模板">
           <nz-option *ngFor="let option of dataList" [nzLabel]="option.name" [nzValue]="option.id">
           </nz-option>
         </nz-select>

@@ -71,7 +71,7 @@ export class ApplicationComponent implements OnInit {
   startEdit(key: any): void {
     // this.editCache[key].edit = true;
     this.name = key.name;
-    // this.modelId = key.modelId;
+    this.modelId = key.modelId;
     this.des = key.des;
     this.useFlag = key.useFlag;
     this.baseUrl = key.baseUrl;
