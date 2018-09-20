@@ -212,7 +212,7 @@ export class ProcessManagementComponent implements OnInit {
   }
   // 初始化列表
   initData(): void {
-    this.http.httpmender('/activiti/modelList', {}).subscribe(data => {
+    this.http.httpmender('/activiti/modelList?modType=1', {}).subscribe(data => {
       if (data.result === '0000') {
         this.dataSet = data.data.data;
         for (let i = 0; i < this.dataSet.length; i++) {

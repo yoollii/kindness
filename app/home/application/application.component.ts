@@ -71,7 +71,7 @@ export class ApplicationComponent implements OnInit {
   startEdit(key: any): void {
     // this.editCache[key].edit = true;
     this.name = key.name;
-    this.modelId = key.modelId;
+    this.modelId = key.modelId.split('|')[0];
     this.des = key.des;
     this.useFlag = key.useFlag;
     this.baseUrl = key.baseUrl;
@@ -88,14 +88,15 @@ export class ApplicationComponent implements OnInit {
     // 	}
   }
   // 配置
-  gorouterWithParam(modelId, id) {
-    let key;
-    for (let i = 0; i < this.dataList.length; i++) {
-      if (this.dataList[i].id === modelId) {
-        key = this.dataList[i].key;
-      }
-    }
-    this.router.navigate(['home/applicationManagement'], { queryParams: { 'modelId': modelId, 'id': id, 'key': key, 'type': 'edit' } });
+  gorouterWithParam(data) {
+    // let key;
+    // for (let i = 0; i < this.dataList.length; i++) {
+    //   if (this.dataList[i].id === data.modelId) {
+    //     key = this.dataList[i].key;
+    //   }
+    // }
+    // tslint:disable-next-line:max-line-length
+    this.router.navigate(['home/applicationManagement'], { queryParams: { 'modelId': data.modelId.split('|')[1], 'description': data.modeldescription, 'id': data.id, 'key': data.modelkey, 'type': 'edit' } });
   }
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -129,7 +130,7 @@ export class ApplicationComponent implements OnInit {
       } else {
         this.message.create('error', data.msg);
       }
-    });
+    }, error => this.message.create('error', error));
   }
   // 排序
   sort(sort: { key: string, value: string }): void {
@@ -145,22 +146,24 @@ export class ApplicationComponent implements OnInit {
       } else {
         this.message.create('error', data.msg);
       }
-    });
-    this.http.httpmender('/activiti/modelList', {}).subscribe(data => {
+    }, error => this.message.create('error', error));
+    this.http.httpmender('/activiti/modelList?modType=1', {}).subscribe(data => {
       if (data.result === '0000') {
         this.dataList = data.data.data;
         for (let i = 0; i < this.dataList.length; i++) {
           this.dataList[i].description = JSON.parse(this.dataList[i].metaInfo).description;
           for (let j = 0; j < this.dataSet.length; j++) {
-            if (this.dataSet[j].modelId === this.dataList[i].id) {
+            if (this.dataSet[j].modelId.split('|')[0] === this.dataList[i].id) {
               this.dataSet[j].modelName = this.dataList[i].name;
+              this.dataSet[j].modelkey = this.dataList[i].key;
+              this.dataSet[j].modeldescription = this.dataList[i].description;
             }
           }
         }
       } else {
         this.message.create('error', data.msg);
       }
-    });
+    }, error => this.message.create('error', error));
   }
   search(): void {
     if (this.sortName) {
@@ -209,7 +212,7 @@ export class ApplicationComponent implements OnInit {
       } else {
         this.message.create('error', '删除失败');
       }
-    });
+    }, error => this.message.create('error', error));
   }
   // 新增
   submitForm = (value) => {
@@ -221,16 +224,24 @@ export class ApplicationComponent implements OnInit {
     }
     value.state = 0;
     // value.id = 'string';
-    value = JSON.stringify(value);
+    // value = JSON.stringify(value);
     if (this.validateForm.invalid) { return; }
-    this.http.httpmender('/applicationsystem/addAppli', value).subscribe(data => {
+    this.http.httpmender('/model/create4', { 'modelModelId': value.modelId }).subscribe(data => {
       if (data.result === '0000') {
-        this.initData();
-        this.message.create('success', '新增成功');
+        value.modelId += '|' + data.data.match(/=(\S*)&/)[1];
+        this.http.httpmender('/applicationsystem/addAppli', JSON.stringify(value)).subscribe(data1 => {
+          if (data1.result === '0000') {
+            this.initData();
+            this.message.create('success', '新增成功');
+            this.router.navigate(['home/applicationManagement'], { queryParams: { 'url': data.data, 'type': 'add' } });
+          } else {
+            this.message.create('error', data1.msg);
+          }
+        }, error => this.message.create('error', error));
       } else {
         this.message.create('error', data.msg);
       }
-    });
+    }, error => this.message.create('error', error));
     this.isVisibleMiddle = false;
     // this.gorouter('home/applicationManagement');
   }
@@ -253,7 +264,7 @@ export class ApplicationComponent implements OnInit {
       } else {
         this.message.create('error', data.msg);
       }
-    });
+    }, error => this.message.create('error', error));
     this.isVisibleEditMiddle = false;
   }
 }

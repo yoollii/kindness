@@ -85,14 +85,14 @@
         <input nz-input formControlName="baseUrl" [(ngModel)]="baseUrl" name="baseUrl" placeholder="请输入" id="no5">
         <nz-form-explain *ngIf="validateForm.get('baseUrl').dirty && validateForm.get('baseUrl').errors">请输入基础地址!</nz-form-explain>
       </nz-form-control>
-      <nz-form-label nzRequired nzFor="no">流程模板</nz-form-label>
+      <!-- <nz-form-label nzRequired nzFor="no">流程模板</nz-form-label>
       <nz-form-control>
         <nz-select style="width: 100%;" formControlName="modelId" [(ngModel)]="modelId" name="modelId" nzPlaceHolder="流程模板">
           <nz-option *ngFor="let option of dataList" [nzLabel]="option.name" [nzValue]="option.id">
           </nz-option>
         </nz-select>
         <nz-form-explain *ngIf="validateForm.get('modelId').dirty && validateForm.get('modelId').errors">请选择流程模板!</nz-form-explain>
-      </nz-form-control>
+      </nz-form-control> -->
     </nz-form-item>
   </form>
 </nz-modal>
@@ -138,8 +138,7 @@
           <button [nzSize]="size" nz-button (click)="startEdit(data)" nzType="default">编辑</button>
           <ng-container>
             <ng-container>
-              <button [nzSize]="size" nz-button (click)="gorouterWithParam(data.modelId,data.id)" routerLinkActive="active"
-                nzType="default">配置</button>
+              <button [nzSize]="size" nz-button (click)="gorouterWithParam(data)" routerLinkActive="active" nzType="default">配置流程</button>
             </ng-container>
             <button [nzSize]="size" nz-button nzType="default">启用</button>
           </ng-container>
