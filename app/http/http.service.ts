@@ -12,7 +12,7 @@ export class HttpService {
   // 登录接口不传令牌post
   httpmenderlogin(funName: string, data: any) {
 //  const headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});//form data
-    const headers = new Headers({'Content-Type': 'text/plain;charset=UTF-8'}); // request payload
+    const headers = new Headers({ 'Content-Type': 'application/json;charset=UTF-8'}); // request payload
     const options = new RequestOptions({ headers: headers });
 
     return this.http.post(this.url + funName, data, options).pipe(map(res => res.json()));

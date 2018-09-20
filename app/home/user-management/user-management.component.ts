@@ -17,6 +17,8 @@ export class UserManagementComponent implements OnInit {
   currentName: String;
   currentState = '停用';
   name: string;   // 用户名称
+  password: string; // 用户密码
+  powers = []; // 用户权限
   loading = true;
   isupdate = false;
   generalUser = false;
@@ -64,6 +66,7 @@ export class UserManagementComponent implements OnInit {
   startEdit(data): void {
     this.rid = data.rid;
     this.name = data.name;
+    this.password = data.password;
     this.listOfType = data.state;
     this.institutionsId = data.organ;
     this.listOfTagOptions = data.groupName;
@@ -83,6 +86,7 @@ export class UserManagementComponent implements OnInit {
       groupName: [null],
       state: [null, [Validators.required]],
       institutionsId: [null],
+      password: [null, [Validators.required]],
     });
     this.initData();
     this.loading = false;
@@ -128,11 +132,52 @@ export class UserManagementComponent implements OnInit {
     this.isupdate = false;
   }
 
-  showModalMsgMiddle(data): void {
+  showModalMsgMiddle(datas): void {
     this.isVisibleMsgMiddle = true;
-    this.currentGroup = data.groupName;
-    this.currentName = data.userName;
-    this.currentState = data.state;
+    // this.currentGroup = data.groupName;
+    // this.currentName = data.userName;
+    // this.currentState = data.state;
+    // this.http.httpmenderlogin('/user/userLogin', { 'name': datas.name, 'password': datas.password })
+    const that = this;
+    that.powers = [];
+    this.http.httpmenderlogin('/powers/findList', {})
+      .subscribe(data => {
+        if (data.result === '0000') {
+          const arr = data.data.data;
+          arr.forEach(function (item, index, array) {
+            if (item.pid === '-1') {
+              that.powers.push(item);
+            }
+          });
+          that.powers.forEach(function (item, index, array) {
+            arr.forEach(function (item1, index1, array1) {
+              if (item.id === item1.pid) {
+                if (!item.children) {
+                  item.children = [];
+                }
+                item.children.push(item1);
+              }
+            });
+          });
+          that.powers.forEach(function (item, index, array) {
+            if (item.children) {
+              arr.forEach(function (item1, index1, array1) {
+                item.children.forEach(function (item2, index2, array2) {
+                  if (item2.id === item1.pid) {
+                    if (!item2.children) {
+                      item2.children = [];
+                    }
+                    item2.children.push(item1);
+                  }
+                });
+              });
+            }
+          });
+          console.log(this.powers);
+        } else {
+          this.message.create('error', data.msg);
+        }
+      });
   }
   handleOkMsgMiddle(): void {
     console.log('click ok');

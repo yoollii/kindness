@@ -19,6 +19,11 @@
         <input nz-input formControlName="name" name="name" placeholder="请输入" id="no2">
         <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">请输入用户名称!</nz-form-explain>
       </nz-form-control>
+      <nz-form-label nzFor="no">密码</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName="password" name="password" placeholder="请输入" id="no9">
+        <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">请输入用户密码!</nz-form-explain>
+      </nz-form-control>
       <nz-form-label nzFor="no">用户角色</nz-form-label>
       <nz-form-control>
         <nz-select style="width: 100%;" formControlName="rid" name="rid" nzPlaceHolder="请选择用户角色">
@@ -63,6 +68,11 @@
         <input nz-input [(ngModel)]="name" formControlName="name" name="name" placeholder="请输入" id="no2">
         <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">请输入用户名称!</nz-form-explain>
       </nz-form-control>
+      <nz-form-label nzFor="no">密码</nz-form-label>
+      <nz-form-control>
+        <input nz-input [(ngModel)]="password" formControlName="password" name="password" placeholder="请输入" id="no9">
+        <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">请输入用户密码!</nz-form-explain>
+      </nz-form-control>
       <nz-form-label nzFor="no">用户角色</nz-form-label>
       <nz-form-control>
         <nz-select style="width: 100%;" formControlName="rid" name="rid" [(ngModel)]="rid" nzPlaceHolder="请选择用户角色">
@@ -100,9 +110,9 @@
   </form>
 </nz-modal>
 
-<nz-modal nzWidth="600px" nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMsgMiddle" nzTitle="查看"
+<nz-modal nzWidth="600px" nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMsgMiddle" nzTitle="权限"
   (nzOnCancel)="handleCancelMsgMiddle()" (nzOnOk)="handleOkMsgMiddle()">
-  <div class="showMsg">
+  <!-- <div class="showMsg">
     <div class="showMsgTop">
       <nz-form-label nzFor="no">角色列表</nz-form-label>
       <nz-checkbox-group [(ngModel)]="rightsGroup" (ngModelChange)="log(rightsGroup)"></nz-checkbox-group>
@@ -133,6 +143,10 @@
       </nz-form-control>
     </nz-form-item>
 
+  </div> -->
+  <div>
+    <label for="">权限列表</label>
+    
   </div>
 </nz-modal>
 
@@ -177,7 +191,7 @@
       </td>
       <td>
         <div class="editable-row-operations" style="display: inline-block;">
-          <button [nzSize]="size" (click)="showModalMsgMiddle(data)" nz-button nzType="default">查看</button>
+          <button [nzSize]="size" (click)="showModalMsgMiddle(data)" nz-button nzType="default">查看权限</button>
           <button nz-button [nzSize]="size" (click)="startEdit(data)" nzType="default">编辑</button>
         </div>
         <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteRow(data.id)">

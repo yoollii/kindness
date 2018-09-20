@@ -1,5 +1,5 @@
 import { Component, TemplateRef, ViewChild, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,7 +8,13 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   loading = false;
   tabs = [];
-  constructor(public router: Router) { }
+  name: string;
+  constructor(public router: Router, public activatedRoute: ActivatedRoute) {
+    this.activatedRoute.queryParams.subscribe(Params => {
+      // this.parmlen = Object.keys(Params).length;
+      this.name = Params['name'];
+    });
+   }
   ngOnInit() { }
   isCollapsed = false;
   triggerTemplate = null;

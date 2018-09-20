@@ -25,6 +25,8 @@ export class ServiceComponent implements OnInit {
   urlFlag: string;  // 路径标识
   url: string;  // 路径地址
   des: string;  // 服务描述
+  outNum: string;  // 输出属性
+  inNum: string;  // 输入属性
   searchAddress: string;
   validateForm: FormGroup;  // 表单
   // 自定义选项开始
@@ -54,6 +56,8 @@ export class ServiceComponent implements OnInit {
     this.urlFlag = key.urlFlag;
     this.url = key.url;
     this.dataId = key.id;
+    this.outNum = key.outNum;
+    this.inNum = key.inNum;
     this.showModalEditMiddle(key.id);
   }
   constructor(private fb: FormBuilder, private http: HttpService, private message: NzMessageService) { }
@@ -63,6 +67,8 @@ export class ServiceComponent implements OnInit {
       state: [null, [Validators.required]],
       des: [null, [Validators.required]],
       urlFlag: [null, [Validators.required]],
+      inNum: [null, [Validators.required]],
+      outNum: [null, [Validators.required]],
       url: [null, [Validators.required]]
     });
     this.listOfTypelist = [1, 0];
