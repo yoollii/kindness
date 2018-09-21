@@ -1,5 +1,6 @@
 import { Component, TemplateRef, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { LocalStorageService } from 'angular-web-storage';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,11 +10,12 @@ export class HomeComponent implements OnInit {
   loading = false;
   tabs = [];
   name: string;
-  constructor(public router: Router, public activatedRoute: ActivatedRoute) {
-    this.activatedRoute.queryParams.subscribe(Params => {
-      // this.parmlen = Object.keys(Params).length;
-      this.name = Params['name'];
-    });
+  constructor(public router: Router, public activatedRoute: ActivatedRoute, public local: LocalStorageService) {
+    // this.activatedRoute.queryParams.subscribe(Params => {
+    //   // this.parmlen = Object.keys(Params).length;
+    //   this.name = Params['name'];
+    // });
+    this.name = this.local.get('name');
    }
   ngOnInit() { }
   isCollapsed = false;

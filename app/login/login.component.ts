@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import { HttpService } from '../http/http.service';
-import { NzMessageService, NzModalService } from 'ng-zorro-antd';
-// import { LocalStorageService } from 'angular-web-storage';
+import { NzMessageService } from 'ng-zorro-antd';
+import { LocalStorageService } from 'angular-web-storage';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,8 +17,8 @@ constructor(
   private fb: FormBuilder,
   public router: Router,
   public msg: NzMessageService,
-  private modalSrv: NzModalService,
   private http: HttpService,
+  public local: LocalStorageService
   ) {
 }
 
@@ -51,8 +51,8 @@ submitForm(): void {
     this.http.httpmenderlogin('/user/userLogin', { 'name': this.userName.value, 'password': this.password.value })
       .subscribe(data => {
         if (data.result === '0000') {
-          this.router.navigate(['home'], { queryParams: { 'name': data.data.user.name} });
-          // this.local.set('role', data.data.role);
+          this.router.navigate(['home']);
+          this.local.set('name', data.data.user.name);
           // this.local.set('powers', data.data.powers);
           // this.local.set('user', data.data.user);
         } else {
