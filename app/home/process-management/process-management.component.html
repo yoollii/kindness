@@ -1,7 +1,7 @@
 <nz-breadcrumb class='breadcrumbstyle'>
   <nz-breadcrumb-item>
     <span>当前位置：</span>
-    <a>业务流程管理</a>
+    <a (click)="gorouter('home/processManagement')">业务流程管理</a>
   </nz-breadcrumb-item>
   <nz-breadcrumb-item>流程模板管理</nz-breadcrumb-item>
 </nz-breadcrumb>
@@ -106,8 +106,7 @@
 </nz-modal>
 
 <nz-modal nzWidth='900' nzWrapClassName="vertical-center-modal1" [(nzVisible)]="isVisibleViewMiddle" nzTitle="流程图预览"
-  (nzOnCancel)="handleCancelViewMiddle()"
-  (nzOnOk)="handleOkViewMiddle()">
+  (nzOnCancel)="handleCancelViewMiddle()" (nzOnOk)="handleOkViewMiddle()">
   <img style='max-width: 800px;' [src]="imgSrc" alt="流程预览图">
 </nz-modal>
 <nz-table #editRowTables nzBordered [nzPageSize]="5" (nzPageIndexChange)="refreshStatus($event)" (nzPageSizeChange)="refreshStatus($event)"

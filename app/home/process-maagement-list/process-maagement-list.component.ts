@@ -33,7 +33,9 @@ export class ProcessMaagementListComponent implements OnInit {
       this.iframe = this.sanitizer.bypassSecurityTrustResourceUrl(this.src);
     });
    }
-
+  gorouter(item: any) {
+    this.router.navigateByUrl(item);
+  }
   ngOnInit() {
     // let iframe=$("#iframe1");
     // let _this=this;
